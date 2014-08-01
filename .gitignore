@@ -1,0 +1,17 @@
+/web/bundles/
+/web/bootstrap/
+/web/js/jquery*
+/web/fonts/glyphicons*
+/app/bootstrap.php.cache
+/app/cache/*
+/app/config/parameters.yml
+/app/logs/*
+!app/cache/.gitkeep
+!app/logs/.gitkeep
+/build/
+/vendor/
+/bin/
+/composer.phar
+/.idea/
+/node_modules/
+*~

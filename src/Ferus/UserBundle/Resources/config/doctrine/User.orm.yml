@@ -1,0 +1,9 @@
+Ferus\UserBundle\Entity\User:
+    type: entity
+    table: ferus_user
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
