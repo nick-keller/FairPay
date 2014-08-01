@@ -34,7 +34,8 @@
         "friendsofsymfony/user-bundle": "dev-master",
         "braincrafted/bootstrap-bundle": "~2.0",
         "twbs/bootstrap": "3.0.*",
-        "jquery/jquery":  "2.1.*"
+        "jquery/jquery":  "2.1.*",
+        "jms/di-extra-bundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

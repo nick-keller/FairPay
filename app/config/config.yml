@@ -83,3 +83,15 @@ braincrafted_bootstrap:
         twig: true
         knp_menu: false
         knp_paginator: false
+
+# JMS Configuration
+jms_di_extra:
+    locations:
+        all_bundles: false
+        bundles: [FerusStudentBundle]
+        directories: ["%kernel.root_dir%/../src"]
+    automatic_controller_injections:
+        properties:
+            request: "@request"
+            router: "@router"
+            em: @doctrine.orm.entity_manager

@@ -1,0 +1,15 @@
+{% extends '::admin.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li><a href="{{ path('student_admin_index') }}">Etudiants</a></li>
+{% endblock %}
+
+{% block actions %}
+    <a class="btn btn-success" href="{{ path('student_admin_add') }}">
+        {{ icon('plus') }} Ajouter
+    </a>
+    <a class="btn btn-primary" href="{{ path('student_admin_contributors') }}">
+        {{ icon('euro') }} Cotisations
+    </a>
+{% endblock %}

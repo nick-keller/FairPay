@@ -1,0 +1,19 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <ol class="breadcrumb">
+        {% block breadcrumb %}
+            <li><a href="{{ path('ferus_admin_index') }}">{{ icon('home') }}</a></li>
+        {% endblock %}
+    </ol>
+
+    <div>
+        <div class="btn-group btn-group-sm">
+            {% block actions %}
+            {% endblock %}
+        </div>
+    </div>
+
+    {% block content %}
+    {% endblock %}
+{% endblock %}

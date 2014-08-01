@@ -1,3 +1,12 @@
+ferus_student_bundle:
+    resource: "@FerusStudentBundle/Resources/config/routing.yml"
+    prefix: /
+
+ferus_admin_index:
+    path: /admin
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template: '::admin.html.twig'
 
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"

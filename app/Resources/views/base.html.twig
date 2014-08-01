@@ -17,9 +17,9 @@
 </head>
 
 <body>
-{% include 'BraincraftedBootstrapBundle::flash.html.twig' with { 'close': true } %}
 
 <div class="container">
+    {% include 'BraincraftedBootstrapBundle::flash.html.twig' with { 'close': true } %}
     {% block body %}
     {% endblock %}
 </div>

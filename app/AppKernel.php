@@ -23,6 +23,10 @@ class AppKernel extends Kernel
             // Bootstrap
             new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
 
+            // JMS
+            new JMS\DiExtraBundle\JMSDiExtraBundle($this),
+            new JMS\AopBundle\JMSAopBundle(),
+
             // Ferus
             new Ferus\UserBundle\FerusUserBundle(),
             new Ferus\StudentBundle\FerusStudentBundle(),
