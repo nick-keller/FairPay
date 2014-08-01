@@ -38,5 +38,5 @@ Ferus\StudentBundle\Entity\Student:
             nullable: false
 
     lifecycleCallbacks:
-        prePersist: [ generateLogin ]
-        preUpdate: [ generateLogin ]
+        prePersist: [ generateLogin, generateEmail ]
+        preUpdate: [ generateLogin, generateEmail ]

@@ -151,6 +151,14 @@ class Student
     }
 
     /**
+     * @param string $login
+     */
+    public function setLogin($login)
+    {
+        $this->login = $login;
+    }
+
+    /**
      * @return string
      */
     public function getLogin()
@@ -161,13 +169,31 @@ class Student
     public function generateLogin()
     {
         $this->login =
-            substr($this->slugifyStr($this->lastName), 0, 7) .
-            substr($this->slugifyStr($this->firstName), 0, 1);
+            substr($this->cleanStr($this->lastName), 0, 7) .
+            substr($this->cleanStr($this->firstName), 0, 1);
     }
 
-    private function slugifyStr($str)
+    public function generateEmail()
     {
-        // TODO remove accents, spaces, dashes...
-        return strtolower($str);
+        $this->email =
+            substr($this->cleanStr($this->firstName), 0, 7) . '.' .
+            substr($this->cleanStr($this->lastName), 0, 1) . '@edu.esiee.fr';
+    }
+
+    private function cleanStr($str)
+    {
+        $chars = array(
+            'a' => '/à|á|ã|â|ä/',
+            'e' => '/è|é|ê|ë/',
+            'i' => '/ì|í|î|ï/',
+            'o' => '/ò|ó|õ|ô|ö|ø/',
+            'u' => '/ù|ú|û|ü/',
+            'c' => '/ç/',
+            'n' => '/ñ/',
+            'y' => '/ý|y|ÿ/',
+            ''  => '/[ \']/'
+        );
+
+        return preg_replace($chars, array_keys($chars), strtolower($str));
     }
 }
