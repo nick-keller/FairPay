@@ -1,0 +1,42 @@
+Ferus\StudentBundle\Entity\Student:
+    type: entity
+    table: ferus_student
+    repositoryClass: Ferus\StudentBundle\Repository\StudentRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: NONE
+    fields:
+        firstName:
+            column: first_name
+            type: string
+            length: '50'
+            nullable: false
+
+        lastName:
+            column: last_name
+            type: string
+            length: '50'
+            nullable: false
+
+        isContributor:
+            column: is_contributor
+            type: boolean
+            nullable: false
+
+        email:
+            type: string
+            length: 255
+            nullable: true
+            unique: true
+
+        login:
+            type: string
+            length: 8
+            nullable: false
+
+    lifecycleCallbacks:
+        prePersist: [ generateLogin ]
+        preUpdate: [ generateLogin ]

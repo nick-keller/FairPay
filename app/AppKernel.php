@@ -16,13 +16,16 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new Ferus\UserBundle\FerusUserBundle(),
 
             // FOS
             new FOS\UserBundle\FOSUserBundle(),
 
             // Bootstrap
             new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
+
+            // Ferus
+            new Ferus\UserBundle\FerusUserBundle(),
+            new Ferus\StudentBundle\FerusStudentBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
