@@ -30,7 +30,9 @@ class AdminController extends Controller
     public function indexAction(Request $request)
     {
         $students = $this->paginator->paginate(
-            $this->em->getRepository('FerusStudentBundle:Student')->querySearch($request->query->get('search', null)),
+            $this->em
+                ->getRepository('FerusStudentBundle:Student')
+                ->querySearch($request->query->get('search', null)),
             $request->query->get('page', 1),
             50
         );
@@ -66,5 +68,36 @@ class AdminController extends Controller
         return array(
             'form' => $form->createView(),
         );
+    }
+
+    /**
+     * @Template
+     */
+    public function contributorsAction()
+    {
+        return array();
+    }
+
+    /**
+     * @Template
+     */
+    public function searchContributorsAction(Request $request)
+    {
+        $students = $this->em
+            ->getRepository('FerusStudentBundle:Student')
+            ->search($request->request->get('search', null));
+
+        return array(
+            'students' => $students,
+        );
+    }
+
+    public function saveContributorAction(Student $student, $value)
+    {
+        $student->setIsContributor($value);
+        $this->em->persist($student);
+        $this->em->flush();
+
+        return new Response('Ok', 200);
     }
 } 

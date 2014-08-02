@@ -18,6 +18,11 @@ class StudentRepository extends EntityRepository
             ->getQuery();
     }
 
+    public function search($query = null, $maxResult = 50)
+    {
+        return $this->querySearch($query)->setMaxResults($maxResult)->getResult();
+    }
+
     public function querySearch($query = null)
     {
         $qb = $this->createQueryBuilder('s');

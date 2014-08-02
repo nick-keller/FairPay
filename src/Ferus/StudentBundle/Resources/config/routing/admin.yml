@@ -9,3 +9,11 @@ student_admin_add:
 student_admin_contributors:
     pattern: /contributors
     defaults: { _controller: FerusStudentBundle:Admin:contributors }
+
+student_admin_contributors_search:
+    pattern: /contributors/search
+    defaults: { _controller: FerusStudentBundle:Admin:searchContributors }
+
+student_admin_contributor_save:
+    pattern: /contributors/save/{id}/{value}
+    defaults: { _controller: FerusStudentBundle:Admin:saveContributor }
