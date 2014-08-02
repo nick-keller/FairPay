@@ -3,6 +3,7 @@
 namespace Ferus\StudentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Ferus\AccountBundle\Entity\Account;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -47,6 +48,11 @@ class Student
      * @var string
      */
     private $login;
+
+    /**
+     * @var Account
+     */
+    private $account;
 
 
     public function __construct($firstName = null, $lastName = null)
@@ -163,6 +169,22 @@ class Student
     public function getLogin()
     {
         return $this->login;
+    }
+
+    /**
+     * @param \Ferus\AccountBundle\Entity\Account $account
+     */
+    public function setAccount($account)
+    {
+        $this->account = $account;
+    }
+
+    /**
+     * @return \Ferus\AccountBundle\Entity\Account
+     */
+    public function getAccount()
+    {
+        return $this->account;
     }
 
     public function generateLogin()

@@ -1,0 +1,21 @@
+Ferus\AccountBundle\Entity\Account:
+    type: entity
+    table: ferus_account
+    repositoryClass: Ferus\AccountBundle\Repository\AccountRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        balance:
+            type: decimal
+            nullable: false
+
+    oneToOne:
+        student:
+            targetEntity: Ferus\StudentBundle\Entity\Student
+            inversedBy: account
+            joinColumn:
+                nullable: false

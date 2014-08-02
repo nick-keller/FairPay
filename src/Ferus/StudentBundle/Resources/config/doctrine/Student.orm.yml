@@ -36,6 +36,11 @@ Ferus\StudentBundle\Entity\Student:
             length: 8
             nullable: false
 
+    oneToOne:
+        account:
+            targetEntity: Ferus\AccountBundle\Entity\Account
+            mappedBy: student
+
     lifecycleCallbacks:
         prePersist: [ generateLogin, generateEmail ]
         preUpdate: [ generateLogin, generateEmail ]
