@@ -8,6 +8,8 @@ ferus_admin_index:
         _controller: FrameworkBundle:Template:template
         template: '::admin.html.twig'
 
+# Vendors
+
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 
@@ -22,3 +24,7 @@ fos_user_resetting:
 fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
+
+api_doc:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /api/doc

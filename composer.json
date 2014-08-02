@@ -38,7 +38,8 @@
         "jms/di-extra-bundle": "dev-master",
         "knplabs/knp-paginator-bundle": "~2.4",
         "friendsofsymfony/rest-bundle": "dev-master",
-        "jms/serializer-bundle": "dev-master"
+        "jms/serializer-bundle": "dev-master",
+        "nelmio/api-doc-bundle": "@stable"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

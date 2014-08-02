@@ -32,6 +32,9 @@ class AppKernel extends Kernel
             // KNP
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
 
+            // Nelmio
+            new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
+
             // Ferus
             new Ferus\UserBundle\FerusUserBundle(),
             new Ferus\StudentBundle\FerusStudentBundle(),
