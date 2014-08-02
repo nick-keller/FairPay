@@ -32,8 +32,8 @@
                 </td>
                 <td>
                     <div class="btn-group btn-group-xs">
-                        <button type="button" class="btn btn-info">{{ icon('pencil') }} Editer</button>
-                        <button type="button" class="btn btn-danger">{{ icon('remove') }}</button>
+                        <a type="button" class="btn btn-default">{{ icon('pencil') }} Editer</a>
+                        <a type="button" class="btn btn-default" href="{{ path('student_admin_remove', {id:student.id}) }}">{{ icon('remove') }}</a>
                     </div>
                 </td>
             </tr>

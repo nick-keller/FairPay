@@ -73,6 +73,26 @@ class AdminController extends Controller
     /**
      * @Template
      */
+    public function removeAction(Student $student, Request $request)
+    {
+        if($request->isMethod('POST')){
+            $this->em->remove($student);
+            $this->em->flush();
+
+            $flash = $this->get('braincrafted_bootstrap.flash');
+            $flash->success('Eleve supprimé.');
+
+            return $this->redirect($this->generateUrl('student_admin_index'));
+        }
+
+        return array(
+            'student' => $student,
+        );
+    }
+
+    /**
+     * @Template
+     */
     public function contributorsAction()
     {
         return array();
