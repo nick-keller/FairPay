@@ -38,6 +38,7 @@ class AppKernel extends Kernel
             // Ferus
             new Ferus\UserBundle\FerusUserBundle(),
             new Ferus\StudentBundle\FerusStudentBundle(),
+            new Ferus\AccountBundle\FerusAccountBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

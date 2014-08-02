@@ -1,6 +1,6 @@
 ferus_student_bundle_admin:
     resource: routing/admin.yml
-    prefix: /admin/student
+    prefix: /admin/students
 
 ferus_student_bundle_api:
     type : rest

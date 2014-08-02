@@ -1,0 +1,14 @@
+{% extends '::admin.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li><a href="{{ path('account_admin_index') }}">Comptes</a></li>
+{% endblock %}
+
+{% block actions %}
+    <div class="btn-group btn-group-sm">
+        <a class="btn btn-default" href="{{ path('account_admin_index') }}">
+            {{ icon('th-list') }} Liste
+        </a>
+    </div>
+{% endblock %}

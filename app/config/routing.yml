@@ -1,3 +1,7 @@
+ferus_account_bundle:
+    resource: "@FerusAccountBundle/Resources/config/routing.yml"
+    prefix:   /
+
 ferus_student_bundle:
     resource: "@FerusStudentBundle/Resources/config/routing.yml"
     prefix: /
