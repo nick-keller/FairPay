@@ -27,16 +27,17 @@ class AdminController extends Controller
     /**
      * @Template
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $students = $this->paginator->paginate(
-            $this->em->getRepository('FerusStudentBundle:Student')->queryAll(),
-            $this->get('request')->query->get('page', 1),
+            $this->em->getRepository('FerusStudentBundle:Student')->querySearch($request->query->get('search', null)),
+            $request->query->get('page', 1),
             50
         );
 
         return array(
             'students' => $students,
+            'search' => $request->query->get('search', '')
         );
     }
 

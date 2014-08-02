@@ -17,4 +17,34 @@ class StudentRepository extends EntityRepository
         return $this->createQueryBuilder('s')
             ->getQuery();
     }
+
+    public function querySearch($query = null)
+    {
+        $qb = $this->createQueryBuilder('s');
+        if($query == null) return $qb->getQuery();
+
+        $query = trim($query);
+        $words = explode(' ', $query);
+
+        if(count($words) === 1){
+            if(preg_match('/^[0-9]+$/', $query))
+                $qb
+                    ->where('s.id = :id')
+                    ->setParameter('id', $query);
+            else
+                $qb
+                    ->where('s.firstName LIKE :query')
+                    ->orWhere('s.lastName LIKE :query')
+                    ->setParameter('query', "%$query%");
+        }
+        else{
+            foreach($words as $key => $word){
+                $qb
+                    ->andWhere("s.firstName LIKE :query$key OR s.lastName LIKE :query$key")
+                    ->setParameter("query$key", "%$word%");
+            }
+        }
+
+        return $qb->getQuery();
+    }
 }
