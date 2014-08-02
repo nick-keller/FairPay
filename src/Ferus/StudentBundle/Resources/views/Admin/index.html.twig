@@ -6,14 +6,31 @@
 {% endblock %}
 
 {% block content %}
-    <table class="table">
+    <table class="table table-striped">
         <tr>
-            <th>#
-            <th>Prénom</th>
-            <th>Nom</th>
+            <th>{{ knp_pagination_sortable(students, '#', 's.id') }}</th>
+            <th>{{ knp_pagination_sortable(students, 'Prénom', 's.firstName') }}</th>
+            <th>{{ knp_pagination_sortable(students, 'Nom', 's.lastName') }}</th>
             <th>Email</th>
             <th>Login</th>
             <th>Cotisant</th>
         </tr>
+        {% for student in students %}
+            <tr>
+                <td>{{ student.id }}</td>
+                <td>{{ student.firstName }}</td>
+                <td>{{ student.lastName }}</td>
+                <td>{{ student.email }}</td>
+                <td>{{ student.login }}</td>
+                <td>
+                    {% if student.isContributor %}
+                        {{ label_success('Oui') }}
+                    {% else %}
+                        {{ label_danger('Non') }}
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
     </table>
+    {{ knp_pagination_render(students) }}
 {% endblock %}

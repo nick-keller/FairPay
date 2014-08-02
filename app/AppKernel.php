@@ -27,6 +27,9 @@ class AppKernel extends Kernel
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new JMS\AopBundle\JMSAopBundle(),
 
+            // KNP
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+
             // Ferus
             new Ferus\UserBundle\FerusUserBundle(),
             new Ferus\StudentBundle\FerusStudentBundle(),

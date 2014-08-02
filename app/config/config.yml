@@ -82,7 +82,7 @@ braincrafted_bootstrap:
         assetic: true
         twig: true
         knp_menu: false
-        knp_paginator: false
+        knp_paginator: true
 
 # JMS Configuration
 jms_di_extra:
@@ -95,3 +95,12 @@ jms_di_extra:
             request: "@request"
             router: "@router"
             em: @doctrine.orm.entity_manager
+            paginator: @knp_paginator
+
+knp_paginator:
+    page_range: 7
+    default_options:
+        page_name: page
+        sort_field_name: sort
+        sort_direction_name: direction
+        distinct: true

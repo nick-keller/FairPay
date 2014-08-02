@@ -12,4 +12,9 @@ use Doctrine\ORM\EntityRepository;
  */
 class StudentRepository extends EntityRepository
 {
+    public function queryAll()
+    {
+        return $this->createQueryBuilder('s')
+            ->getQuery();
+    }
 }

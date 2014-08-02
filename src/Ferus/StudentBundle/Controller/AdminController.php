@@ -6,6 +6,7 @@ namespace Ferus\StudentBundle\Controller;
 use Doctrine\ORM\EntityManager;
 use Ferus\StudentBundle\Entity\Student;
 use Ferus\StudentBundle\Form\StudentType;
+use Knp\Component\Pager\Paginator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,11 +20,24 @@ class AdminController extends Controller
     private $em;
 
     /**
+     * @var Paginator
+     */
+    private $paginator;
+
+    /**
      * @Template
      */
     public function indexAction()
     {
-        return array();
+        $students = $this->paginator->paginate(
+            $this->em->getRepository('FerusStudentBundle:Student')->queryAll(),
+            $this->get('request')->query->get('page', 1),
+            50
+        );
+
+        return array(
+            'students' => $students,
+        );
     }
 
     /**
