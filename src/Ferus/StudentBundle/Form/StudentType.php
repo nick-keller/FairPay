@@ -35,7 +35,7 @@ class StudentType extends AbstractType
                     'save' => [
                         'type' => 'submit',
                         'options' => [
-                            'label' => 'Ajouter',
+                            'label' => 'Enregistrer',
                             'attr' => [
                                 'data-loading-text' => 'Création...'
                             ]

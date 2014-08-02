@@ -6,6 +6,10 @@ student_admin_add:
     pattern: /add
     defaults: { _controller: FerusStudentBundle:Admin:add }
 
+student_admin_edit:
+    pattern: /{id}/edit
+    defaults: { _controller: FerusStudentBundle:Admin:edit }
+
 student_admin_remove:
     pattern: /{id}/remove
     defaults: { _controller: FerusStudentBundle:Admin:remove }

@@ -73,6 +73,33 @@ class AdminController extends Controller
     /**
      * @Template
      */
+    public function editAction(Student $student, Request $request)
+    {
+        $form = $this->createForm(new StudentType, $student);
+
+        if($request->isMethod('POST')){
+            $form->handleRequest($request);
+
+            if($form->isValid()){
+                $this->em->persist($student);
+                $this->em->flush();
+
+                $flash = $this->get('braincrafted_bootstrap.flash');
+                $flash->success('Eleve mis à jour.');
+
+                return $this->redirect($this->generateUrl('student_admin_edit', ['id' => $student->getId()]));
+            }
+        }
+
+        return array(
+            'student' => $student,
+            'form' => $form->createView(),
+        );
+    }
+
+    /**
+     * @Template
+     */
     public function removeAction(Student $student, Request $request)
     {
         if($request->isMethod('POST')){

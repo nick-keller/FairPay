@@ -32,7 +32,7 @@
                 </td>
                 <td>
                     <div class="btn-group btn-group-xs">
-                        <a type="button" class="btn btn-default">{{ icon('pencil') }} Editer</a>
+                        <a type="button" class="btn btn-default" href="{{ path('student_admin_edit', {id:student.id}) }}">{{ icon('pencil') }} Editer</a>
                         <a type="button" class="btn btn-default" href="{{ path('student_admin_remove', {id:student.id}) }}">{{ icon('remove') }}</a>
                     </div>
                 </td>
