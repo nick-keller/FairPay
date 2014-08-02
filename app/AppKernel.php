@@ -19,6 +19,7 @@ class AppKernel extends Kernel
 
             // FOS
             new FOS\UserBundle\FOSUserBundle(),
+            new FOS\RestBundle\FOSRestBundle(),
 
             // Bootstrap
             new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
@@ -26,6 +27,7 @@ class AppKernel extends Kernel
             // JMS
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new JMS\AopBundle\JMSAopBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle(),
 
             // KNP
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),

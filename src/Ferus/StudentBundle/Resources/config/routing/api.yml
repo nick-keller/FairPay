@@ -1,0 +1,4 @@
+student_api:
+    type:           rest
+    resource:       "FerusStudentBundle:Api"
+    name_prefix:    api_

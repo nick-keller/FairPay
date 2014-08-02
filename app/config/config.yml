@@ -24,6 +24,10 @@ framework:
     fragments:       ~
     http_method_override: true
 
+sensio_framework_extra:
+    view:
+        annotations: false
+
 # Twig Configuration
 twig:
     debug:            "%kernel.debug%"
@@ -73,6 +77,25 @@ fos_user:
     firewall_name: main
     user_class: Ferus\UserBundle\Entity\User
 
+# FOS Rest Configuration
+fos_rest:
+    param_fetcher_listener: true
+    body_listener: true
+    format_listener: true
+    view:
+        view_response_listener: 'force'
+        formats:
+            xml: true
+            json : true
+        templating_formats:
+            html: true
+        force_redirects:
+            html: true
+        failed_validation: HTTP_BAD_REQUEST
+        default_engine: twig
+    routing_loader:
+        default_format: json
+
 # Bootstrap Configuration
 braincrafted_bootstrap:
     less_filter: less
@@ -97,6 +120,7 @@ jms_di_extra:
             em: @doctrine.orm.entity_manager
             paginator: @knp_paginator
 
+# Paginator Configuration
 knp_paginator:
     page_range: 7
     default_options:
