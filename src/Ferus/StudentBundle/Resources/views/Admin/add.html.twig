@@ -9,9 +9,16 @@
     <div class="row">
         <div class="col-sm-6">
             <h2>Manuel</h2>
+            {{ form(form, { 'style': 'horizontal' }) }}
+            <div style="max-height: 200px;overflow: auto"></div>
         </div>
         <div class="col-sm-6">
             <h2>A partir d'un CSV</h2>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/ajax/add-student.js') }}"></script>
 {% endblock %}

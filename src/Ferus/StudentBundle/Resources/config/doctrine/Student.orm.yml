@@ -29,8 +29,7 @@ Ferus\StudentBundle\Entity\Student:
         email:
             type: string
             length: 255
-            nullable: true
-            unique: true
+            nullable: false
 
         login:
             type: string

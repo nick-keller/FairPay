@@ -3,29 +3,38 @@
 namespace Ferus\StudentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Student
+ *
+ * @UniqueEntity("id")
  */
 class Student
 {
     /**
      * @var integer
+     * @Assert\NotBlank()
+     * @Assert\Type(type="integer")
      */
     private $id;
 
     /**
      * @var string
+     * @Assert\NotBlank()
      */
     private $firstName;
 
     /**
      * @var string
+     * @Assert\NotBlank()
      */
     private $lastName;
 
     /**
      * @var boolean
+     * @Assert\NotBlank()
      */
     private $isContributor;
 
@@ -47,10 +56,16 @@ class Student
         $this->isContributor = false;
     }
 
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
 
     /**
-     * Get id
-     *
      * @return integer 
      */
     public function getId()
@@ -59,8 +74,6 @@ class Student
     }
 
     /**
-     * Set firstName
-     *
      * @param string $firstName
      * @return Student
      */
@@ -72,8 +85,6 @@ class Student
     }
 
     /**
-     * Get firstName
-     *
      * @return string 
      */
     public function getFirstName()
@@ -82,8 +93,6 @@ class Student
     }
 
     /**
-     * Set lastName
-     *
      * @param string $lastName
      * @return Student
      */
@@ -95,8 +104,6 @@ class Student
     }
 
     /**
-     * Get lastName
-     *
      * @return string 
      */
     public function getLastName()
@@ -105,8 +112,6 @@ class Student
     }
 
     /**
-     * Set isContributor
-     *
      * @param boolean $isContributor
      * @return Student
      */
@@ -118,8 +123,6 @@ class Student
     }
 
     /**
-     * Get isContributor
-     *
      * @return boolean 
      */
     public function getIsContributor()
@@ -128,8 +131,6 @@ class Student
     }
 
     /**
-     * Set email
-     *
      * @param string $email
      * @return Student
      */
@@ -141,8 +142,6 @@ class Student
     }
 
     /**
-     * Get email
-     *
      * @return string 
      */
     public function getEmail()
@@ -176,12 +175,13 @@ class Student
     public function generateEmail()
     {
         $this->email =
-            substr($this->cleanStr($this->firstName), 0, 7) . '.' .
-            substr($this->cleanStr($this->lastName), 0, 1) . '@edu.esiee.fr';
+            $this->cleanStr($this->firstName) . '.' .
+            $this->cleanStr($this->lastName) . '@edu.esiee.fr';
     }
 
     private function cleanStr($str)
     {
+
         $chars = array(
             'a' => '/à|á|ã|â|ä/',
             'e' => '/è|é|ê|ë/',
