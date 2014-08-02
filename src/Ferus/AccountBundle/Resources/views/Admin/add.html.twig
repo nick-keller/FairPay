@@ -1,0 +1,10 @@
+{% extends '@FerusAccount/Admin/layout.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li class="active">Nouveau compte</li>
+{% endblock %}
+
+{% block content %}
+    {{ form(form) }}
+{% endblock %}

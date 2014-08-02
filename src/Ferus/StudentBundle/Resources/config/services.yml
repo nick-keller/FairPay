@@ -2,6 +2,7 @@ parameters:
 #    ferus_student.example.class: Ferus\StudentBundle\Example
 
 services:
-#    ferus_student.example:
-#        class: %ferus_student.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    ferus_account.form.type.euro:
+        class: Ferus\AccountBundle\Form\Type\EuroType
+        tags:
+            - { name: form.type, alias: euro }

@@ -62,6 +62,11 @@ class Student
         $this->isContributor = false;
     }
 
+    public function __toString()
+    {
+        return $this->firstName . ' ' . $this->lastName;
+    }
+
     /**
      * @param int $id
      */

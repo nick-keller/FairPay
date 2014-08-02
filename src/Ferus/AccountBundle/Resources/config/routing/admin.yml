@@ -1,3 +1,7 @@
 account_admin_index:
     pattern: /
     defaults: { _controller: FerusAccountBundle:Admin:index }
+
+account_admin_add:
+    pattern: /add
+    defaults: { _controller: FerusAccountBundle:Admin:add }
