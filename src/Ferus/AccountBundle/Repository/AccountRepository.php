@@ -12,4 +12,12 @@ use Doctrine\ORM\EntityRepository;
  */
 class AccountRepository extends EntityRepository
 {
+    public function findOneByStudentId($id)
+    {
+        return $this->createQueryBuilder('a')
+            ->where('IDENTITY(a.student) = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getSingleResult();
+    }
 }

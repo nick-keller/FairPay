@@ -17,7 +17,12 @@ class StudentType extends AbstractType
         $builder
             ->add('id', 'integer', array(
                 'label' => 'Numéro',
-                'attr' => array('help_text' => 'Numéro figurant sur la carte étudiante')
+                'attr' => array(
+                    'help_text' => 'Numéro figurant sur la carte étudiante',
+                    'input_group' => array(
+                        'prepend' => '.icon-barcode',
+                    ),
+                )
             ))
             ->add('firstName', 'text', array(
                 'label' => 'Prénom',

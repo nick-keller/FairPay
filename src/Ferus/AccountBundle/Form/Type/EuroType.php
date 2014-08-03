@@ -21,7 +21,7 @@ class EuroType extends AbstractType
         $resolver->setDefaults(array(
             'attr' => array(
                 'input_group' => array(
-                    'append' => '.icon-euro',
+                    'prepend' => '.icon-euro',
                 ),
                 'data-type' => 'money'
             )
