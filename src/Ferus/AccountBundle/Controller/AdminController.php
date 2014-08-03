@@ -31,9 +31,19 @@ class AdminController extends Controller
     /**
      * @Template
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        return array();
+        $accounts = $this->paginator->paginate(
+            $this->em
+                ->getRepository('FerusAccountBundle:Account')
+                ->queryAll(),
+            $request->query->get('page', 1),
+            50
+        );
+
+        return array(
+            'accounts' => $accounts,
+        );
     }
 
     /**

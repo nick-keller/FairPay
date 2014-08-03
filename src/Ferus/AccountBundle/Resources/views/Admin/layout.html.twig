@@ -14,4 +14,13 @@
             {{ icon('plus') }} Nouveau
         </a>
     </div>
+
+    <form class="form-inline" style="width: 200px;display: inline-block;vertical-align: middle" action="{{ path('account_admin_index') }}" method="get">
+        <div class="input-group input-group-sm">
+            <input type="text" class="form-control" placeholder="Id, Nom, Prénom" name="search">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="submit">{{ icon('search') }}</button>
+            </span>
+        </div>
+    </form>
 {% endblock %}

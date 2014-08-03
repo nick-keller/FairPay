@@ -6,5 +6,21 @@
 {% endblock %}
 
 {% block content %}
-    hello
+    <table class="table table-striped table-hover">
+        <tr>
+            <th>{{ knp_pagination_sortable(accounts, '#', 's.id') }}</th>
+            <th>{{ knp_pagination_sortable(accounts, 'Prénom', 's.firstName') }}</th>
+            <th>{{ knp_pagination_sortable(accounts, 'Nom', 's.lastName') }}</th>
+            <th>Solde</th>
+        </tr>
+        {% for account in accounts %}
+            <tr>
+                <td>{{ account.student.id }}</td>
+                <td>{{ account.student.firstName }}</td>
+                <td>{{ account.student.lastName }}</td>
+                <td>€ {{ account.balance }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    {{ knp_pagination_render(accounts) }}
 {% endblock %}

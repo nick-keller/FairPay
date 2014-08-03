@@ -6,7 +6,7 @@ $(function(){
         val = val.replace(',', '.');
         val = val.replace(' ', '');
 
-        if(val.match(/^\d+$/))
+        if(val.match(/^-?\d+$/))
             val = val + '.00';
         else if(val.match(/^\.\d$/))
             val = '0' + val + '0';
@@ -14,11 +14,11 @@ $(function(){
             val = '0' + val;
         else if(val.match(/^$/))
             val = '0.00';
-        else if(val.match(/^\d+\.$/))
+        else if(val.match(/^-?\d+\.$/))
             val = val + '00';
-        else if(val.match(/^\d+\.\d$/))
+        else if(val.match(/^-?\d+\.\d$/))
             val = val + '0';
-        else if(!val.match(/^\d+\.\d{2}$/))
+        else if(!val.match(/^-?\d+\.\d{2}$/))
             val = '0.00';
 
         $this.val(val);
@@ -28,7 +28,7 @@ $(function(){
 
         if(val == '0.00')
             $this.val('');
-        else if(val.match(/^\d+\.00$/))
+        else if(val.match(/^-?\d+\.00$/))
             $this.val(val.replace('.00', ''))
     });
 });

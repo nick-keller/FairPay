@@ -4,9 +4,15 @@ namespace Ferus\AccountBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Ferus\StudentBundle\Entity\Student;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Account
+ * @UniqueEntity(
+ *      fields="student",
+ *      message="Cet étudiant a déjà un compte."
+ * )
  */
 class Account
 {
@@ -17,6 +23,7 @@ class Account
 
     /**
      * @var string
+     * @Assert\GreaterThanOrEqual(0)
      */
     private $balance;
 

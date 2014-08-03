@@ -25,7 +25,7 @@ class MoneyTransformer implements DataTransformerInterface
         $value = str_replace(',', '.', $value);
         $value = str_replace(' ', '', $value);
 
-        if(!preg_match('/^(\d+(\.\d{2})?)?$/', $value)){
+        if(!preg_match('/^-?(\d+(\.\d{2})?)?$/', $value)){
             throw new TransformationFailedException();
         }
 
