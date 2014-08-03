@@ -1,0 +1,37 @@
+Ferus\TransactionBundle\Entity\Transaction:
+    type: entity
+    table: ferus_transaction
+    repositoryClass: Ferus\TransactionBundle\Repository\TransactionRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        amount:
+            type: decimal
+            scale: 2
+            nullable: false
+
+        completedAt:
+            type: datetime
+            nullable: false
+
+        cause:
+            type: string
+            length: 255
+            nullable: false
+
+    manyToOne:
+        issuer:
+            targetEntity: Ferus\AccountBundle\Entity\Account
+            inversedBy: issuedTransactions
+            nullable: false
+
+        receiver:
+            targetEntity: Ferus\AccountBundle\Entity\Account
+            inversedBy: receivedTransactions
+            nullable: false
+
+    lifecycleCallbacks: {  }

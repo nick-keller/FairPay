@@ -20,3 +20,12 @@ Ferus\AccountBundle\Entity\Account:
             inversedBy: account
             joinColumn:
                 nullable: false
+
+    oneToMany:
+        issuedTransactions:
+            targetEntity: Ferus\TransactionBundle\Entity\Transaction
+            mappedBy: issuer
+
+        receivedTransactions:
+            targetEntity: Ferus\TransactionBundle\Entity\Transaction
+            mappedBy: receiver

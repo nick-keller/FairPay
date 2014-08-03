@@ -2,8 +2,10 @@
 
 namespace Ferus\AccountBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Ferus\StudentBundle\Entity\Student;
+use Ferus\TransactionBundle\Entity\Transaction;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -31,12 +33,25 @@ class Account
      * @var Student
      */
     private $student;
+    
+    /**
+     * @var ArrayCollection
+     */
+    private $issuedTransactions;
+
+    /**
+     * @var ArrayCollection
+     */
+    private $receivedTransactions;
 
 
     public function __construct(Student $student = null)
     {
         $this->student = $student;
         $this->balance = 0;
+        
+        $this->issuedTransactions = new ArrayCollection;
+        $this->receivedTransactions = new ArrayCollection;
     }
 
 
@@ -87,5 +102,72 @@ class Account
     public function getStudent()
     {
         return $this->student;
+    }
+
+
+    /**
+     * Add issuedTransactions
+     *
+     * @param Transaction $issuedTransactions
+     * @return Account
+     */
+    public function addIssuedTransaction(Transaction $issuedTransactions)
+    {
+        $this->issuedTransactions[] = $issuedTransactions;
+
+        return $this;
+    }
+
+    /**
+     * Remove issuedTransactions
+     *
+     * @param Transaction $issuedTransactions
+     */
+    public function removeIssuedTransaction(Transaction $issuedTransactions)
+    {
+        $this->issuedTransactions->removeElement($issuedTransactions);
+    }
+
+    /**
+     * Get issuedTransactions
+     *
+     * @return ArrayCollection 
+     */
+    public function getIssuedTransactions()
+    {
+        return $this->issuedTransactions;
+    }
+
+    /**
+     * Add receivedTransactions
+     *
+     * @param Transaction $receivedTransactions
+     * @return Account
+     */
+    public function addReceivedTransaction(Transaction $receivedTransactions)
+    {
+        $this->receivedTransactions[] = $receivedTransactions;
+
+        return $this;
+    }
+
+    /**
+     * Remove receivedTransactions
+     *
+     * @param Transaction $receivedTransactions
+     */
+    public function removeReceivedTransaction(Transaction $receivedTransactions)
+    {
+        $this->receivedTransactions->removeElement($receivedTransactions);
+    }
+
+    /**
+     * Get receivedTransactions
+     *
+     * @return ArrayCollection 
+     */
+    public function getReceivedTransactions()
+    {
+        return $this->receivedTransactions;
     }
 }
