@@ -23,7 +23,7 @@ class EuroType extends AbstractType
                 'input_group' => array(
                     'append' => '.icon-euro',
                 ),
-                'type' => 'tel',
+                'data-type' => 'money'
             )
         ));
     }
