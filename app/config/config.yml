@@ -105,7 +105,7 @@ braincrafted_bootstrap:
 jms_di_extra:
     locations:
         all_bundles: false
-        bundles: [FerusStudentBundle]
+        bundles: [FerusStudentBundle, FerusAccountBundle]
         directories: ["%kernel.root_dir%/../src"]
     automatic_controller_injections:
         properties:
@@ -113,6 +113,7 @@ jms_di_extra:
             router: "@router"
             em: @doctrine.orm.entity_manager
             paginator: @knp_paginator
+            flash: @braincrafted_bootstrap.flash
 
 # Paginator Configuration
 knp_paginator:

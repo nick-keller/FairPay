@@ -19,7 +19,9 @@ class AccountType extends AbstractType
                 'label' => 'Numéro',
                 'data' => 'student',
             ))
-            ->add('balance', 'euro')
+            ->add('balance', 'euro', array(
+                'label' => 'Solde de départ'
+            ))
             ->add('actions', 'form_actions', [
                 'buttons' => array(
                     'save' => [

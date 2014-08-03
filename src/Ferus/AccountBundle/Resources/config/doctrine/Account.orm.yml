@@ -12,6 +12,7 @@ Ferus\AccountBundle\Entity\Account:
         balance:
             type: decimal
             nullable: false
+            scale: 2
 
     oneToOne:
         student:

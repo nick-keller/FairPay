@@ -3,6 +3,7 @@
 namespace Ferus\StudentBundle\Controller;
 
 
+use Braincrafted\Bundle\BootstrapBundle\Session\FlashMessage;
 use Doctrine\ORM\EntityManager;
 use Ferus\StudentBundle\Entity\Student;
 use Ferus\StudentBundle\Form\StudentType;
@@ -23,6 +24,11 @@ class AdminController extends Controller
      * @var Paginator
      */
     private $paginator;
+
+    /**
+     * @var FlashMessage
+     */
+    private $flash;
 
     /**
      * @Template
@@ -84,8 +90,7 @@ class AdminController extends Controller
                 $this->em->persist($student);
                 $this->em->flush();
 
-                $flash = $this->get('braincrafted_bootstrap.flash');
-                $flash->success('Eleve mis à jour.');
+                $this->flash->success('Eleve mis à jour.');
 
                 return $this->redirect($this->generateUrl('student_admin_edit', ['id' => $student->getId()]));
             }
@@ -106,8 +111,7 @@ class AdminController extends Controller
             $this->em->remove($student);
             $this->em->flush();
 
-            $flash = $this->get('braincrafted_bootstrap.flash');
-            $flash->success('Eleve supprimé.');
+            $this->flash->success('Eleve supprimé.');
 
             return $this->redirect($this->generateUrl('student_admin_index'));
         }
