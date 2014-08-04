@@ -34,7 +34,11 @@ class AdminController extends Controller
      */
     public function indexAction()
     {
-        return array();
+        $transactions = $this->em->getRepository('FerusTransactionBundle:Transaction')->findLast(50);
+
+        return array(
+            'transactions' => $transactions,
+        );
     }
 
     /**
@@ -50,8 +54,9 @@ class AdminController extends Controller
 
             if($form->isValid()){
                 $transactionCore = $this->get('ferus_transaction.transaction_core');
-
                 $transactionCore->execute($transaction);
+
+                $this->flash->success('Transaction effectuée.');
 
                 return $this->redirect($this->generateUrl('transaction_admin_index'));
             }

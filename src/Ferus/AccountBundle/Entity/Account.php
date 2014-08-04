@@ -54,6 +54,11 @@ class Account
         $this->receivedTransactions = new ArrayCollection;
     }
 
+    public function __toString()
+    {
+        return $this->getStudent()->__toString();
+    }
+
 
     /**
      * Get id

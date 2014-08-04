@@ -180,11 +180,6 @@ class Transaction
         return $this->receiver;
     }
 
-    public function prePersist()
-    {
-        $this->completedAt = new \DateTime;
-    }
-
     /**
      * @Assert\Callback
      */
@@ -204,7 +199,7 @@ class Transaction
             if($this->issuer->getBalance() < $this->getAmount()){
                 $context->addViolationAt(
                     'amount',
-                    'Le solde de '.$this->issuer->getStudent()->getFirstName().' est insufisant',
+                    'Le solde de '.$this->issuer->getStudent().' est insufisant',
                     array(),
                     null
                 );

@@ -35,6 +35,9 @@ class AppKernel extends Kernel
             // Nelmio
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
 
+            // Doctrine
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+
             // Ferus
             new Ferus\UserBundle\FerusUserBundle(),
             new Ferus\StudentBundle\FerusStudentBundle(),

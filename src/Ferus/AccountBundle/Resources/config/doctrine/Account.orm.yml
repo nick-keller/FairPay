@@ -20,6 +20,7 @@ Ferus\AccountBundle\Entity\Account:
             inversedBy: account
             joinColumn:
                 nullable: false
+            fetch: EAGER
 
     oneToMany:
         issuedTransactions:

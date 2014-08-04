@@ -136,3 +136,11 @@ nelmio_api_doc:
         request_format:
             formats:
                 json: application/json
+
+
+# DoctrineExtensionBundle Configuration
+stof_doctrine_extensions:
+    orm:
+        default:
+            blameable: true
+            timestampable: true

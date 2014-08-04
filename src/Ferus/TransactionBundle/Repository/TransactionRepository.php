@@ -12,4 +12,11 @@ use Doctrine\ORM\EntityRepository;
  */
 class TransactionRepository extends EntityRepository
 {
+    public function findLast($max = 50)
+    {
+        return $this->createQueryBuilder('t')
+            ->setMaxResults($max)
+            ->orderBy('t.completedAt', 'DESC')
+            ->getQuery()->getResult();
+    }
 }

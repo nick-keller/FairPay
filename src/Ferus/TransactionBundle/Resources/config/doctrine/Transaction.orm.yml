@@ -15,8 +15,12 @@ Ferus\TransactionBundle\Entity\Transaction:
             nullable: false
 
         completedAt:
+            column: completed_at
             type: datetime
             nullable: false
+            gedmo:
+                timestampable:
+                    on: create
 
         cause:
             type: string
@@ -27,17 +31,22 @@ Ferus\TransactionBundle\Entity\Transaction:
         issuer:
             targetEntity: Ferus\AccountBundle\Entity\Account
             inversedBy: issuedTransactions
+            fetch: EAGER
             cascade:
                 - persist
 
         receiver:
             targetEntity: Ferus\AccountBundle\Entity\Account
             inversedBy: receivedTransactions
+            fetch: EAGER
             cascade:
                 - persist
 
         representative:
             targetEntity: Ferus\UserBundle\Entity\User
+            fetch: EAGER
+            gedmo:
+                blameable:
+                    on: create
 
-    lifecycleCallbacks:
-        prePersist: [ prePersist ]
+    lifecycleCallbacks: {}
