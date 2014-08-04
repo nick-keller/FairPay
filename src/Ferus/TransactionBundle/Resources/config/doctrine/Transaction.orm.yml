@@ -34,4 +34,5 @@ Ferus\TransactionBundle\Entity\Transaction:
             inversedBy: receivedTransactions
             nullable: false
 
-    lifecycleCallbacks: {  }
+    lifecycleCallbacks:
+        prePersist: [ prePersist ]

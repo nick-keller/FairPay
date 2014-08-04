@@ -1,3 +1,7 @@
 transaction_admin_index:
     pattern: /
     defaults: { _controller: FerusTransactionBundle:Admin:index }
+
+transaction_admin_new:
+    pattern: /new
+    defaults: { _controller: FerusTransactionBundle:Admin:new }

@@ -3,7 +3,9 @@
 namespace Ferus\TransactionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Ferus\AccountBundle\Entity\Account;
+use Symfony\Component\Validator\ExecutionContextInterface;
 
 /**
  * Transaction
@@ -17,6 +19,8 @@ class Transaction
 
     /**
      * @var string
+     * @Assert\NotBlank()
+     * @Assert\GreaterThanOrEqual(0)
      */
     private $amount;
 
@@ -27,16 +31,19 @@ class Transaction
 
     /**
      * @var string
+     * @Assert\NotBlank()
      */
     private $cause;
     
     /**
      * @var Account
+     * @Assert\NotBlank()
      */
     private $issuer;
 
     /**
      * @var Account
+     * @Assert\NotBlank()
      */
     private $receiver;
 
@@ -165,5 +172,27 @@ class Transaction
     public function getReceiver()
     {
         return $this->receiver;
+    }
+
+    public function prePersist()
+    {
+        $this->completedAt = new \DateTime;
+    }
+
+    /**
+     * @Assert\Callback
+     */
+    public function validate(ExecutionContextInterface $context)
+    {
+        if($this->issuer instanceof Account && $this->receiver instanceof Account){
+            if ($this->issuer->getId() == $this->receiver->getId()) {
+                $context->addViolationAt(
+                    'receiver',
+                    'Le récepteur doit être différent de l\'émetteur',
+                    array(),
+                    null
+                );
+            }
+        }
     }
 }

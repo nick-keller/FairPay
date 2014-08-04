@@ -1,0 +1,10 @@
+{% extends '@FerusTransaction/Admin/layout.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li class="active">Nouvelle transaction</li>
+{% endblock %}
+
+{% block content %}
+    {{ form(form, { 'style': 'horizontal' }) }}
+{% endblock %}

@@ -2,6 +2,7 @@
 
 namespace Ferus\AccountBundle\Form\DataTransformer;
 
+use Doctrine\ORM\NoResultException;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -55,23 +56,27 @@ class BarcodeTransformer implements DataTransformerInterface
         if (!$barcode) return null;
 
         if($this->data == 'student'){
-            $student = $this->om
-                ->getRepository('FerusStudentBundle:Student')
-                ->findOneById($barcode)
-            ;
-
-            if (null === $student)
+            try{
+                $student = $this->om
+                    ->getRepository('FerusStudentBundle:Student')
+                    ->findOneById($barcode)
+                ;
+            }
+            catch(NoResultException $e){
                 throw new TransformationFailedException('Cet étudiant n\'existe pas.');
+            }
 
             return $student;
         }
 
-        $account = $this->om
-            ->getRepository('FerusAccountBundle:Account')
-            ->findOneByStudentId($barcode);
-
-        if (null === $account)
-            throw new TransformationFailedException('Cet étudiant n\'existe pas.');
+        try{
+            $account = $this->om
+                ->getRepository('FerusAccountBundle:Account')
+                ->findOneByStudentId($barcode);
+        }
+        catch(NoResultException $e){
+            throw new TransformationFailedException('Ce compte n\'existe pas.');
+        }
 
         return $account;
     }

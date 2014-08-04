@@ -2,6 +2,8 @@
 
 namespace Ferus\TransactionBundle\Controller;
 
+use Ferus\TransactionBundle\Entity\Transaction;
+use Ferus\TransactionBundle\Form\TransactionType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\ORM\EntityManager;
 use Knp\Component\Pager\Paginator;
@@ -29,17 +31,25 @@ class AdminController extends Controller
     /**
      * @Template
      */
-    public function indexAction(Request $request)
+    public function indexAction()
     {
-//        $accounts = $this->paginator->paginate(
-//            $this->em
-//                ->getRepository('FerusAccountBundle:Account')
-//                ->queryAll(),
-//            $request->query->get('page', 1),
-//            50
-//        );
+        return array();
+    }
+
+    /**
+     * @Template
+     */
+    public function newAction(Request $request)
+    {
+        $transaction = new Transaction;
+        $form = $this->createForm(new TransactionType, $transaction);
+
+        if($request->isMethod('POST')){
+            $form->handleRequest($request);
+        }
 
         return array(
+            'form' => $form->createView(),
         );
     }
 
