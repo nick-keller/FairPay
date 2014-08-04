@@ -27,12 +27,17 @@ Ferus\TransactionBundle\Entity\Transaction:
         issuer:
             targetEntity: Ferus\AccountBundle\Entity\Account
             inversedBy: issuedTransactions
-            nullable: false
+            cascade:
+                - persist
 
         receiver:
             targetEntity: Ferus\AccountBundle\Entity\Account
             inversedBy: receivedTransactions
-            nullable: false
+            cascade:
+                - persist
+
+        representative:
+            targetEntity: Ferus\UserBundle\Entity\User
 
     lifecycleCallbacks:
         prePersist: [ prePersist ]

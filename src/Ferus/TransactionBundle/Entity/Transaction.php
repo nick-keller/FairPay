@@ -3,6 +3,7 @@
 namespace Ferus\TransactionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Ferus\UserBundle\Entity\User;
 use Symfony\Component\Validator\Constraints as Assert;
 use Ferus\AccountBundle\Entity\Account;
 use Symfony\Component\Validator\ExecutionContextInterface;
@@ -46,6 +47,11 @@ class Transaction
      * @Assert\NotBlank()
      */
     private $receiver;
+
+    /**
+     * @var User
+     */
+    private $representative;
 
 
     /**
@@ -185,6 +191,7 @@ class Transaction
     public function validate(ExecutionContextInterface $context)
     {
         if($this->issuer instanceof Account && $this->receiver instanceof Account){
+
             if ($this->issuer->getId() == $this->receiver->getId()) {
                 $context->addViolationAt(
                     'receiver',
@@ -193,6 +200,39 @@ class Transaction
                     null
                 );
             }
+
+            if($this->issuer->getBalance() < $this->getAmount()){
+                $context->addViolationAt(
+                    'amount',
+                    'Le solde de '.$this->issuer->getStudent()->getFirstName().' est insufisant',
+                    array(),
+                    null
+                );
+            }
         }
+    }
+
+
+    /**
+     * Set representative
+     *
+     * @param User $representative
+     * @return Transaction
+     */
+    public function setRepresentative(User $representative = null)
+    {
+        $this->representative = $representative;
+
+        return $this;
+    }
+
+    /**
+     * Get representative
+     *
+     * @return User
+     */
+    public function getRepresentative()
+    {
+        return $this->representative;
     }
 }
