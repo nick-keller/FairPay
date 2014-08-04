@@ -24,7 +24,7 @@ class Account
     private $id;
 
     /**
-     * @var string
+     * @var float
      * @Assert\GreaterThanOrEqual(0)
      */
     private $balance;
@@ -73,7 +73,7 @@ class Account
     /**
      * Set balance
      *
-     * @param string $balance
+     * @param float $balance
      * @return Account
      */
     public function setBalance($balance)
@@ -86,7 +86,7 @@ class Account
     /**
      * Get balance
      *
-     * @return string 
+     * @return float
      */
     public function getBalance()
     {

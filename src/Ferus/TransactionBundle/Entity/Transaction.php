@@ -19,7 +19,7 @@ class Transaction
     private $id;
 
     /**
-     * @var string
+     * @var float
      * @Assert\NotBlank()
      * @Assert\GreaterThanOrEqual(0)
      */
@@ -67,7 +67,7 @@ class Transaction
     /**
      * Set amount
      *
-     * @param string $amount
+     * @param float $amount
      * @return Transaction
      */
     public function setAmount($amount)
@@ -80,7 +80,7 @@ class Transaction
     /**
      * Get amount
      *
-     * @return string 
+     * @return float
      */
     public function getAmount()
     {
@@ -178,6 +178,14 @@ class Transaction
     public function getReceiver()
     {
         return $this->receiver;
+    }
+
+    public function getType()
+    {
+        if($this->issuer == null) return 'Dépot';
+        if($this->receiver == null) return 'Retrait';
+
+        return 'Transaction';
     }
 
     /**

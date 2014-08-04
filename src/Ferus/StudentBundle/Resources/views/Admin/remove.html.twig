@@ -9,10 +9,10 @@
 {% block content %}
     <div class="alert alert-warning" role="alert">
         <h2>Attention !</h2>
-        <p>Vous êtes sur le point de supprimer définitivement <b>{{ student.firstName }} {{ student.lastName }}</b>. Voulez vous continuer ?</p>
+        <p>Vous êtes sur le point de supprimer définitivement <b>{{ student }}</b>. Voulez vous continuer ?</p>
         <form method="post" style="margin-top: 10px">
             <button type="submit" class="btn btn-danger">
-                {{ icon('remove') }} Supprimer {{ student.firstName }}
+                {{ icon('remove') }} Supprimer {{ student }}
             </button>
             <a class="btn btn-default" href="{{ path('student_admin_index') }}">
                 Annuler

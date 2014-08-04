@@ -1,0 +1,12 @@
+{% extends '@FerusTransaction/Admin/layout.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li class="active">Effectuer un dépot</li>
+{% endblock %}
+
+{% block content %}
+    <h2>Effectuer un dépot</h2>
+    <p>Vous devez vous assurer de récupérer le montant exacte en cash et de la placer dans la caisse avant d'effectuer un dépot.</p>
+    {{ form(form, { 'style': 'horizontal' }) }}
+{% endblock %}
