@@ -6,32 +6,5 @@
 {% endblock %}
 
 {% block content %}
-    <table class="table table-striped table-hover">
-        <tr>
-            <th>Type</th>
-            <th>Emetteur</th>
-            <th>Destinataire</th>
-            <th>Montant</th>
-            <th>Date</th>
-            <th>Mandataire</th>
-        </tr>
-        {% for transaction in transactions %}
-            <tr>
-                <td>
-                    {% if transaction.type == 'Transaction' %}
-                        {{ label_success(icon('transfer') ~ ' Transaction') }}
-                    {% elseif transaction.type == 'Dépot' %}
-                        {{ label_primary(icon('import') ~ ' Dépot') }}
-                    {% else %}
-                        {{ label_warning(icon('export') ~ ' Retrait') }}
-                    {% endif %}
-                </td>
-                <td>{{ transaction.issuer }}</td>
-                <td>{{ transaction.receiver }}</td>
-                <td>€ {{ transaction.amount }}</td>
-                <td>{{ transaction.completedAt|date('d/m/Y à H:i') }}</td>
-                <td>{{ transaction.representative }}</td>
-            </tr>
-        {% endfor %}
-    </table>
+    {% include '@FerusTransaction/Template/list.html.twig' %}
 {% endblock %}

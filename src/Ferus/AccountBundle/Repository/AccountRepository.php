@@ -28,4 +28,22 @@ class AccountRepository extends EntityRepository
             ->getQuery()
             ->getSingleResult();
     }
+
+    public function querySearch($query)
+    {
+        $qb = $this->createQueryBuilder('a')
+            ->join('a.student', 's')
+        ;
+
+        $query = trim($query);
+        $words = explode(' ', $query);
+
+        foreach($words as $key => $word){
+            $qb
+                ->andWhere("s.firstName LIKE :query$key OR s.lastName LIKE :query$key")
+                ->setParameter("query$key", "%$word%");
+        }
+
+        return $qb->getQuery();
+    }
 }

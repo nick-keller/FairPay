@@ -1,0 +1,40 @@
+<table class="table table-striped table-hover">
+    <tr>
+        <th>Type</th>
+        <th>Emetteur</th>
+        <th>Destinataire</th>
+        <th>Montant</th>
+        <th>Date</th>
+        <th>Mandataire</th>
+    </tr>
+    {% for transaction in transactions %}
+        <tr>
+            <td>
+                {% if transaction.type == 'Transaction' %}
+                    {{ label_success(icon('transfer') ~ ' Transaction') }}
+                {% elseif transaction.type == 'Dépot' %}
+                    {{ label_primary(icon('import') ~ ' Dépot') }}
+                {% else %}
+                    {{ label_warning(icon('export') ~ ' Retrait') }}
+                {% endif %}
+            </td>
+            <td>
+                {% if transaction.issuer is not null %}
+                    <a href="{{ path('account_admin_view', {student:transaction.issuer.student.id}) }}">
+                        {{ transaction.issuer }}
+                    </a>
+                {% endif %}
+            </td>
+            <td>
+                {% if transaction.receiver is not null %}
+                    <a href="{{ path('account_admin_view', {student:transaction.receiver.student.id}) }}">
+                        {{ transaction.receiver }}
+                    </a>
+                {% endif %}
+            </td>
+            <td>€ {{ transaction.amount }}</td>
+            <td>{{ transaction.completedAt|date('d/m/Y à H:i') }}</td>
+            <td>{{ transaction.representative }}</td>
+        </tr>
+    {% endfor %}
+</table>

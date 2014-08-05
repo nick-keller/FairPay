@@ -1,0 +1,18 @@
+{% extends '@FerusAccount/Admin/layout.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li class="active">{{ account.student.id }}</li>
+{% endblock %}
+
+{% block content %}
+    <h2>{{ account.student }}</h2>
+
+    <ul class="list-group">
+        <li class="list-group-item">{{ icon('barcode') }} {{ account.student.id }}</li>
+        <li class="list-group-item">Solde : € {{ account.balance }}</li>
+    </ul>
+
+    {% include '@FerusTransaction/Template/list.html.twig' %}
+    {{ knp_pagination_render(transactions) }}
+{% endblock %}

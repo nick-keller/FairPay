@@ -44,7 +44,7 @@ class TransactionCore
 
         $receiver = $deposit->getAccount();
         $receiver->setBalance($receiver->getBalance() + $deposit->getAmount());
-        
+
         $this->em->persist($transaction);
         $this->em->flush();
     }

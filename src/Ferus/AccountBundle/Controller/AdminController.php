@@ -33,16 +33,34 @@ class AdminController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $accounts = $this->paginator->paginate(
-            $this->em
-                ->getRepository('FerusAccountBundle:Account')
-                ->queryAll(),
-            $request->query->get('page', 1),
-            50
-        );
+        if($request->query->get('search', null) !== null)
+        {
+            $search = $request->query->get('search');
+
+            if(preg_match('/^[0-9]+$/', $search))
+                return $this->redirect($this->generateUrl('account_admin_view', array('student' => $search)));
+
+            $accounts = $this->paginator->paginate(
+                $this->em
+                    ->getRepository('FerusAccountBundle:Account')
+                    ->querySearch($search),
+                $request->query->get('page', 1),
+                50
+            );
+        }
+        else {
+            $accounts = $this->paginator->paginate(
+                $this->em
+                    ->getRepository('FerusAccountBundle:Account')
+                    ->queryAll(),
+                $request->query->get('page', 1),
+                50
+            );
+        }
 
         return array(
             'accounts' => $accounts,
+            'search' => $request->query->get('search', null),
         );
     }
 
@@ -68,6 +86,25 @@ class AdminController extends Controller
 
         return array(
             'form' => $form->createView(),
+        );
+    }
+
+    /**
+     * @Template
+     */
+    public function viewAction(Account $account, Request $request)
+    {
+        $transactions = $this->paginator->paginate(
+            $this->em
+                ->getRepository('FerusTransactionBundle:Transaction')
+                ->queryOfAccount($account),
+            $request->query->get('page', 1),
+            50
+        );
+
+        return array(
+            'account' => $account,
+            'transactions' => $transactions,
         );
     }
 }

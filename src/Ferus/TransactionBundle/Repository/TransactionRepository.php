@@ -3,6 +3,7 @@
 namespace Ferus\TransactionBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Ferus\AccountBundle\Entity\Account;
 
 /**
  * TransactionRepository
@@ -18,5 +19,15 @@ class TransactionRepository extends EntityRepository
             ->setMaxResults($max)
             ->orderBy('t.completedAt', 'DESC')
             ->getQuery()->getResult();
+    }
+
+    public function queryOfAccount(Account $account)
+    {
+        return $this->createQueryBuilder('t')
+            ->where('t.issuer = :account')
+            ->orWhere('t.receiver = :account')
+            ->setParameter('account', $account)
+            ->orderBy('t.completedAt', 'DESC')
+            ->getQuery();
     }
 }
