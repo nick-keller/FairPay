@@ -12,4 +12,12 @@ use Doctrine\ORM\EntityRepository;
  */
 class SellerRepository extends EntityRepository
 {
+    public function findOneByBarcode($barcode)
+    {
+        return $this->createQueryBuilder('se')
+            ->where('se.id = :barcode')
+            ->setParameter('barcode', substr($barcode, 1))
+            ->getQuery()
+            ->getSingleResult();
+    }
 }

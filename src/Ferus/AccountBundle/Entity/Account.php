@@ -4,6 +4,7 @@ namespace Ferus\AccountBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Ferus\SellerBundle\Entity\Seller;
 use Ferus\StudentBundle\Entity\Student;
 use Ferus\TransactionBundle\Entity\Transaction;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -38,6 +39,11 @@ class Account
      * @var Student
      */
     private $student;
+
+    /**
+     * @var Seller
+     */
+    private $seller;
     
     /**
      * @var ArrayCollection
@@ -61,7 +67,7 @@ class Account
 
     public function __toString()
     {
-        return $this->getStudent()->__toString();
+        return $this->getOwner()->__toString();
     }
 
 
@@ -128,6 +134,51 @@ class Account
     public function getStudent()
     {
         return $this->student;
+    }
+
+    /**
+     * @param \Ferus\SellerBundle\Entity\Seller $seller
+     */
+    public function setSeller($seller)
+    {
+        $this->seller = $seller;
+    }
+
+    /**
+     * @return \Ferus\SellerBundle\Entity\Seller
+     */
+    public function getSeller()
+    {
+        return $this->seller;
+    }
+
+    /**
+     * @param Student|Seller $owner
+     */
+    public function setOwner($owner)
+    {
+        if($owner instanceof Student){
+            $this->student = $owner;
+            $this->seller = null;
+        }
+
+        if($owner instanceof Seller){
+            $this->seller = $owner;
+            $this->student = null;
+        }
+    }
+
+    /**
+     * @return Seller|Student|null
+     */
+    public function getOwner()
+    {
+        if($this->student !== null)
+            return $this->student;
+        else if($this->seller !== null)
+            return $this->seller;
+
+        return null;
     }
 
 

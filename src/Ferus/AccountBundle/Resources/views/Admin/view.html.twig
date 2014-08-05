@@ -2,19 +2,19 @@
 
 {% block breadcrumb %}
     {{ parent() }}
-    <li class="active">{{ account.student.id }}</li>
+    <li class="active">{{ account.owner.barcode }}</li>
 {% endblock %}
 
 {% block content %}
-    <h2>{{ account.student }}</h2>
+    <h2>{{ account.owner }}</h2>
 
     <div class="panel panel-default">
         <div class="panel-heading">Informations</div>
         <ul class="list-group">
-            <li class="list-group-item">{{ icon('barcode') }} {{ account.student.id }}</li>
+            <li class="list-group-item">{{ icon('barcode') }} {{ account.owner.barcode }}</li>
             <li class="list-group-item">Solde : € {{ account.balance }}</li>
             <li class="list-group-item">
-                <a class="btn btn-danger btn-xs" href="{{ path('account_admin_remove', {student:account.student.id}) }}">
+                <a class="btn btn-danger btn-xs" href="{{ path('account_admin_remove', {id:account.id}) }}">
                     {{ icon('remove') }} Supprimer
                 </a>
             </li>
@@ -24,7 +24,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">Transations</div>
 
-        {% include '@FerusTransaction/Template/list.html.twig' %}
+        {% include '@FerusTransaction/Template/listForAccount.html.twig' %}
     </div>
     {{ knp_pagination_render(transactions) }}
 {% endblock %}

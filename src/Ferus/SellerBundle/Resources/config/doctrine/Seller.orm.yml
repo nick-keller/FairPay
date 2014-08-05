@@ -1,6 +1,6 @@
 Ferus\SellerBundle\Entity\Seller:
     type: entity
-    table: null
+    table: ferus_seller
     repositoryClass: Ferus\SellerBundle\Repository\SellerRepository
     id:
         id:
@@ -19,5 +19,10 @@ Ferus\SellerBundle\Entity\Seller:
             type: string
             length: 255
             unique: true
-            
+
+    oneToOne:
+        account:
+            targetEntity: Ferus\AccountBundle\Entity\Account
+            mappedBy: seller
+
     lifecycleCallbacks: {  }

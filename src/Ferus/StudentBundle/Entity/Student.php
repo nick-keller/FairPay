@@ -89,6 +89,11 @@ class Student
         return $this->id;
     }
 
+    public function getBarcode()
+    {
+        return $this->id;
+    }
+
     /**
      * @param string $firstName
      * @return Student

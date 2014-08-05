@@ -2,7 +2,7 @@
 
 {% block breadcrumb %}
     {{ parent() }}
-    <li>{{ account.student.id }}</li>
+    <li>{{ account.owner.barcode }}</li>
     <li class="active">Supprimer</li>
 {% endblock %}
 
@@ -10,7 +10,7 @@
     {% if account.balance != 0 %}
         <div class="alert alert-danger" role="alert">
             <h2>Impossible !</h2>
-            <p>Vous ne pouvez pas supprimer le compte de <b>{{ account.student }}</b> car son solde n'est pas nul.</p>
+            <p>Vous ne pouvez pas supprimer le compte de <b>{{ account.owner }}</b> car son solde n'est pas nul.</p>
             <form method="post" style="margin-top: 10px">
                 <a class="btn btn-default" href="{{ path('account_admin_index') }}">
                     Annuler
@@ -20,10 +20,10 @@
     {% else %}
         <div class="alert alert-warning" role="alert">
             <h2>Attention !</h2>
-            <p>Vous êtes sur le point de supprimer définitivement le compte de <b>{{ account.student }}</b>. Voulez vous continuer ?</p>
+            <p>Vous êtes sur le point de supprimer définitivement le compte de <b>{{ account.owner }}</b>. Voulez vous continuer ?</p>
             <form method="post" style="margin-top: 10px">
                 <button type="submit" class="btn btn-danger">
-                    {{ icon('remove') }} Supprimer le compte de {{ account.student }}
+                    {{ icon('remove') }} Supprimer le compte de {{ account.owner }}
                 </button>
                 <a class="btn btn-default" href="{{ path('account_admin_index') }}">
                     Annuler

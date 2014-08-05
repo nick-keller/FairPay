@@ -9,23 +9,21 @@
     <table class="table table-striped table-hover">
         <tr>
             <th>{{ knp_pagination_sortable(accounts, '#', 's.id') }}</th>
-            <th>{{ knp_pagination_sortable(accounts, 'Prénom', 's.firstName') }}</th>
-            <th>{{ knp_pagination_sortable(accounts, 'Nom', 's.lastName') }}</th>
+            <th>Nom</th>
             <th>Solde</th>
             <th></th>
         </tr>
         {% for account in accounts %}
             <tr>
-                <td>{{ account.student.id }}</td>
-                <td>{{ account.student.firstName }}</td>
-                <td>{{ account.student.lastName }}</td>
+                <td>{{ account.owner.barcode }}</td>
+                <td>{{ account.owner }}</td>
                 <td>€ {{ account.balance }}</td>
                 <td>
                     <div class="btn-group btn-group-xs">
-                        <a href="{{ path('account_admin_view', {student:account.student.id}) }}" class="btn btn-default">
+                        <a href="{{ path('account_admin_view', {id:account.id}) }}" class="btn btn-default">
                             {{ icon('zoom-in') }} Détails
                         </a>
-                        <a type="button" class="btn btn-default" href="{{ path('account_admin_remove', {student:account.student.id}) }}">
+                        <a type="button" class="btn btn-default" href="{{ path('account_admin_remove', {id:account.id}) }}">
                             {{ icon('remove') }}
                         </a>
                     </div>

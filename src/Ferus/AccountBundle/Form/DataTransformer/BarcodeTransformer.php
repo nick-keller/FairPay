@@ -3,6 +3,7 @@
 namespace Ferus\AccountBundle\Form\DataTransformer;
 
 use Doctrine\ORM\NoResultException;
+use Ferus\SellerBundle\Entity\Seller;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -30,16 +31,16 @@ class BarcodeTransformer implements DataTransformerInterface
     /**
      * Transforms an object (Student or Account) to a string (barcode).
      *
-     * @param  Account|Student|null $item
+     * @param  Account|Student|Seller|null $item
      * @return string
      */
     public function transform($item)
     {
-        if($item instanceof Student)
-            return $item->getId();
+        if($item instanceof Student || $item instanceof Seller)
+            return $item->getBarcode();
 
         if($item instanceof Account)
-            return $item->getStudent()->getId();
+            return $item->getOwner()->getBarcode();
 
         return "";
     }
@@ -55,24 +56,32 @@ class BarcodeTransformer implements DataTransformerInterface
     {
         if (!$barcode) return null;
 
-        if($this->data == 'student'){
+        if($this->data == 'owner'){
             try{
-                $student = $this->om
-                    ->getRepository('FerusStudentBundle:Student')
-                    ->findOneById($barcode)
-                ;
+                if(preg_match('/^\d+$/', $barcode)){
+                    $owner = $this->om
+                        ->getRepository('FerusStudentBundle:Student')
+                        ->findOneById($barcode)
+                    ;
+                }
+                else{
+                    $owner = $this->om
+                        ->getRepository('FerusSellerBundle:Seller')
+                        ->findOneByBarcode($barcode)
+                    ;
+                }
             }
             catch(NoResultException $e){
                 throw new TransformationFailedException('Cet étudiant n\'existe pas.');
             }
 
-            return $student;
+            return $owner;
         }
 
         try{
             $account = $this->om
                 ->getRepository('FerusAccountBundle:Account')
-                ->findOneByStudentId($barcode);
+                ->findOneByBarcode($barcode);
         }
         catch(NoResultException $e){
             throw new TransformationFailedException('Ce compte n\'existe pas.');

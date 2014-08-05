@@ -5,6 +5,7 @@ namespace Ferus\AccountBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NoResultException;
 use Ferus\AccountBundle\Entity\Account;
+use Ferus\SellerBundle\Entity\Seller;
 use Ferus\StudentBundle\Entity\Student;
 
 /**
@@ -18,8 +19,6 @@ class AccountRepository extends EntityRepository
     public function queryAll()
     {
         return $this->createQueryBuilder('a')
-            ->select('a, s')
-            ->join('a.student', 's')
             ->getQuery();
     }
 
@@ -32,10 +31,32 @@ class AccountRepository extends EntityRepository
             ->getSingleResult();
     }
 
+    public function findOneById($id)
+    {
+        return $this->createQueryBuilder('a')
+            ->where('a.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getSingleResult();
+    }
+
+    public function findOneByBarcode($barcode)
+    {
+        if(preg_match('/^\d+$/', ''.$barcode))
+            return $this->findOneByStudentId($barcode);
+
+        return $this->createQueryBuilder('a')
+            ->where('IDENTITY(a.seller) = :barcode')
+            ->setParameter('barcode', substr($barcode, 1))
+            ->getQuery()
+            ->getSingleResult();
+    }
+
     public function querySearch($query)
     {
         $qb = $this->createQueryBuilder('a')
-            ->join('a.student', 's')
+            ->leftJoin('a.student', 's')
+            ->leftJoin('a.seller', 'se')
         ;
 
         $query = trim($query);
@@ -43,7 +64,7 @@ class AccountRepository extends EntityRepository
 
         foreach($words as $key => $word){
             $qb
-                ->andWhere("s.firstName LIKE :query$key OR s.lastName LIKE :query$key")
+                ->andWhere("s.firstName LIKE :query$key OR s.lastName LIKE :query$key OR se.name LIKE :query$key")
                 ->setParameter("query$key", "%$word%");
         }
 
@@ -61,17 +82,24 @@ class AccountRepository extends EntityRepository
     }
 
     /**
-     * @param Student $student
+     * @param Student|Seller $owner
      * @return Account|null
      */
-    public function findSoftDeleted(Student $student)
+    public function findSoftDeleted($owner)
     {
-        $query = $this->createQueryBuilder('a')
+        $qb = $this->createQueryBuilder('a')
             ->where('a.deletedAt IS NOT NULL')
-            ->andWhere('a.student = :student')
-            ->setParameter('student', $student)
-            ->getQuery()
         ;
+
+        if($owner instanceof Student)
+            $qb ->andWhere('a.student = :student')
+                ->setParameter('student', $owner);
+
+        if($owner instanceof Seller)
+            $qb ->andWhere('a.seller = :seller')
+                ->setParameter('seller', $owner);
+
+        $query = $qb->getQuery();
 
         try{
             return $query->getSingleResult();

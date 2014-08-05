@@ -39,8 +39,12 @@ class AdminController extends Controller
             $search = $request->query->get('search');
 
             // if search is an id we go directly to the view page
-            if(preg_match('/^[0-9]+$/', $search))
-                return $this->redirect($this->generateUrl('account_admin_view', array('student' => $search)));
+            if(preg_match('/^S?[0-9]+$/', $search))
+                return $this->redirect($this->generateUrl('account_admin_view', array(
+                    'id' => $this->em->getRepository('FerusAccountBundle:Account')
+                            ->findOneByBarcode($search)
+                            ->getId()
+                )));
 
             $query = $this->em
                 ->getRepository('FerusAccountBundle:Account')
@@ -80,7 +84,7 @@ class AdminController extends Controller
                 // We check that there is no softdeleted account for this student
                 $this->em->getFilters()->disable('softdeleteable');
                 $deleted = $this->em->getRepository('FerusAccountBundle:Account')
-                    ->findSoftDeleted($account->getStudent());
+                    ->findSoftDeleted($account->getOwner());
 
                 if($deleted !== null){
                     $deleted->setBalance($account->getBalance());
@@ -104,13 +108,13 @@ class AdminController extends Controller
     /**
      * @Template
      */
-    public function viewAction($student, Request $request)
+    public function viewAction($id, Request $request)
     {
         $this->em->getFilters()->disable('softdeleteable');
 
         try{
             $account = $this->em->getRepository('FerusAccountBundle:Account')
-                ->findOneByStudentId($student);
+                ->findOneById($id);
 
             if($account->getDeletedAt() !== null)
                 throw new NoResultException;

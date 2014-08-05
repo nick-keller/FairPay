@@ -42,7 +42,7 @@ class BarcodeType extends AbstractType
         ));
 
         $resolver->setAllowedValues(array(
-            'data' => array('account', 'student'),
+            'data' => array('account', 'owner'),
         ));
     }
 

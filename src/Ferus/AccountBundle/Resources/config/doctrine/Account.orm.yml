@@ -28,7 +28,14 @@ Ferus\AccountBundle\Entity\Account:
             targetEntity: Ferus\StudentBundle\Entity\Student
             inversedBy: account
             joinColumn:
-                nullable: false
+                nullable: true
+            fetch: EAGER
+
+        seller:
+            targetEntity: Ferus\SellerBundle\Entity\Seller
+            inversedBy: account
+            joinColumn:
+                nullable: true
             fetch: EAGER
 
     oneToMany:

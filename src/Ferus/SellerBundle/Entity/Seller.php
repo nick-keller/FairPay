@@ -3,6 +3,7 @@
 namespace Ferus\SellerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Ferus\AccountBundle\Entity\Account;
 
 /**
  * Seller
@@ -24,6 +25,16 @@ class Seller
      */
     private $apiKey;
 
+    /**
+     * @var Account
+     */
+    private $account;
+
+    public function __toString()
+    {
+        return $this->name;
+    }
+
 
     /**
      * Get id
@@ -33,6 +44,11 @@ class Seller
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getBarCode()
+    {
+        return 'S'.$this->id;
     }
 
     /**
@@ -79,5 +95,21 @@ class Seller
     public function getApiKey()
     {
         return $this->apiKey;
+    }
+
+    /**
+     * @param \Ferus\AccountBundle\Entity\Account $account
+     */
+    public function setAccount($account)
+    {
+        $this->account = $account;
+    }
+
+    /**
+     * @return \Ferus\AccountBundle\Entity\Account
+     */
+    public function getAccount()
+    {
+        return $this->account;
     }
 }

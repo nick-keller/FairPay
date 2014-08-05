@@ -7,9 +7,9 @@ account_admin_add:
     defaults: { _controller: FerusAccountBundle:Admin:add }
 
 account_admin_view:
-    pattern: /{student}
+    pattern: /{id}
     defaults: { _controller: FerusAccountBundle:Admin:view }
 
 account_admin_remove:
-    pattern: /{student}/remove
+    pattern: /{id}/remove
     defaults: { _controller: FerusAccountBundle:Admin:remove }

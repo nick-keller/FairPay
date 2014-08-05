@@ -15,9 +15,9 @@ class AccountType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('student', 'barcode', array(
+            ->add('owner', 'barcode', array(
                 'label' => 'Numéro',
-                'data' => 'student',
+                'data' => 'owner',
             ))
             ->add('balance', 'euro', array(
                 'label' => 'Solde de départ'
