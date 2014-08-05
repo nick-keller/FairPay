@@ -12,6 +12,7 @@
             <th>{{ knp_pagination_sortable(accounts, 'Prénom', 's.firstName') }}</th>
             <th>{{ knp_pagination_sortable(accounts, 'Nom', 's.lastName') }}</th>
             <th>Solde</th>
+            <th></th>
         </tr>
         {% for account in accounts %}
             <tr>
@@ -19,6 +20,11 @@
                 <td>{{ account.student.firstName }}</td>
                 <td>{{ account.student.lastName }}</td>
                 <td>€ {{ account.balance }}</td>
+                <td>
+                    <a href="{{ path('account_admin_view', {student:account.student.id}) }}" class="btn btn-default btn-xs">
+                        {{ icon('zoom-in') }} Détails
+                    </a>
+                </td>
             </tr>
         {% endfor %}
     </table>
