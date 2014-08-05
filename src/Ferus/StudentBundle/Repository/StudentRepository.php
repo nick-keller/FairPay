@@ -3,6 +3,8 @@
 namespace Ferus\StudentBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\NoResultException;
+use Ferus\StudentBundle\Entity\Student;
 
 /**
  * StudentRepository
@@ -12,6 +14,15 @@ use Doctrine\ORM\EntityRepository;
  */
 class StudentRepository extends EntityRepository
 {
+    public function findOneById($id)
+    {
+        return $this->createQueryBuilder('s')
+            ->where('s.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getSingleResult();
+    }
+
     public function queryAll()
     {
         return $this->createQueryBuilder('s')
@@ -51,5 +62,36 @@ class StudentRepository extends EntityRepository
         }
 
         return $qb->getQuery();
+    }
+
+    public function remove(Student $student)
+    {
+        $this->createQueryBuilder('s')
+            ->delete()
+            ->where('s = :student')
+            ->setParameter('student', $student)
+            ->getQuery()
+            ->execute();
+    }
+
+    /**
+     * @param Student $student
+     * @return Student|null
+     */
+    public function findSoftDeleted(Student $student)
+    {
+        $query = $this->createQueryBuilder('s')
+            ->where('s.deletedAt IS NOT NULL')
+            ->andWhere('s = :student')
+            ->setParameter('student', $student)
+            ->getQuery()
+        ;
+
+        try{
+            return $query->getSingleResult();
+        }
+        catch(NoResultException $e){
+            return null;
+        }
     }
 }

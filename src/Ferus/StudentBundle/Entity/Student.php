@@ -50,6 +50,11 @@ class Student
     private $login;
 
     /**
+     * @var \DateTime
+     */
+    private $deletedAt;
+
+    /**
      * @var Account
      */
     private $account;
@@ -174,6 +179,22 @@ class Student
     public function getLogin()
     {
         return $this->login;
+    }
+
+    /**
+     * @param \DateTime $deletedAt
+     */
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
     }
 
     /**

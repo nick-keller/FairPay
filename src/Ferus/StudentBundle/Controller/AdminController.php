@@ -61,6 +61,20 @@ class AdminController extends Controller
             $form->handleRequest($request);
 
             if($form->isValid()){
+
+                // We check that there is no softdeleted student for this id
+                $this->em->getFilters()->disable('softdeleteable');
+                $deleted = $this->em->getRepository('FerusStudentBundle:Student')
+                    ->findSoftDeleted($student);
+
+                if($deleted !== null){
+                    $deleted->setFirstName($student->getFirstName());
+                    $deleted->setLastName($student->getLastName());
+                    $deleted->setIsContributor($student->getIsContributor());
+                    $deleted->setDeletedAt(null);
+                    $student = $deleted;
+                }
+
                 $this->em->persist($student);
                 $this->em->flush();
 
@@ -107,9 +121,17 @@ class AdminController extends Controller
      */
     public function removeAction(Student $student, Request $request)
     {
-        if($request->isMethod('POST')){
-            $this->em->remove($student);
-            $this->em->flush();
+        if($request->isMethod('POST') && ($student->getAccount() === null || $student->getAccount()->getDeletedAt() !== null)){
+
+            $this->em->getFilters()->disable('softdeleteable');
+
+            if($this->em->getRepository('FerusAccountBundle:Account')->findSoftDeleted($student) !== null){
+                $this->em->remove($student);
+                $this->em->flush();
+            }
+            else{
+                $this->em->getRepository('FerusStudentBundle:Student')->remove($student);
+            }
 
             $this->flash->success('Eleve supprimé.');
 

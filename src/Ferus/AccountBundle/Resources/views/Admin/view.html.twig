@@ -13,6 +13,11 @@
         <ul class="list-group">
             <li class="list-group-item">{{ icon('barcode') }} {{ account.student.id }}</li>
             <li class="list-group-item">Solde : € {{ account.balance }}</li>
+            <li class="list-group-item">
+                <a class="btn btn-danger btn-xs" href="{{ path('account_admin_remove', {student:account.student.id}) }}">
+                    {{ icon('remove') }} Supprimer
+                </a>
+            </li>
         </ul>
     </div>
 

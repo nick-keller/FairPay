@@ -3,6 +3,7 @@
 namespace Ferus\AccountBundle\Controller;
 
 use Braincrafted\Bundle\BootstrapBundle\Session\FlashMessage;
+use Doctrine\ORM\NoResultException;
 use Ferus\AccountBundle\Entity\Account;
 use Ferus\AccountBundle\Form\AccountType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -103,9 +104,20 @@ class AdminController extends Controller
     /**
      * @Template
      */
-    public function viewAction(Account $account, Request $request)
+    public function viewAction($student, Request $request)
     {
         $this->em->getFilters()->disable('softdeleteable');
+
+        try{
+            $account = $this->em->getRepository('FerusAccountBundle:Account')
+                ->findOneByStudentId($student);
+
+            if($account->getDeletedAt() !== null)
+                throw new NoResultException;
+        }
+        catch(NoResultException $e){
+            throw $this->createNotFoundException();
+        }
 
         $transactions = $this->paginator->paginate(
             $this->em

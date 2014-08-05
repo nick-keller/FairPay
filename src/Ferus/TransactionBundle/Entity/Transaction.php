@@ -21,7 +21,7 @@ class Transaction
     /**
      * @var float
      * @Assert\NotBlank()
-     * @Assert\GreaterThanOrEqual(0)
+     * @Assert\GreaterThan(0)
      */
     private $amount;
 
