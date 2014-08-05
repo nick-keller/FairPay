@@ -30,4 +30,17 @@ class TransactionRepository extends EntityRepository
             ->orderBy('t.completedAt', 'DESC')
             ->getQuery();
     }
+
+    public function accountHasNoTransactions(Account $account)
+    {
+        $total = $this->createQueryBuilder('t')
+            ->select('COUNT(t)')
+            ->where('t.issuer = :account')
+            ->orWhere('t.receiver = :account')
+            ->setParameter('account', $account)
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        return $total == 0;
+    }
 }

@@ -21,9 +21,14 @@
                 <td>{{ account.student.lastName }}</td>
                 <td>€ {{ account.balance }}</td>
                 <td>
-                    <a href="{{ path('account_admin_view', {student:account.student.id}) }}" class="btn btn-default btn-xs">
-                        {{ icon('zoom-in') }} Détails
-                    </a>
+                    <div class="btn-group btn-group-xs">
+                        <a href="{{ path('account_admin_view', {student:account.student.id}) }}" class="btn btn-default">
+                            {{ icon('zoom-in') }} Détails
+                        </a>
+                        <a type="button" class="btn btn-default" href="{{ path('account_admin_remove', {student:account.student.id}) }}">
+                            {{ icon('remove') }}
+                        </a>
+                    </div>
                 </td>
             </tr>
         {% endfor %}

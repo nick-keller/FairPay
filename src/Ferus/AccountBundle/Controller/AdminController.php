@@ -75,6 +75,18 @@ class AdminController extends Controller
             $form->handleRequest($request);
 
             if($form->isValid()){
+
+                // We check that there is no softdeleted account for this student
+                $this->em->getFilters()->disable('softdeleteable');
+                $deleted = $this->em->getRepository('FerusAccountBundle:Account')
+                    ->findSoftDeleted($account->getStudent());
+
+                if($deleted !== null){
+                    $deleted->setBalance($account->getBalance());
+                    $deleted->setDeletedAt(null);
+                    $account = $deleted;
+                }
+
                 $this->em->persist($account);
                 $this->em->flush();
 
@@ -93,6 +105,8 @@ class AdminController extends Controller
      */
     public function viewAction(Account $account, Request $request)
     {
+        $this->em->getFilters()->disable('softdeleteable');
+
         $transactions = $this->paginator->paginate(
             $this->em
                 ->getRepository('FerusTransactionBundle:Transaction')
@@ -104,6 +118,33 @@ class AdminController extends Controller
         return array(
             'account' => $account,
             'transactions' => $transactions,
+        );
+    }
+
+    /**
+     * @Template
+     */
+    public function removeAction(Account $account, Request $request)
+    {
+        if($request->isMethod('POST') && $account->getBalance() == 0){
+
+            // If account has no transactions attached then we remove the fuck out of it... fo real
+            if($this->em->getRepository('FerusTransactionBundle:Transaction')->accountHasNoTransactions($account)){
+                $this->em->getRepository('FerusAccountBundle:Account')
+                    ->remove($account);
+            }
+            else{
+                $this->em->remove($account);
+                $this->em->flush();
+            }
+
+            $this->flash->success('Compte supprimé.');
+
+            return $this->redirect($this->generateUrl('account_admin_index'));
+        }
+
+        return array(
+            'account' => $account,
         );
     }
 }

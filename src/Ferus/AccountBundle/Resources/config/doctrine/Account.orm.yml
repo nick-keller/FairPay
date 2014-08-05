@@ -2,6 +2,10 @@ Ferus\AccountBundle\Entity\Account:
     type: entity
     table: ferus_account
     repositoryClass: Ferus\AccountBundle\Repository\AccountRepository
+    gedmo:
+        soft_deleteable:
+            field_name: deletedAt
+            time_aware: false
     id:
         id:
             type: integer
@@ -13,6 +17,11 @@ Ferus\AccountBundle\Entity\Account:
             type: decimal
             nullable: false
             scale: 2
+
+        deletedAt:
+            column: deleted_at
+            type: date
+            nullable: true
 
     oneToOne:
         student:

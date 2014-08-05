@@ -1,0 +1,34 @@
+{% extends '@FerusAccount/Admin/layout.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li>{{ account.student.id }}</li>
+    <li class="active">Supprimer</li>
+{% endblock %}
+
+{% block content %}
+    {% if account.balance != 0 %}
+        <div class="alert alert-danger" role="alert">
+            <h2>Impossible !</h2>
+            <p>Vous ne pouvez pas supprimer le compte de <b>{{ account.student }}</b> car son solde n'est pas nul.</p>
+            <form method="post" style="margin-top: 10px">
+                <a class="btn btn-default" href="{{ path('account_admin_index') }}">
+                    Annuler
+                </a>
+            </form>
+        </div>
+    {% else %}
+        <div class="alert alert-warning" role="alert">
+            <h2>Attention !</h2>
+            <p>Vous êtes sur le point de supprimer définitivement le compte de <b>{{ account.student }}</b>. Voulez vous continuer ?</p>
+            <form method="post" style="margin-top: 10px">
+                <button type="submit" class="btn btn-danger">
+                    {{ icon('remove') }} Supprimer le compte de {{ account.student }}
+                </button>
+                <a class="btn btn-default" href="{{ path('account_admin_index') }}">
+                    Annuler
+                </a>
+            </form>
+        </div>
+    {% endif %}
+{% endblock %}

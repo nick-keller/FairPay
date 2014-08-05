@@ -36,6 +36,7 @@ class AdminController extends Controller
      */
     public function indexAction()
     {
+        $this->em->getFilters()->disable('softdeleteable');
         $transactions = $this->em->getRepository('FerusTransactionBundle:Transaction')->findLast(50);
 
         return array(

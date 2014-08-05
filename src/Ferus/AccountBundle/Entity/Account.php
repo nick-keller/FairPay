@@ -30,6 +30,11 @@ class Account
     private $balance;
 
     /**
+     * @var \DateTime
+     */
+    private $deletedAt;
+
+    /**
      * @var Student
      */
     private $student;
@@ -91,6 +96,22 @@ class Account
     public function getBalance()
     {
         return $this->balance;
+    }
+
+    /**
+     * @param \DateTime $deletedAt
+     */
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
     }
 
     /**

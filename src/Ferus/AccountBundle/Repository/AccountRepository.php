@@ -3,6 +3,9 @@
 namespace Ferus\AccountBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\NoResultException;
+use Ferus\AccountBundle\Entity\Account;
+use Ferus\StudentBundle\Entity\Student;
 
 /**
  * AccountRepository
@@ -45,5 +48,36 @@ class AccountRepository extends EntityRepository
         }
 
         return $qb->getQuery();
+    }
+
+    public function remove(Account $account)
+    {
+        $this->createQueryBuilder('a')
+            ->delete()
+            ->where('a = :account')
+            ->setParameter('account', $account)
+            ->getQuery()
+            ->execute();
+    }
+
+    /**
+     * @param Student $student
+     * @return Account|null
+     */
+    public function findSoftDeleted(Student $student)
+    {
+        $query = $this->createQueryBuilder('a')
+            ->where('a.deletedAt IS NOT NULL')
+            ->andWhere('a.student = :student')
+            ->setParameter('student', $student)
+            ->getQuery()
+        ;
+
+        try{
+            return $query->getSingleResult();
+        }
+        catch(NoResultException $e){
+            return null;
+        }
     }
 }
