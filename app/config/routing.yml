@@ -1,3 +1,7 @@
+ferus_seller_bundle:
+    resource: "@FerusSellerBundle/Resources/config/routing.yml"
+    prefix:   /
+
 ferus_transaction_bundle:
     resource: "@FerusTransactionBundle/Resources/config/routing.yml"
     prefix:   /

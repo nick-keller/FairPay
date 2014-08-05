@@ -1,0 +1,23 @@
+Ferus\SellerBundle\Entity\Seller:
+    type: entity
+    table: null
+    repositoryClass: Ferus\SellerBundle\Repository\SellerRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '50'
+            nullable: false
+            unique: true
+
+        apiKey:
+            type: string
+            length: 255
+            unique: true
+            
+    lifecycleCallbacks: {  }
