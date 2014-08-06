@@ -1,5 +1,51 @@
 {% extends '::base.html.twig' %}
 
+{% block navbar %}
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container">
+
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ path('ferus_admin_index') }}">FairPay Admin</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="{{ path('student_admin_index') }}">Etudiants</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('seller_admin_index') }}">Marchands</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('account_admin_index') }}">Comptes bancaires</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('transaction_admin_index') }}">Transactions</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ app.user }} <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{{ path('fos_user_security_logout') }}">Déconexion</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+{% endblock %}
+
 {% block body %}
     <ol class="breadcrumb">
         {% block breadcrumb %}

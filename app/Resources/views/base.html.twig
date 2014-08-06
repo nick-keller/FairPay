@@ -18,10 +18,11 @@
 
 <body>
 
+{% block navbar %}{% endblock %}
+
 <div class="container">
     {% include 'BraincraftedBootstrapBundle::flash.html.twig' with { 'close': true } %}
-    {% block body %}
-    {% endblock %}
+    {% block body %}{% endblock %}
 </div>
 
 {% block javascripts %}
