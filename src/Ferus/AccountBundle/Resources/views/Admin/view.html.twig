@@ -14,9 +14,14 @@
             <li class="list-group-item">{{ icon('barcode') }} {{ account.owner.barcode }}</li>
             <li class="list-group-item">Solde : € {{ account.balance }}</li>
             <li class="list-group-item">
-                <a class="btn btn-danger btn-xs" href="{{ path('account_admin_remove', {id:account.id}) }}">
-                    {{ icon('remove') }} Supprimer
-                </a>
+                <div class="btn-group btn-group-xs">
+                    <a class="btn btn-primary" href="{{ path('transaction_admin_deposit', {account:account.id}) }}">
+                        {{ icon('import') }} Dépot
+                    </a>
+                    <a class="btn btn-danger" href="{{ path('account_admin_remove', {id:account.id}) }}">
+                        {{ icon('remove') }} Supprimer
+                    </a>
+                </div>
             </li>
         </ul>
     </div>

@@ -2,7 +2,7 @@
 
 {% block breadcrumb %}
     {{ parent() }}
-    <li>{{ account.owner.barcode }}</li>
+    <li><a href="{{ path('account_admin_view', {id:account.id}) }}">{{ account.owner.barcode }}</a></li>
     <li class="active">Supprimer</li>
 {% endblock %}
 

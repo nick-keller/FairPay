@@ -34,9 +34,9 @@
             <td>{{ transaction.cause }}</td>
             <td>
                 {% if transaction.issuer is not null and transaction.issuer.id == account.id %}
-                    <span class="text-danger">€ +{{ transaction.amount }}</span>
+                    <span class="text-danger">€ -{{ transaction.amount }}</span>
                 {% else %}
-                    <span class="text-success">€ -{{ transaction.amount }}</span>
+                    <span class="text-success">€ +{{ transaction.amount }}</span>
                 {% endif %}
             </td>
             <td>{{ transaction.completedAt|date('d/m/Y à H:i') }}</td>

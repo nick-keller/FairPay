@@ -14,7 +14,13 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Account
  * @UniqueEntity(
  *      fields="student",
- *      message="Cet étudiant a déjà un compte."
+ *      message="Cet étudiant a déjà un compte.",
+ *      errorPath="owner"
+ * )
+ * @UniqueEntity(
+ *      fields="seller",
+ *      message="Ce marchand a déjà un compte.",
+ *      errorPath="owner"
  * )
  */
 class Account
