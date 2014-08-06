@@ -109,7 +109,7 @@ braincrafted_bootstrap:
 jms_di_extra:
     locations:
         all_bundles: false
-        bundles: [FerusStudentBundle, FerusAccountBundle]
+        bundles: [FerusStudentBundle, FerusAccountBundle, FerusSellerBundle, FerusTransactionBundle]
         directories: ["%kernel.root_dir%/../src"]
     automatic_controller_injections:
         properties:

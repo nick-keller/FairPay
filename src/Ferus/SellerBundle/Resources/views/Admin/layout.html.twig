@@ -1,0 +1,17 @@
+{% extends '::admin.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li><a href="{{ path('seller_admin_index') }}">Marchands</a></li>
+{% endblock %}
+
+{% block actions %}
+    <div class="btn-group btn-group-sm">
+        <a class="btn btn-default" href="{{ path('seller_admin_index') }}">
+            {{ icon('th-list') }} Liste
+        </a>
+        <a class="btn btn-success" href="{{ path('seller_admin_add') }}">
+            {{ icon('plus') }} Ajouter
+        </a>
+    </div>
+{% endblock %}

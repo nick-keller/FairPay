@@ -3,6 +3,8 @@
 namespace Ferus\SellerBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\NoResultException;
+use Ferus\SellerBundle\Entity\Seller;
 
 /**
  * SellerRepository
@@ -19,5 +21,42 @@ class SellerRepository extends EntityRepository
             ->setParameter('barcode', substr($barcode, 1))
             ->getQuery()
             ->getSingleResult();
+    }
+
+    public function queryAll()
+    {
+        return $this->createQueryBuilder('se')
+            ->getQuery();
+    }
+
+    /**
+     * @param Seller $seller
+     * @return Seller|null
+     */
+    public function findSoftDeleted(Seller $seller)
+    {
+        $query = $this->createQueryBuilder('se')
+            ->where('se.deletedAt IS NOT NULL')
+            ->andWhere('se.name LIKE :name')
+            ->setParameter('name', $seller->getName())
+            ->getQuery()
+        ;
+
+        try{
+            return $query->getSingleResult();
+        }
+        catch(NoResultException $e){
+            return null;
+        }
+    }
+
+    public function remove(Seller $seller)
+    {
+        $this->createQueryBuilder('se')
+            ->delete()
+            ->where('se = :seller')
+            ->setParameter('seller', $seller)
+            ->getQuery()
+            ->execute();
     }
 }

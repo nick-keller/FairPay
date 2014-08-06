@@ -1,0 +1,33 @@
+{% extends '@FerusSeller/Admin/layout.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li class="active">Tous les marchands</li>
+{% endblock %}
+
+{% block content %}
+    <table class="table table-striped table-hover">
+        <tr>
+            <th>{{ knp_pagination_sortable(sellers, '#', 'se.id') }}</th>
+            <th>{{ knp_pagination_sortable(sellers, 'Nom', 'se.name') }}</th>
+            <th>Email</th>
+            <th>API key</th>
+            <th></th>
+        </tr>
+        {% for seller in sellers %}
+            <tr>
+                <td>{{ seller.barcode }}</td>
+                <td>{{ seller.name }}</td>
+                <td>{{ seller.email }}</td>
+                <td>{{ seller.apiKey }}</td>
+                <td>
+                    <div class="btn-group btn-group-xs">
+                        <a type="button" class="btn btn-default" href="{{ path('seller_admin_edit', {id:seller.id}) }}">{{ icon('pencil') }} Editer</a>
+                        <a type="button" class="btn btn-default" href="{{ path('seller_admin_remove', {id:seller.id}) }}">{{ icon('remove') }}</a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {{ knp_pagination_render(sellers) }}
+{% endblock %}

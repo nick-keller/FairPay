@@ -2,6 +2,10 @@ Ferus\SellerBundle\Entity\Seller:
     type: entity
     table: ferus_seller
     repositoryClass: Ferus\SellerBundle\Repository\SellerRepository
+    gedmo:
+        soft_deleteable:
+            field_name: deletedAt
+            time_aware: false
     id:
         id:
             type: integer
@@ -15,14 +19,25 @@ Ferus\SellerBundle\Entity\Seller:
             nullable: false
             unique: true
 
+        email:
+            type: string
+            length: 100
+            nullable: false
+
         apiKey:
             type: string
             length: 255
             unique: true
+
+        deletedAt:
+            column: deleted_at
+            type: date
+            nullable: true
 
     oneToOne:
         account:
             targetEntity: Ferus\AccountBundle\Entity\Account
             mappedBy: seller
 
-    lifecycleCallbacks: {  }
+    lifecycleCallbacks:
+        prePersist: [ generateApiKey ]

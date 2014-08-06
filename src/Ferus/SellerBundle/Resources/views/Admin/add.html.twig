@@ -1,0 +1,11 @@
+{% extends '@FerusSeller/Admin/layout.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li class="active">Ajouter</li>
+{% endblock %}
+
+{% block content %}
+    <h2>Nouveau marchand</h2>
+    {{ form(form, { 'style': 'horizontal' }) }}
+{% endblock %}

@@ -4,6 +4,7 @@ namespace Ferus\SellerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Ferus\AccountBundle\Entity\Account;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Seller
@@ -17,13 +18,26 @@ class Seller
 
     /**
      * @var string
+     * @Assert\NotBlank()
      */
     private $name;
 
     /**
      * @var string
+     * @Assert\NotBlank()
+     * @Assert\Email()
+     */
+    private $email;
+
+    /**
+     * @var string
      */
     private $apiKey;
+
+    /**
+     * @var \DateTime
+     */
+    private $deletedAt;
 
     /**
      * @var Account
@@ -75,6 +89,22 @@ class Seller
     }
 
     /**
+     * @param string $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
      * Set apiKey
      *
      * @param string $apiKey
@@ -98,6 +128,22 @@ class Seller
     }
 
     /**
+     * @param \DateTime $deletedAt
+     */
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
+    }
+
+    /**
      * @param \Ferus\AccountBundle\Entity\Account $account
      */
     public function setAccount($account)
@@ -111,5 +157,10 @@ class Seller
     public function getAccount()
     {
         return $this->account;
+    }
+
+    public function generateApiKey()
+    {
+        $this->apiKey = uniqid('api_');
     }
 }

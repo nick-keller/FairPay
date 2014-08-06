@@ -1,0 +1,15 @@
+seller_admin_index:
+    pattern: /
+    defaults: { _controller: FerusSellerBundle:Admin:index }
+
+seller_admin_add:
+    pattern: /add
+    defaults: { _controller: FerusSellerBundle:Admin:add }
+
+seller_admin_edit:
+    pattern: /{id}/edit
+    defaults: { _controller: FerusSellerBundle:Admin:edit }
+
+seller_admin_remove:
+    pattern: /{id}/remove
+    defaults: { _controller: FerusSellerBundle:Admin:remove }
