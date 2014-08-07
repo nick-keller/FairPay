@@ -207,7 +207,7 @@ class Transaction
             if($this->issuer->getBalance() < $this->getAmount()){
                 $context->addViolationAt(
                     'amount',
-                    'Le solde de '.$this->issuer->getStudent().' est insufisant',
+                    'Le solde de '.$this->issuer->getOwner().' est insufisant',
                     array(),
                     null
                 );

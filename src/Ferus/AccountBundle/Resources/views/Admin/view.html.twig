@@ -18,6 +18,9 @@
                     <a class="btn btn-primary" href="{{ path('transaction_admin_deposit', {account:account.id}) }}">
                         {{ icon('import') }} Dépot
                     </a>
+                    <a class="btn btn-warning" href="{{ path('transaction_admin_withdrawal', {account:account.id}) }}">
+                        {{ icon('export') }} Retrait
+                    </a>
                     <a class="btn btn-danger" href="{{ path('account_admin_remove', {id:account.id}) }}">
                         {{ icon('remove') }} Supprimer
                     </a>

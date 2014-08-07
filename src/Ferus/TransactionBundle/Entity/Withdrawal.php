@@ -3,10 +3,12 @@
 
 namespace Ferus\TransactionBundle\Entity;
 
+
 use Ferus\AccountBundle\Entity\Account;
+use Symfony\Component\Validator\ExecutionContextInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class Deposit 
+class Withdrawal
 {
     /**
      * @var Account
@@ -22,15 +24,15 @@ class Deposit
     private $amount;
 
     /**
-     * @param Account|null $account
+     * @param \Ferus\AccountBundle\Entity\Account $account
      */
-    public function setAccount(Account $account = null)
+    public function setAccount($account)
     {
         $this->account = $account;
     }
 
     /**
-     * @return Account
+     * @return \Ferus\AccountBundle\Entity\Account
      */
     public function getAccount()
     {
@@ -51,5 +53,23 @@ class Deposit
     public function getAmount()
     {
         return $this->amount;
+    }
+
+    /**
+     * @Assert\Callback
+     */
+    public function validate(ExecutionContextInterface $context)
+    {
+        if($this->account instanceof Account){
+
+            if($this->account->getBalance() < $this->getAmount()){
+                $context->addViolationAt(
+                    'amount',
+                    'Le solde de '.$this->account->getOwner().' est insufisant',
+                    array(),
+                    null
+                );
+            }
+        }
     }
 } 

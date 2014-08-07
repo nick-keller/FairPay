@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManager;
 use Ferus\SellerBundle\Entity\Api\Cash;
 use Ferus\TransactionBundle\Entity\Deposit;
 use Ferus\TransactionBundle\Entity\Transaction;
+use Ferus\TransactionBundle\Entity\Withdrawal;
 use Ferus\TransactionBundle\Transaction\Exception\InsufficientBalanceException;
 
 class TransactionCore
@@ -45,6 +46,23 @@ class TransactionCore
 
         $receiver = $deposit->getAccount();
         $receiver->setBalance($receiver->getBalance() + $deposit->getAmount());
+
+        $this->em->persist($transaction);
+        $this->em->flush();
+    }
+
+    public function withdrawal(Withdrawal $withdrawal)
+    {
+        $transaction = new Transaction;
+        $transaction->setIssuer($withdrawal->getAccount());
+        $transaction->setAmount($withdrawal->getAmount());
+        $transaction->setCause('Retrait au BDE');
+
+        $issuer = $withdrawal->getAccount();
+        $issuer->setBalance($issuer->getBalance() - $withdrawal->getAmount());
+
+        if($issuer->getBalance() < 0)
+            throw new InsufficientBalanceException;
 
         $this->em->persist($transaction);
         $this->em->flush();

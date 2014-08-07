@@ -9,3 +9,7 @@ transaction_admin_new:
 transaction_admin_deposit:
     pattern: /deposit
     defaults: { _controller: FerusTransactionBundle:Admin:deposit }
+
+transaction_admin_withdrawal:
+    pattern: /withdrawal
+    defaults: { _controller: FerusTransactionBundle:Admin:withdrawal }

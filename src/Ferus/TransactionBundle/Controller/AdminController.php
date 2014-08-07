@@ -4,8 +4,10 @@ namespace Ferus\TransactionBundle\Controller;
 
 use Ferus\TransactionBundle\Entity\Deposit;
 use Ferus\TransactionBundle\Entity\Transaction;
+use Ferus\TransactionBundle\Entity\Withdrawal;
 use Ferus\TransactionBundle\Form\DepositType;
 use Ferus\TransactionBundle\Form\TransactionType;
+use Ferus\TransactionBundle\Form\WithdrawalType;
 use Ferus\TransactionBundle\Transaction\Exception\InsufficientBalanceException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\ORM\EntityManager;
@@ -87,6 +89,33 @@ class AdminController extends Controller
                 $transactionCore->deposit($deposit);
 
                 $this->flash->success('Dépot effectuée.');
+
+                return $this->redirect($this->generateUrl('transaction_admin_index'));
+            }
+        }
+
+        return array(
+            'form' => $form->createView(),
+        );
+    }
+
+    /**
+     * @Template
+     */
+    public function withdrawalAction(Request $request)
+    {
+        $withdrawal = new Withdrawal;
+        $form = $this->createForm(new WithdrawalType, $withdrawal);
+
+        if($request->isMethod('POST')){
+            $form->handleRequest($request);
+
+            if($form->isValid()){
+
+                $transactionCore = $this->get('ferus_transaction.transaction_core');
+                $transactionCore->withdrawal($withdrawal);
+
+                $this->flash->success('Retrait effectuée.');
 
                 return $this->redirect($this->generateUrl('transaction_admin_index'));
             }
