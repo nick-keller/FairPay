@@ -1,3 +1,8 @@
 ferus_seller_bundle_admin:
     resource: routing/admin.yml
     prefix: /admin/sellers
+
+ferus_seller_bundle_api:
+    type : rest
+    resource : "routing/api.yml"
+    prefix : /api

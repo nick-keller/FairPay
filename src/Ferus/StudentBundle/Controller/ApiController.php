@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations\Get;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class ApiController extends Controller
 {
@@ -37,23 +38,11 @@ class ApiController extends Controller
 
         $students = $this->em->getRepository('FerusStudentBundle:Student')->search($query);
 
-        if(count($students) == 0){
-            return array(
-                'error' => array(
-                    'message' => 'Aucun résultat pour cette requête.',
-                    'code' => 404
-                )
-            );
-        }
+        if(count($students) == 0)
+            throw new HttpException(404, 'Aucun résultat pour cette requête.');
 
-        if(count($students) != 1){
-            return array(
-                'error' => array(
-                    'message' => 'Cette requête ne correspond pas à un résultat unique.',
-                    'code' => 400
-                )
-            );
-        }
+        if(count($students) != 1)
+            throw new HttpException(400, 'Cette requête ne correspond pas à un résultat unique.');
 
         return $students[0];
     }

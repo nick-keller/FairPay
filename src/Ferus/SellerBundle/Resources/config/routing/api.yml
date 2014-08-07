@@ -1,0 +1,4 @@
+seller_api:
+    type:           rest
+    resource:       "FerusSellerBundle:Api"
+    name_prefix:    api_

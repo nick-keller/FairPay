@@ -2,6 +2,8 @@ parameters:
 #    ferus_seller.example.class: Ferus\SellerBundle\Example
 
 services:
-#    ferus_seller.example:
-#        class: %ferus_seller.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    ferus_seller.form.type.api_key:
+        class: Ferus\SellerBundle\Form\Type\ApiKeyType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type, alias: api_key }

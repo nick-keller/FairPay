@@ -4,6 +4,7 @@ namespace Ferus\TransactionBundle\Transaction;
 
 
 use Doctrine\ORM\EntityManager;
+use Ferus\SellerBundle\Entity\Api\Cash;
 use Ferus\TransactionBundle\Entity\Deposit;
 use Ferus\TransactionBundle\Entity\Transaction;
 use Ferus\TransactionBundle\Transaction\Exception\InsufficientBalanceException;
@@ -47,5 +48,16 @@ class TransactionCore
 
         $this->em->persist($transaction);
         $this->em->flush();
+    }
+
+    public function cash(Cash $cash)
+    {
+        $transaction = new Transaction;
+        $transaction->setIssuer($cash->client_id->getAccount());
+        $transaction->setReceiver($cash->api_key->getAccount());
+        $transaction->setAmount($cash->amount);
+        $transaction->setCause($cash->cause);
+
+        $this->execute($transaction);
     }
 } 

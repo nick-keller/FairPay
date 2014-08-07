@@ -108,4 +108,18 @@ class AccountRepository extends EntityRepository
             return null;
         }
     }
+
+    /**
+     * @param $apiKey
+     * @return Account
+     */
+    public function findOneBySellerApiKey($apiKey)
+    {
+        return $this->createQueryBuilder('a')
+            ->join('a.seller', 'se')
+            ->where('se.apiKey = :apiKey')
+            ->setParameter('apiKey', $apiKey)
+            ->getQuery()
+            ->getSingleResult();
+    }
 }

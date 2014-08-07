@@ -21,6 +21,7 @@ class BarcodeTransformer implements DataTransformerInterface
 
     /**
      * @param ObjectManager $om
+     * @param $data
      */
     public function __construct(ObjectManager $om, $data)
     {

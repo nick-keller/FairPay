@@ -32,6 +32,7 @@ sensio_framework_extra:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    exception_controller: 'FOS\RestBundle\Controller\ExceptionController::showAction'
 
 # Assetic Configuration
 assetic:
@@ -138,6 +139,7 @@ nelmio_api_doc:
             formats: []
 
         request_format:
+            method: accept_header
             formats:
                 json: application/json
 
