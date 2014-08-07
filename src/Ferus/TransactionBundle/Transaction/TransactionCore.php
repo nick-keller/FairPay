@@ -60,4 +60,15 @@ class TransactionCore
 
         $this->execute($transaction);
     }
+
+    public function sellerDeposit(\Ferus\SellerBundle\Entity\Api\Deposit $deposit)
+    {
+        $transaction = new Transaction;
+        $transaction->setIssuer($deposit->api_key->getAccount());
+        $transaction->setReceiver($deposit->client_id->getAccount());
+        $transaction->setAmount($deposit->amount);
+        $transaction->setCause($deposit->cause);
+
+        $this->execute($transaction);
+    }
 } 

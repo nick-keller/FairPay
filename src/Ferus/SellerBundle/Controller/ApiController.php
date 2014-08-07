@@ -5,7 +5,9 @@ namespace Ferus\SellerBundle\Controller;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\NoResultException;
 use Ferus\SellerBundle\Entity\Api\Cash;
+use Ferus\SellerBundle\Entity\Api\Deposit;
 use Ferus\SellerBundle\Form\CashType;
+use Ferus\SellerBundle\Form\DepositType;
 use Ferus\TransactionBundle\Entity\Transaction;
 use Ferus\TransactionBundle\Form\TransactionType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -105,6 +107,17 @@ class ApiController extends Controller
      */
     public function depositAction(Request $request)
     {
+        $deposit = new Deposit;
+        $form = $this->createForm(new DepositType, $deposit);
+        $form->handleRequest($request);
 
+        if($form->isValid()){
+            $transaction = $this->get('ferus_transaction.transaction_core');
+            $transaction->sellerDeposit($deposit);
+
+            throw new HttpException(200, 'Dépot effectuée.');
+        }
+
+        return $form;
     }
 } 
