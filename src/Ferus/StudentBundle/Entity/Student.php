@@ -6,11 +6,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Ferus\AccountBundle\Entity\Account;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 
 /**
  * Student
  *
  * @UniqueEntity("id")
+ * @ExclusionPolicy("all")
  */
 class Student
 {
@@ -18,24 +21,28 @@ class Student
      * @var integer
      * @Assert\NotBlank()
      * @Assert\Type(type="integer")
+     * @Expose
      */
     private $id;
 
     /**
      * @var string
      * @Assert\NotBlank()
+     * @Expose
      */
     private $firstName;
 
     /**
      * @var string
      * @Assert\NotBlank()
+     * @Expose
      */
     private $lastName;
 
     /**
      * @var boolean
      * @Assert\NotBlank()
+     * @Expose
      */
     private $isContributor;
 

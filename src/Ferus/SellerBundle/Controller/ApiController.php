@@ -28,7 +28,7 @@ class ApiController extends Controller
      * Effectu une transaction du compte client (identifié par <i>client_id</i>) vers le compte marchand (identifié par <i>api_key</i>).
      *
      * @ApiDoc(
-     *      section="Paiement",
+     *      section="Marchands",
      *      requirements={
      *          {
      *              "name"="api_key",
@@ -82,7 +82,7 @@ class ApiController extends Controller
      * et permet aux marchand de faire sortir du cash sans passer par le BDE.
      *
      * @ApiDoc(
-     *      section="Paiement",
+     *      section="Marchands",
      *      requirements={
      *          {
      *              "name"="api_key",
@@ -101,7 +101,7 @@ class ApiController extends Controller
      *              "description"="Montant de la transaction"
      *          }
      *      },
-     *      description="Encaisser un paiement"
+     *      description="Effectuer un dépot chez le marchand"
      * )
      * @Post()
      */
@@ -119,5 +119,39 @@ class ApiController extends Controller
         }
 
         return $form;
+    }
+
+    /**
+     *
+     * @ApiDoc(
+     *      section="Marchands",
+     *      requirements={
+     *          {
+     *              "name"="api_key",
+     *              "dataType"="string",
+     *              "requirement"="api_\d+",
+     *              "description"="Votre clef privée"
+     *          }
+     *      },
+     *      description="Obtenir le solde"
+     * )
+     */
+    public function getBalanceAction(Request $request)
+    {
+        if(!$request->query->has('api_key'))
+            throw new HttpException(400, 'Clef privée non valide.');
+
+        try{
+            $account = $this->em->getRepository('FerusAccountBundle:Account')
+                ->findOneBySellerApiKey($request->query->get('api_key'));
+        }
+        catch(NoResultException $e){
+            throw new HttpException(400, 'Clef privée non valide.');
+        }
+
+        return array(
+            'code' => 200,
+            'balance' => $account->getBalance(),
+        );
     }
 } 
