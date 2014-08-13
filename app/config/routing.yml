@@ -14,6 +14,12 @@ ferus_student_bundle:
     resource: "@FerusStudentBundle/Resources/config/routing.yml"
     prefix: /
 
+ferus_index:
+    path: /
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template: '::homepage.html.twig'
+
 ferus_admin_index:
     path: /admin
     defaults:

@@ -1,0 +1,5 @@
+{% if is_granted('ROLE_USER') %}
+    {% include '::homepage-logedin.html.twig' %}
+{% else %}
+    {% include '::homepage-logedout.html.twig' %}
+{% endif %}

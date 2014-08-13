@@ -11,23 +11,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ path('ferus_admin_index') }}">FairPay Admin</a>
+                <a class="navbar-brand" href="{{ path('ferus_index') }}">FairPay</a>
             </div>
 
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="nav navbar-nav">
-                    <li>
-                        <a href="{{ path('student_admin_index') }}">Etudiants</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('seller_admin_index') }}">Marchands</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('account_admin_index') }}">Comptes bancaires</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('transaction_admin_index') }}">Transactions</a>
-                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
@@ -39,8 +27,8 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ path('ferus_index') }}">
-                                    {{ icon('log-out') }} Sortir administration
+                                <a href="{{ path('ferus_admin_index') }}">
+                                    {{ icon('asterisk') }} Administration
                                 </a>
                             </li>
                             <li class="divider"></li>
@@ -55,26 +43,4 @@
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
-{% endblock %}
-
-{% block body %}
-    <ol class="breadcrumb">
-        {% block breadcrumb %}
-            <li><a href="{{ path('ferus_admin_index') }}">{{ icon('home') }}</a></li>
-        {% endblock %}
-    </ol>
-
-    <div style="margin-bottom: 15px">
-        {% block actions %}
-        {% endblock %}
-    </div>
-
-    {% block content %}
-        <div class="list-group">
-            <a href="{{ path('student_admin_index') }}" class="list-group-item">Etudiants</a>
-            <a href="{{ path('seller_admin_index') }}" class="list-group-item">Marchands</a>
-            <a href="{{ path('account_admin_index') }}" class="list-group-item">Comptes bancaires</a>
-            <a href="{{ path('transaction_admin_index') }}" class="list-group-item">Transactions</a>
-        </div>
-    {% endblock %}
 {% endblock %}
