@@ -1,0 +1,27 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/signin.css') }}" rel="stylesheet" media="screen">
+{% endblock %}
+
+{% block body %}
+    <form class="form-signin" action="{{ path("fos_user_security_check") }}" method="post" role="form">
+        <h2 class="form-signin-heading">Connexion</h2>
+        {% if error %}
+            <div class="text-danger">Login ou mot de passe incorect</div>
+        {% endif %}
+        <input type="hidden" name="_csrf_token" value="{{ fos_csrf_provider.generateCsrfToken('authenticate') }}" />
+        <label class="sr-only" for="username">Login</label>
+        <input type="text" id="username" name="_username" class="form-control" placeholder="Login" required autofocus>
+        <label class="sr-only" for="password">Mot de passe</label>
+        <input type="password" id="password" name="_password" class="form-control" placeholder="Mot de passe" required>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" id="remember_me" name="_remember_me" value="on"> Connexion automatique
+            </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Se connecter</button>
+        <a href="{{ path('fos_user_resetting_request') }}">Mot de passe oublié</a>
+    </form>
+{% endblock %}
