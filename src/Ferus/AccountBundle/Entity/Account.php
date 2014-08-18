@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Ferus\SellerBundle\Entity\Seller;
 use Ferus\StudentBundle\Entity\Student;
 use Ferus\TransactionBundle\Entity\Transaction;
+use Ferus\UserBundle\Entity\User;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -50,6 +51,11 @@ class Account
      * @var Seller
      */
     private $seller;
+
+    /**
+     * @var User
+     */
+    private $user;
     
     /**
      * @var ArrayCollection
@@ -185,6 +191,22 @@ class Account
             return $this->seller;
 
         return null;
+    }
+
+    /**
+     * @param \Ferus\UserBundle\Entity\User $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * @return \Ferus\UserBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 
 

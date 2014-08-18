@@ -38,6 +38,10 @@ Ferus\AccountBundle\Entity\Account:
                 nullable: true
             fetch: EAGER
 
+        user:
+            targetEntity: Ferus\UserBundle\Entity\User
+            mappedBy: account
+
     oneToMany:
         issuedTransactions:
             targetEntity: Ferus\TransactionBundle\Entity\Transaction

@@ -7,3 +7,8 @@ Ferus\UserBundle\Entity\User:
             id: true
             generator:
                 strategy: AUTO
+
+    oneToOne:
+        account:
+            targetEntity: Ferus\AccountBundle\Entity\Account
+            inversedBy: user

@@ -6,6 +6,7 @@ use Braincrafted\Bundle\BootstrapBundle\Session\FlashMessage;
 use Doctrine\ORM\NoResultException;
 use Ferus\AccountBundle\Entity\Account;
 use Ferus\AccountBundle\Form\AccountType;
+use Ferus\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\ORM\EntityManager;
 use Knp\Component\Pager\Paginator;
@@ -95,6 +96,18 @@ class AdminController extends Controller
                 $this->em->persist($account);
                 $this->em->flush();
 
+                // Now that the accont is created we create a user for it
+                $user = $this->get('fos_user.user_manager')->createUser();
+                $password = 'aaa';
+                $user->setEmail($account->getOwner()->getEmail());
+                $user->setUsername($account->getOwner());
+                $user->setPlainPassword($password);
+                $user->setAccount($account);
+                $user->setEnabled(true);
+
+                $this->em->persist($user);
+                $this->em->flush();
+
                 $this->flash->success('Compte créé.');
                 return $this->redirect($this->generateUrl('account_admin_index'));
             }
@@ -143,6 +156,9 @@ class AdminController extends Controller
     public function removeAction(Account $account, Request $request)
     {
         if($request->isMethod('POST') && $account->getBalance() == 0){
+
+            $this->em->remove($account->getUser());
+            $this->em->flush();
 
             // If account has no transactions attached then we remove the fuck out of it... fo real
             if($this->em->getRepository('FerusTransactionBundle:Transaction')->accountHasNoTransactions($account)){

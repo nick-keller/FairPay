@@ -26,11 +26,13 @@
                                     {{ icon('lock') }} Changer mon mot de passe
                                 </a>
                             </li>
-                            <li>
-                                <a href="{{ path('ferus_admin_index') }}">
-                                    {{ icon('asterisk') }} Administration
-                                </a>
-                            </li>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li>
+                                    <a href="{{ path('ferus_admin_index') }}">
+                                        {{ icon('asterisk') }} Administration
+                                    </a>
+                                </li>
+                            {% endif %}
                             <li class="divider"></li>
                             <li>
                                 <a href="{{ path('fos_user_security_logout') }}">
