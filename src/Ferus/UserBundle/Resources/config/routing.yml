@@ -1,0 +1,4 @@
+user_statement:
+    path: /statement
+    defaults:
+        _controller: FerusUserBundle:Public:statement

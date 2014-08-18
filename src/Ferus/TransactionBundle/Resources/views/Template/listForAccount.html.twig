@@ -20,15 +20,23 @@
             </td>
             <td>
                 {% if transaction.issuer is not null and transaction.issuer.id != account.id %}
-                    <a href="{{ path('account_admin_view', {id:transaction.issuer.id}) }}">
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('account_admin_view', {id:transaction.issuer.id}) }}">
+                            {{ transaction.issuer }}
+                        </a>
+                    {% else %}
                         {{ transaction.issuer }}
-                    </a>
+                    {% endif %}
                 {% endif %}
 
                 {% if transaction.receiver is not null and transaction.receiver.id != account.id %}
-                    <a href="{{ path('account_admin_view', {id:transaction.receiver.id}) }}">
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('account_admin_view', {id:transaction.receiver.id}) }}">
+                            {{ transaction.receiver }}
+                        </a>
+                    {% else %}
                         {{ transaction.receiver }}
-                    </a>
+                    {% endif %}
                 {% endif %}
             </td>
             <td>{{ transaction.cause }}</td>
