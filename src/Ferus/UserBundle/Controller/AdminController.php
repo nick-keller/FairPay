@@ -4,6 +4,7 @@ namespace Ferus\UserBundle\Controller;
 
 use Braincrafted\Bundle\BootstrapBundle\Session\FlashMessage;
 use Ferus\UserBundle\Entity\User;
+use Ferus\UserBundle\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\ORM\EntityManager;
 use Knp\Component\Pager\Paginator;
@@ -35,15 +36,6 @@ class AdminController extends Controller
         if($request->query->has('search'))
         {
             $search = $request->query->get('search');
-
-            // if search is an id we go directly to the view page
-//            if(preg_match('/^S?[0-9]+$/', $search))
-//                return $this->redirect($this->generateUrl('account_admin_view', array(
-//                    'id' => $this->em->getRepository('FerusAccountBundle:Account')
-//                            ->findOneByBarcode($search)
-//                            ->getId()
-//                )));
-
             $query = $this->em
                 ->getRepository('FerusUserBundle:User')
                 ->querySearch($search);
@@ -62,6 +54,32 @@ class AdminController extends Controller
 
         return array(
             'users' => $users,
+            'search' => $request->query->get('search', null),
+        );
+    }
+
+    /**
+     * @Template
+     */
+    public function editAction(User $user, Request $request)
+    {
+        $form = $this->createForm(new UserType, $user);
+
+        if($request->isMethod('POST')){
+            $form->handleRequest($request);
+
+            if($form->isValid()){
+                $this->em->persist($user);
+                $this->em->flush();
+
+                $this->flash->success('Administrateur modifié.');
+                return $this->redirect($this->generateUrl('user_admin_index'));
+            }
+        }
+
+        return array(
+            'form' => $form->createView(),
+            'user' => $user,
         );
     }
 }

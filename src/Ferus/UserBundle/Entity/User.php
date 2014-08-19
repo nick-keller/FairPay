@@ -13,7 +13,6 @@ class User extends BaseUser
 
     /**
      * @var Account
-     * @Assert\NotBlank()
      */
     private $account;
 

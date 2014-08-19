@@ -6,12 +6,17 @@
 {% endblock %}
 
 {% block content %}
+    <h2>Liste des administrateurs</h2>
+    <p>
+        Pour ajouter un administrateur, taper son nom dans le champ de recherche puis cliquer sur <span class="label label-success">{{ icon('plus') }} Ajouter</span> pour sélectionner ses droits.<br>
+        Pour être administrateur, il faut obligatoirement avoir un compte bancaire.
+    </p>
     <table class="table table-striped table-hover">
         <tr>
-            <th>#</th>
-            <th>Nom</th>
+            <th>{{ knp_pagination_sortable(users, '#', 'u.id') }}</th>
+            <th>{{ knp_pagination_sortable(users, 'Nom', 'u.username') }}</th>
             <th>Email</th>
-            <th>Dernière connexion</th>
+            <th>{{ knp_pagination_sortable(users, 'Dernière connexion', 'u.lastLogin') }}</th>
             <th>Droits</th>
             <th></th>
         </tr>
@@ -21,20 +26,35 @@
                 <td>{{ user }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.lastLogin|date('d/m/Y à H:i') }}</td>
-                <td>
+                <td style="max-width: 220px">
                     {% for role in user.roles %}
                         <span class="label label-default">{{ role|trans({}, 'roles_short') }}</span>
                     {% endfor %}
                 </td>
                 <td>
-                    {#<div class="btn-group btn-group-xs">#}
-                        {#<a href="{{ path('account_admin_view', {id:account.id}) }}" class="btn btn-default">#}
-                            {#{{ icon('zoom-in') }} Détails#}
-                        {#</a>#}
+                    <div class="btn-group btn-group-xs">
+                        {% if
+                            'ROLE_ADMIN' in user.roles or
+                            'ROLE_USER_ADMIN' in user.roles or
+                            'ROLE_STUDENT_ADMIN' in user.roles or
+                            'ROLE_SELLER_ADMIN' in user.roles or
+                            'ROLE_ACCOUNT_ADMIN' in user.roles or
+                            'ROLE_TRANSACTION_ADMIN' in user.roles or
+                            'ROLE_WITHDRAWAL_ADMIN' in user.roles or
+                            'ROLE_SUPER_ADMIN' in user.roles
+                        %}
+                            <a href="{{ path('user_admin_edit', {id:user.id}) }}" class="btn btn-default">
+                                {{ icon('pencil') }} Editer
+                            </a>
+                        {% else %}
+                            <a href="{{ path('user_admin_edit', {id:user.id}) }}" class="btn btn-success">
+                                {{ icon('plus') }} Ajouter
+                            </a>
+                        {% endif %}
                         {#<a type="button" class="btn btn-default" href="{{ path('account_admin_remove', {id:account.id}) }}">#}
                             {#{{ icon('remove') }}#}
                         {#</a>#}
-                    {#</div>#}
+                    </div>
                 </td>
             </tr>
         {% endfor %}

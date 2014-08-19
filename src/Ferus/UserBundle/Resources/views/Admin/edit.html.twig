@@ -1,0 +1,12 @@
+{% extends '@FerusUser/Admin/layout.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li>{{ user }}</li>
+    <li class="active">Editer</li>
+{% endblock %}
+
+{% block content %}
+    <h2>Modifier les droits de {{ user }}</h2>
+    {{ form(form, { 'style': 'horizontal' }) }}
+{% endblock %}

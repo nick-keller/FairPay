@@ -34,8 +34,26 @@ class UserRepository extends EntityRepository
 
     public function queryAdmins()
     {
+        $roles = array(
+            'ROLE_ADMIN',
+            'ROLE_USER_ADMIN',
+            'ROLE_STUDENT_ADMIN',
+            'ROLE_SELLER_ADMIN',
+            'ROLE_ACCOUNT_ADMIN',
+            'ROLE_TRANSACTION_ADMIN',
+            'ROLE_WITHDRAWAL_ADMIN',
+            'ROLE_SUPER_ADMIN',
+        );
 
-        return $this->createQueryBuilder('u');
+        $qb = $this->createQueryBuilder('u');
+
+        foreach($roles as $key => $role){
+            $qb
+                ->orWhere("u.roles LIKE :role$key")
+                ->setParameter("role$key", "%\"$role\"%");
+        }
+
+        return $qb->getQuery();
 
     }
 }

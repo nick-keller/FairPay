@@ -1,9 +1,9 @@
-ROLE_USER:
-ROLE_ADMIN:
-ROLE_USER_ADMIN:
-ROLE_STUDENT_ADMIN:
-ROLE_SELLER_ADMIN:
-ROLE_ACCOUNT_ADMIN:
-ROLE_TRANSACTION_ADMIN:
-ROLE_WITHDRAWAL_ADMIN:
-ROLE_SUPER_ADMIN:
+ROLE_USER:                  Utilisataur lambda.
+ROLE_ADMIN:                 Administrateur lambda.
+ROLE_USER_ADMIN:            Peut ajouter et supprimer des administrateurs. Peut donc s'attribuer tous les droits.
+ROLE_STUDENT_ADMIN:         Peut ajouter, modifier et supprimer des étudiants. Peut donc modifier la liste des cotisants.
+ROLE_SELLER_ADMIN:          Peut ajouter et supprimer des marchands. Peut donc voir et récupérer la liste des clefs d'API et effectuer des transactions frauduleuses.
+ROLE_ACCOUNT_ADMIN:         Peut ajouter et supprimer des comptes bancaires si le solde est nul. Peut donc supprimer un compte vide et le recréer avec un solde de départ non-nul.
+ROLE_TRANSACTION_ADMIN:     Peut effectuer une transaction d'un compte à un autre et encaisser un dépot d'argent.
+ROLE_WITHDRAWAL_ADMIN:      Peut effectuer un retrait et donner l'argent en cash à la personne.
+ROLE_SUPER_ADMIN:           Peut effectuer l'ensemble des action précédentes.

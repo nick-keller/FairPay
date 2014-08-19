@@ -1,3 +1,7 @@
 user_admin_index:
     pattern: /
     defaults: { _controller: FerusUserBundle:Admin:index }
+
+user_admin_edit:
+    pattern: /{id}/edit
+    defaults: { _controller: FerusUserBundle:Admin:edit }
