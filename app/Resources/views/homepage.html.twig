@@ -1,5 +1,5 @@
 {% if is_granted('ROLE_USER') %}
-    {% include '::homepage-logedin.html.twig' %}
+    {{ render(controller('FerusUserBundle:Public:index')) }}
 {% else %}
     {% include '::homepage-logedout.html.twig' %}
 {% endif %}
