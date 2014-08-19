@@ -1,3 +1,7 @@
+ferus_user_bundle_admin:
+    resource: routing/admin.yml
+    prefix: /admin/users
+
 user_statement:
     path: /statement
     defaults:

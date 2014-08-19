@@ -1,0 +1,3 @@
+user_admin_index:
+    pattern: /
+    defaults: { _controller: FerusUserBundle:Admin:index }

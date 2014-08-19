@@ -1,6 +1,7 @@
 Ferus\UserBundle\Entity\User:
     type: entity
     table: ferus_user
+    repositoryClass: Ferus\UserBundle\Repository\UserRepository
     id:
         id:
             type: integer

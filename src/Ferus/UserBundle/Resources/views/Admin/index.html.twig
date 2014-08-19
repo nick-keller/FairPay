@@ -1,0 +1,43 @@
+{% extends '@FerusUser/Admin/layout.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li class="active">Tous les administrateurs</li>
+{% endblock %}
+
+{% block content %}
+    <table class="table table-striped table-hover">
+        <tr>
+            <th>#</th>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Dernière connexion</th>
+            <th>Droits</th>
+            <th></th>
+        </tr>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.lastLogin|date('d/m/Y à H:i') }}</td>
+                <td>
+                    {% for role in user.roles %}
+                        <span class="label label-default">{{ role|trans({}, 'roles_short') }}</span>
+                    {% endfor %}
+                </td>
+                <td>
+                    {#<div class="btn-group btn-group-xs">#}
+                        {#<a href="{{ path('account_admin_view', {id:account.id}) }}" class="btn btn-default">#}
+                            {#{{ icon('zoom-in') }} Détails#}
+                        {#</a>#}
+                        {#<a type="button" class="btn btn-default" href="{{ path('account_admin_remove', {id:account.id}) }}">#}
+                            {#{{ icon('remove') }}#}
+                        {#</a>#}
+                    {#</div>#}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {{ knp_pagination_render(users) }}
+{% endblock %}

@@ -17,6 +17,9 @@
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="nav navbar-nav">
                     <li>
+                        <a href="{{ path('user_admin_index') }}">Administrateurs</a>
+                    </li>
+                    <li>
                         <a href="{{ path('student_admin_index') }}">Etudiants</a>
                     </li>
                     <li>
@@ -66,6 +69,7 @@
 
     {% block content %}
         <div class="list-group">
+            <a href="{{ path('user_admin_index') }}" class="list-group-item">Administrateurs</a>
             <a href="{{ path('student_admin_index') }}" class="list-group-item">Etudiants</a>
             <a href="{{ path('seller_admin_index') }}" class="list-group-item">Marchands</a>
             <a href="{{ path('account_admin_index') }}" class="list-group-item">Comptes bancaires</a>

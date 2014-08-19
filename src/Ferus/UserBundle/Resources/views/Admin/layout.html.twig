@@ -1,0 +1,23 @@
+{% extends '::admin.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li><a href="{{ path('user_admin_index') }}">Administrateurs</a></li>
+{% endblock %}
+
+{% block actions %}
+    <div class="btn-group btn-group-sm">
+        <a class="btn btn-default" href="{{ path('user_admin_index') }}">
+            {{ icon('th-list') }} Liste
+        </a>
+    </div>
+
+    <form class="form-inline" style="width: 200px;display: inline-block;vertical-align: middle" action="{{ path('user_admin_index') }}" method="get">
+        <div class="input-group input-group-sm">
+            <input type="text" class="form-control" placeholder="Nom, Prénom" name="search" value="{{ search|default(null) }}">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="submit">{{ icon('search') }}</button>
+            </span>
+        </div>
+    </form>
+{% endblock %}
