@@ -43,4 +43,17 @@ class TransactionRepository extends EntityRepository
 
         return $total == 0;
     }
+
+    public function getGraphData(Account $account)
+    {
+        $qb = $this->createQueryBuilder('t')
+            ->select('t.completedAt date, t.amount')
+            ->where('t.issuer = :account')
+            ->setParameter('account', $account)
+            ->orderBy('t.completedAt', 'DESC')
+            ->groupBy('t.completedAt')
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
 }

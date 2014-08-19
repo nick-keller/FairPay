@@ -1,0 +1,146 @@
+{% extends '::layout.html.twig' %}
+
+{% block body %}
+    {{ dump(graphData) }}
+    <div class="row">
+        <div class="col-lg-4 col-md-6">
+            <h3>Dépences</h3>
+            <div id="outcomes" style="width:100%; height:200px;"></div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <h3>Revenus</h3>
+            <div id="incomes" style="width:100%; height:200px;"></div>
+        </div>
+        <div class="col-lg-4">
+            <h3>Solde</h3>
+            <div id="balance" style="width:100%; height:200px;"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            Highcharts.setOptions({
+                lang: {
+                    months: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',  'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+                    shortMonths: ['Jan', 'Fév', 'Mars', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sept', 'Oct', 'Nov', 'Déc'],
+                    weekdays: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+                    decimalPoint: ',',
+                    thousandsSep: ' ',
+                    loading: 'Chargement...',
+                    rangeSelectorFrom: 'De',
+                    rangeSelectorTo: 'à',
+                    resetZoom: 'Réinitialiser le zoom',
+                    resetZoomTitle: 'Réinitialiser le zoom à 1:1'
+                }
+            });
+
+            $('#outcomes').highcharts({
+                chart: {type: 'column'},
+                title: {text: ''},
+                xAxis: {
+                    type: 'datetime',
+                    dateTimeLabelFormats: {
+                        day: '%e %b',
+                        week: '%e %b',
+                        month: '%b %Y'
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {text: 'Montant'},
+                    minorTickInterval: .5,
+                    labels: {format:'{value} €'}
+                },
+                legend: {enabled: false},
+                credits: {enabled: false},
+                series: [{
+                    name: 'Dépences',
+                    pointInterval: 24 * 3600 * 1000,
+                    pointStart: Date.UTC(2014, 1, 28),
+                    groupPadding: 0,
+                    tooltip: {
+                        dateTimeLabelFormats: {day:"%a %e %b %Y"},
+                        pointFormat: '<span style="color:{series.color}">\u25CF</span> <b>{point.y}</b>',
+                        valueDecimals: 2,
+                        valueSuffix: ' €'
+                    },
+                    data: [.5,.5,0,1,1.5,.5,0,0,1,.5,.5,.5,0,1,1.5,.5,0,0,1,.5,.5,.5,0,1,1.5,.5,0,0,1,.5,.5,.5,0,1,1.5,.5,0,0,1,.5,.5,.5,0,1,1.5,.5,0,0,1,.5,.5,.5,0,1,1.5,.5,0,0,1,.5]
+                }]
+            });
+
+            $('#incomes').highcharts({
+                chart: {type: 'column'},
+                title: {text: ''},
+                xAxis: {
+                    type: 'datetime',
+                    dateTimeLabelFormats: {
+                        day: '%e %b',
+                        week: '%e %b',
+                        month: '%b %Y'
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {text: 'Montant'},
+                    minorTickInterval: .5,
+                    labels: {format:'{value} €'}
+                },
+                legend: {enabled: false},
+                credits: {enabled: false},
+                series: [{
+                    name: 'Dépences',
+                    pointInterval: 24 * 3600 * 1000,
+                    pointStart: Date.UTC(2014, 1, 28),
+                    groupPadding: 0,
+                    color: '#61B084',
+                    tooltip: {
+                        dateTimeLabelFormats: {day:"%a %e %b %Y"},
+                        pointFormat: '<span style="color:{series.color}">\u25CF</span> <b>{point.y}</b>',
+                        valueDecimals: 2,
+                        valueSuffix: ' €'
+                    },
+                    data: [.5,.5,0,1,1.5,.5,0,0,1,.5,.5,.5,0,1,1.5,.5,0,0,1,.5,.5,.5,0,1,1.5,.5,0,0,1,.5,.5,.5,0,1,1.5,.5,0,0,1,.5,.5,.5,0,1,1.5,.5,0,0,1,.5,.5,.5,0,1,1.5,.5,0,0,1,.5]
+                }]
+            });
+
+            $('#balance').highcharts({
+                chart: {type: 'spline'},
+                title: {text: ''},
+                xAxis: {
+                    type: 'datetime',
+                    dateTimeLabelFormats: {
+                        day: '%e %b',
+                        week: '%e %b',
+                        month: '%b %Y'
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {text: 'Montant'},
+                    minorTickInterval: .5,
+                    labels: {format:'{value} €'}
+                },
+                legend: {enabled: false},
+                credits: {enabled: false},
+                series: [{
+                    name: 'Dépences',
+                    pointInterval: 24 * 3600 * 1000,
+                    pointStart: Date.UTC(2014, 1, 28),
+                    groupPadding: 0,
+                    color: '#B04D4B',
+                    tooltip: {
+                        dateTimeLabelFormats: {day:"%a %e %b %Y"},
+                        pointFormat: '<span style="color:{series.color}">\u25CF</span> <b>{point.y}</b>',
+                        valueDecimals: 2,
+                        valueSuffix: ' €'
+                    },
+                    data: [.5,.5,0,1,1.5,.5,0,0,1,.5,.5,.5,0,1,1.5,.5,0,0,1,.5,.5,.5,0,1,1.5,.5,0,0,1,.5,.5,.5,0,1,1.5,.5,0,0,1,.5,.5,.5,0,1,1.5,.5,0,0,1,.5,.5,.5,0,1,1.5,.5,0,0,1,.5]
+                }]
+            });
+        });
+    </script>
+{% endblock %}

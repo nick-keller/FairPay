@@ -29,6 +29,18 @@ class PublicController extends Controller
     /**
      * @Template
      */
+    public function indexAction()
+    {
+        $graphData = $this->em->getRepository('FerusTransactionBundle:Transaction')->getGraphData($this->getUser()->getAccount());
+
+        return array(
+            'graphData' => $graphData,
+        );
+    }
+
+    /**
+     * @Template
+     */
     public function statementAction(Request $request)
     {
         $this->em->getFilters()->disable('softdeleteable');
