@@ -1,0 +1,52 @@
+{% trans_default_domain 'FOSUserBundle' %}
+<h1>Mon compte</h1>
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">Informations personnelles</div>
+            <ul class="list-group">
+                <li class="list-group-item">{{ icon('user') }} {{ user }}</li>
+                <li class="list-group-item">{{ icon('envelope') }} {{ user.email }}</li>
+                <li class="list-group-item">{{ icon('barcode') }} {{ user.account.owner.barcode }}</li>
+                {% if user.account.student is not null %}
+                    {% if user.account.student.isContributor %}
+                        <li class="list-group-item">
+                            {{ icon('ok-circle') }} Vous avez cotisé
+                            <button class="badge"
+                                    style="border: none"
+                                    data-toggle="popover"
+                                    title="Vous êtes cotisant !"
+                                    data-content="Vous pouvez bénéficier de réductions sur les soirées, voyages et sorties et profiter d'avantages exclusifs !">?</button>
+                        </li>
+                    {% else %}
+                        <li class="list-group-item">
+                            <span class="text-danger">{{ icon('remove-circle') }} Vous n'avez pas encore cotisé</span>
+                            <button class="badge"
+                                    style="border: none"
+                                    data-toggle="popover"
+                                    title="Devenez cotisant !"
+                                    data-content="Vous pourez bénéficier de réductions jusqu'à -50% sur les soirées, voyages et sorties et profiter d'avantages exclusifs !<br>Rendez-vous au BDE pour en savoir plus.">?</button>
+                        </li>
+                    {% endif %}
+                {% else %}
+                    <li class="list-group-item">
+                        {{ icon('cloud') }} {{ user.account.owner.apiKey }}
+                        <button class="badge"
+                                style="border: none"
+                                data-toggle="popover"
+                                title="Clef API privée"
+                                data-content="Cette clef doit restée secrete. Elle vous permet d'effectuer des transactions avec l'API FairPay.">?</button>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">Compte bancaire</div>
+            <ul class="list-group">
+                <li class="list-group-item">Solde : € {{ user.account.balance }}</li>
+            </ul>
+        </div>
+    </div>
+</div>

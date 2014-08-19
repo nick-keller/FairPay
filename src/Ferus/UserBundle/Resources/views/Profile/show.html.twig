@@ -1,0 +1,15 @@
+{% extends "::layout.html.twig" %}
+
+{% block body %}
+{% include "FOSUserBundle:Profile:show_content.html.twig" %}
+{% endblock body %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(function(){
+            $('[data-toggle=popover]').popover({placement:"left", trigger:"focus", html:true});
+        });
+    </script>
+{% endblock %}
