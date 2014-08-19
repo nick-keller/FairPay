@@ -15,45 +15,60 @@
             </div>
 
             <div class="collapse navbar-collapse" id="navbar">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="{{ path('user_statement') }}">Relevé</a>
-                    </li>
-                    <li>
-                        <a href="">Passer un virement</a>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ icon('user') }} {{ app.user }} <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li>
-                                <a href="{{ path('fos_user_profile_show') }}">
-                                    {{ icon('user') }} Mon compte
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ path('fos_user_change_password') }}">
-                                    {{ icon('lock') }} Changer mon mot de passe
-                                </a>
-                            </li>
-                            {% if is_granted('ROLE_ADMIN') %}
+                {% if is_granted('ROLE_USER') %}
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="{{ path('user_statement') }}">Relevé</a>
+                        </li>
+                        <li>
+                            <a href="">Passer un virement</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ icon('user') }} {{ app.user }} <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
                                 <li>
-                                    <a href="{{ path('ferus_admin_index') }}">
-                                        {{ icon('asterisk') }} Administration
+                                    <a href="{{ path('fos_user_profile_show') }}">
+                                        {{ icon('user') }} Mon compte
                                     </a>
                                 </li>
-                            {% endif %}
-                            <li class="divider"></li>
-                            <li>
-                                <a href="{{ path('fos_user_security_logout') }}">
-                                    {{ icon('off') }} Déconexion
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-                <p class="navbar-text navbar-right">Solde : € {{ app.user.account.balance }}</p>
+                                <li>
+                                    <a href="{{ path('fos_user_change_password') }}">
+                                        {{ icon('lock') }} Changer mon mot de passe
+                                    </a>
+                                </li>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <li>
+                                        <a href="{{ path('ferus_admin_index') }}">
+                                            {{ icon('asterisk') }} Administration
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="{{ path('fos_user_security_logout') }}">
+                                        {{ icon('off') }} Déconexion
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p class="navbar-text navbar-right">Solde : € {{ app.user.account.balance }}</p>
+                {% else %}
+                    <form class="navbar-form navbar-right" role="connect" action="{{ path("fos_user_security_check") }}" method="post">
+                        <input type="hidden" name="_csrf_token" value="{{ fos_csrf_provider.generateCsrfToken('authenticate') }}" />
+                        <div class="form-group">
+                            <label class="sr-only" for="username">Login</label>
+                            <input type="text" id="username" name="_username" class="form-control" placeholder="Login" required autofocus>
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="password">Mot de passe</label>
+                            <input type="password" id="password" name="_password" class="form-control" placeholder="Mot de passe" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Connexion</button>
+                    </form>
+                {% endif %}
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
