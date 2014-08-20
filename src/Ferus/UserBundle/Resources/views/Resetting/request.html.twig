@@ -1,0 +1,10 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/signin.css') }}" rel="stylesheet" media="screen">
+{% endblock %}
+
+{% block body %}
+    {% include "FOSUserBundle:Resetting:request_content.html.twig" %}
+{% endblock body %}

@@ -1,0 +1,10 @@
+{% extends '::layout.html.twig' %}
+
+{% block body %}
+    <h2>Effectuer un virement</h2>
+    <p>
+        Vous vous aprétez à envoyer de l'argent à un autre compte. Une fois cette opération réussi, vous ne pourez pas l'annuler.<br>
+        Pour recevoir de l'argent depuis un autre compte, vous devez demander au propriétaire de l'autre compte d'effectuer le virement.
+    </p>
+    {{ form(form, {style:'horizontal'}) }}
+{% endblock %}

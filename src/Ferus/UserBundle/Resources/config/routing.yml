@@ -6,3 +6,8 @@ user_statement:
     path: /statement
     defaults:
         _controller: FerusUserBundle:Public:statement
+
+user_transfer:
+    path: /transfer
+    defaults:
+        _controller: FerusUserBundle:Public:transfer

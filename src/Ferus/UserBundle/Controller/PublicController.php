@@ -2,6 +2,8 @@
 
 namespace Ferus\UserBundle\Controller;
 
+use Ferus\TransactionBundle\Entity\Transaction;
+use Ferus\UserBundle\Form\TransferType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\ORM\EntityManager;
 use Knp\Component\Pager\Paginator;
@@ -60,4 +62,30 @@ class PublicController extends Controller
         );
     }
 
+    /**
+     * @Template
+     */
+    public function transferAction(Request $request)
+    {
+        $transaction = new Transaction;
+        $transaction->setIssuer($this->getUser()->getAccount());
+        $form = $this->createForm(new TransferType, $transaction);
+
+        if($request->isMethod('POST')){
+            $form->handleRequest($request);
+
+            if($form->isValid()){
+                $transactionCore = $this->get('ferus_transaction.transaction_core');
+                $transactionCore->execute($transaction);
+
+                $this->flash->success('Virement effectuée.');
+
+                return $this->redirect($this->generateUrl('user_statement'));
+            }
+        }
+
+        return array(
+            'form' => $form->createView(),
+        );
+    }
 } 

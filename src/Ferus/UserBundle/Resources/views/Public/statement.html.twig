@@ -1,7 +1,7 @@
 {% extends '::layout.html.twig' %}
 
 {% block body %}
-    <h1>Dernières transactions</h1>
+    <h2>Dernières transactions</h2>
     <p>Une transaction vous parait suspecte ? Venez au BDE pour régler le problème.</p>
     {% include '@FerusTransaction/Template/listForAccount.html.twig' %}
     {{ knp_pagination_render(transactions) }}

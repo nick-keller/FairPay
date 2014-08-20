@@ -38,6 +38,7 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/profile/edit, role: ROLE_ADMIN }
         - { path: ^/admin/users, role: ROLE_USER_ADMIN }
         - { path: ^/admin/students, role: ROLE_STUDENT_ADMIN }
         - { path: ^/admin/sellers, role: ROLE_SELLER_ADMIN }
