@@ -87,6 +87,8 @@ class GraphData
     {
         $this->incomes = $incomes;
 
+        if(!count($incomes)) return;
+
         $max = $this->getDateTime($incomes[0]);
         $min = $this->getDateTime(end($incomes));
 
@@ -108,6 +110,8 @@ class GraphData
     public function setOutcomes($outcomes)
     {
         $this->outcomes = $outcomes;
+
+        if(!count($outcomes)) return;
 
         $max = $this->getDateTime($outcomes[0]);
         $min = $this->getDateTime(end($outcomes));
