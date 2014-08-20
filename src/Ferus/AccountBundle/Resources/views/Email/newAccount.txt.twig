@@ -1,0 +1,9 @@
+Bonjour {{ user }} !
+Bienvenue dans FairPay, ton solde est actuelement de {{ user.Account.balance }} €.
+
+Voici tes identifiants :
+- login : {{ user.usernameCanonical }}
+- mot de passe : {{ password }}
+
+Tu peut te connecter au site à cette adresse : {{ url('ferus_index') }}
+Nous te conseillons de changer de mot de passe le plus vite possible.

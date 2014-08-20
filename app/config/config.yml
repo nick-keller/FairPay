@@ -89,6 +89,9 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: Ferus\UserBundle\Entity\User
+    from_email:
+        address:        bde@edu.esiee.fr
+        sender_name:    BDE ESIEE Paris
 
 # FOS Rest Configuration
 fos_rest:

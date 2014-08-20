@@ -98,7 +98,7 @@ class AdminController extends Controller
 
                 // Now that the accont is created we create a user for it
                 $user = $this->get('fos_user.user_manager')->createUser();
-                $password = 'aaa';
+                $password = uniqid();
                 $user->setEmail($account->getOwner()->getEmail());
                 $user->setUsername($account->getOwner());
                 $user->setPlainPassword($password);
@@ -107,6 +107,24 @@ class AdminController extends Controller
 
                 $this->em->persist($user);
                 $this->em->flush();
+
+                // Send email to the owner
+
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('[FairPay] Vos identifiants de connexion')
+                    ->setFrom(array('bde@edu.esiee.fr' => 'BDE ESIEE Paris'))
+                    ->setTo(array($user->getEmail() => $user->getUsername()))
+                    ->setBody(
+                        $this->renderView(
+                            'FerusAccountBundle:Email:newAccount.txt.twig',
+                            array(
+                                'user' => $user,
+                                'password' => $password,
+                            )
+                        )
+                    )
+                ;
+                $this->get('mailer')->send($message);
 
                 $this->flash->success('Compte créé.');
                 return $this->redirect($this->generateUrl('account_admin_index'));
