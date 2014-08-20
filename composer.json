@@ -33,7 +33,7 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "friendsofsymfony/user-bundle": "dev-master",
         "braincrafted/bootstrap-bundle": "~2.0",
-        "twbs/bootstrap": "3.0.*",
+        "twbs/bootstrap": "3.2.*",
         "jquery/jquery":  "2.1.*",
         "jms/di-extra-bundle": "dev-master",
         "knplabs/knp-paginator-bundle": "~2.4",

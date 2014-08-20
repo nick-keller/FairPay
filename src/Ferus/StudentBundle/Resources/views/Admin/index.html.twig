@@ -6,38 +6,42 @@
 {% endblock %}
 
 {% block content %}
-    <table class="table table-striped table-hover">
-        <tr>
-            <th>{{ knp_pagination_sortable(students, '#', 's.id') }}</th>
-            <th>{{ knp_pagination_sortable(students, 'Prénom', 's.firstName') }}</th>
-            <th>{{ knp_pagination_sortable(students, 'Nom', 's.lastName') }}</th>
-            <th>Email</th>
-            <th>Login</th>
-            <th>Cotisant</th>
-            <th></th>
-        </tr>
-        {% for student in students %}
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
             <tr>
-                <td>{{ student.id }}</td>
-                <td>{{ student.firstName }}</td>
-                <td>{{ student.lastName }}</td>
-                <td>{{ student.email }}</td>
-                <td>{{ student.login }}</td>
-                <td>
-                    {% if student.isContributor %}
-                        {{ label_success('Oui') }}
-                    {% else %}
-                        {{ label_danger('Non') }}
-                    {% endif %}
-                </td>
-                <td>
-                    <div class="btn-group btn-group-xs">
-                        <a type="button" class="btn btn-default" href="{{ path('student_admin_edit', {id:student.id}) }}">{{ icon('pencil') }} Editer</a>
-                        <a type="button" class="btn btn-default" href="{{ path('student_admin_remove', {id:student.id}) }}">{{ icon('remove') }}</a>
-                    </div>
-                </td>
+                <th>{{ knp_pagination_sortable(students, '#', 's.id') }}</th>
+                <th>{{ knp_pagination_sortable(students, 'Prénom', 's.firstName') }}</th>
+                <th>{{ knp_pagination_sortable(students, 'Nom', 's.lastName') }}</th>
+                <th>Email</th>
+                <th>Login</th>
+                <th>Cotisant</th>
+                <th></th>
             </tr>
-        {% endfor %}
-    </table>
+            {% for student in students %}
+                <tr>
+                    <td>{{ student.id }}</td>
+                    <td>{{ student.firstName }}</td>
+                    <td>{{ student.lastName }}</td>
+                    <td>{{ student.email }}</td>
+                    <td>{{ student.login }}</td>
+                    <td>
+                        {% if student.isContributor %}
+                            {{ label_success('Oui') }}
+                        {% else %}
+                            {{ label_danger('Non') }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="btn-group btn-group-xs" style="min-width: 47px">
+                            <a type="button" class="btn btn-default" href="{{ path('student_admin_edit', {id:student.id}) }}">
+                                {{ icon('pencil') }} <span class="visible-md-inline visible-lg-inline">Editer</span>
+                            </a>
+                            <a type="button" class="btn btn-default" href="{{ path('student_admin_remove', {id:student.id}) }}">{{ icon('remove') }}</a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
     {{ knp_pagination_render(students) }}
 {% endblock %}

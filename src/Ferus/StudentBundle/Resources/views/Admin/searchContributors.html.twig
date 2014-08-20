@@ -1,31 +1,34 @@
-<table class="table table-striped">
-    <tr>
-        <th>#</th>
-        <th>'Prénom</th>
-        <th>Nom</th>
-        <th>Cotisant</th>
-    </tr>
-    {% for student in students %}
+
+<div class="table-responsive">
+    <table class="table table-striped">
         <tr>
-            <td>{{ student.id }}</td>
-            <td>{{ student.firstName }}</td>
-            <td>{{ student.lastName }}</td>
-            <td>
-                <div class="btn-group btn-group-xs" data-contributor="{{ student.isContributor ? 1 : 0 }}">
-                    <button type="button"
-                            class="btn btn-success"
-                            data-value="1"
-                            data-save="{{ path('student_admin_contributor_save', {id:student.id, value:1}) }}"
-                            >Oui
-                    </button>
-                    <button type="button"
-                            class="btn btn-danger"
-                            data-value="0"
-                            data-save="{{ path('student_admin_contributor_save', {id:student.id, value:0}) }}"
-                            >Non
-                    </button>
-                </div>
-            </td>
+            <th class="hidden-xs">#</th>
+            <th>Prénom</th>
+            <th>Nom</th>
+            <th>Cotisant</th>
         </tr>
-    {% endfor %}
-</table>
+        {% for student in students %}
+            <tr>
+                <td class="hidden-xs">{{ student.id }}</td>
+                <td>{{ student.firstName }}</td>
+                <td>{{ student.lastName }}</td>
+                <td>
+                    <div class="btn-group btn-group-xs" data-contributor="{{ student.isContributor ? 1 : 0 }}" style="min-width: 62px">
+                        <button type="button"
+                                class="btn btn-success"
+                                data-value="1"
+                                data-save="{{ path('student_admin_contributor_save', {id:student.id, value:1}) }}"
+                                >Oui
+                        </button>
+                        <button type="button"
+                                class="btn btn-danger"
+                                data-value="0"
+                                data-save="{{ path('student_admin_contributor_save', {id:student.id, value:0}) }}"
+                                >Non
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>

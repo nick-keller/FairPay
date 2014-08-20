@@ -53,7 +53,6 @@
                 yAxis: {
                     min: 0,
                     title: {text: 'Montant'},
-                    minorTickInterval: 1,
                     labels: {format:'{value} €'}
                 },
                 legend: {enabled: false},
@@ -87,7 +86,6 @@
                 yAxis: {
                     min: 0,
                     title: {text: 'Montant'},
-                    minorTickInterval: 1,
                     labels: {format:'{value} €'}
                 },
                 legend: {enabled: false},
@@ -136,6 +134,8 @@
                         valueDecimals: 2,
                         valueSuffix: ' €'
                     },
+                    marker: {radius: 3},
+                    lineWidth: 2,
                     data: [{{ graphData.balance }}]
                 }]
             });

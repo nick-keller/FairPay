@@ -56,7 +56,9 @@ class TransactionRepository extends EntityRepository
             ->setParameter('account', $account)
             ->andWhere('t.completedAt > :lastMonth')
             ->setParameter('lastMonth', new \DateTime('-1 month'))
-            ->orderBy('year, month, day', 'DESC')
+            ->orderBy('year', 'DESC')
+            ->addOrderBy('month', 'DESC')
+            ->addOrderBy('day', 'DESC')
             ->groupBy('year, month, day')
         ;
 

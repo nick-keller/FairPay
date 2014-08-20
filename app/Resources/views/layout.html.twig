@@ -54,7 +54,7 @@
                             </ul>
                         </li>
                     </ul>
-                    <p class="navbar-text navbar-right">Solde : € {{ app.user.account.balance }}</p>
+                    <p class="navbar-text navbar-right hidden-xs">Solde : € {{ app.user.account.balance }}</p>
                 {% else %}
                     <form class="navbar-form navbar-right" role="connect" action="{{ path("fos_user_security_check") }}" method="post">
                         <input type="hidden" name="_csrf_token" value="{{ fos_csrf_provider.generateCsrfToken('authenticate') }}" />

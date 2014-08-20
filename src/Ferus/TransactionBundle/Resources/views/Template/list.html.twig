@@ -1,3 +1,4 @@
+<div class="table-responsive">
 <table class="table table-striped table-hover">
     <tr>
         <th>Type</th>
@@ -11,11 +12,17 @@
         <tr>
             <td>
                 {% if transaction.type == 'Transaction' %}
-                    {{ label_success(icon('transfer') ~ ' Transaction') }}
+                    <span class="label label-success">
+                        {{ icon('transfer') }} <span class="visible-md-inline visible-lg-inline">Transaction</span>
+                    </span>
                 {% elseif transaction.type == 'Dépot' %}
-                    {{ label_primary(icon('import') ~ ' Dépot') }}
+                    <span class="label label-primary">
+                        {{ icon('import') }} <span class="visible-md-inline visible-lg-inline">Dépot</span>
+                    </span>
                 {% else %}
-                    {{ label_warning(icon('export') ~ ' Retrait') }}
+                    <span class="label label-warning">
+                        {{ icon('export') }} <span class="visible-md-inline visible-lg-inline">Retrait</span>
+                    </span>
                 {% endif %}
             </td>
             <td>
@@ -33,8 +40,17 @@
                 {% endif %}
             </td>
             <td>€ {{ transaction.amount }}</td>
-            <td>{{ transaction.completedAt|date('d/m/Y à H:i') }}</td>
+            <td>
+                {{ transaction.completedAt|date('d-m') }}
+                <span class="visible-sm-inline visible-md-inline visible-lg-inline">
+                    {{ transaction.completedAt|date('Y') }}
+                </span>
+                <span class="visible-md-inline visible-lg-inline">
+                    {{ transaction.completedAt|date('à H:i') }}
+                </span>
+            </td>
             <td>{{ transaction.representative }}</td>
         </tr>
     {% endfor %}
 </table>
+</div>
