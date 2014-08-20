@@ -44,7 +44,7 @@ assetic:
     filters:
         cssrewrite: ~
         less:
-            node: C:\wamp\bin\nodejs\node.exe
+            node: node
             node_paths: [%kernel.root_dir%\..\node_modules]
             apply_to: "\.less$"
 
