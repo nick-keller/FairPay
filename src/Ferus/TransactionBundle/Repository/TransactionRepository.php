@@ -4,6 +4,7 @@ namespace Ferus\TransactionBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Ferus\AccountBundle\Entity\Account;
+use Ferus\TransactionBundle\Graph\GraphData;
 
 /**
  * TransactionRepository
@@ -46,14 +47,30 @@ class TransactionRepository extends EntityRepository
 
     public function getGraphData(Account $account)
     {
+        $graphData = new GraphData();
+
         $qb = $this->createQueryBuilder('t')
-            ->select('t.completedAt date, t.amount')
+            ->select('SUM(t.amount)')
+            ->addSelect('YEAR(t.completedAt) year, MONTH(t.completedAt) month, DAY(t.completedAt) day')
             ->where('t.issuer = :account')
             ->setParameter('account', $account)
-            ->orderBy('t.completedAt', 'DESC')
-            ->groupBy('t.completedAt')
+            ->andWhere('t.completedAt > :lastMonth')
+            ->setParameter('lastMonth', new \DateTime('-1 month'))
+            ->orderBy('year, month, day', 'DESC')
+            ->groupBy('year, month, day')
         ;
 
-        return $qb->getQuery()->getResult();
+        $graphData->setOutcomes($qb->getQuery()->getResult());
+
+        $qb
+            ->where('t.receiver = :account')
+            ->setParameter('account', $account)
+            ->andWhere('t.completedAt > :lastMonth')
+            ->setParameter('lastMonth', new \DateTime('-1 month'))
+        ;
+
+        $graphData->setIncomes($qb->getQuery()->getResult());
+
+        return $graphData;
     }
 }

@@ -65,6 +65,12 @@ doctrine:
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
+        dql:
+            numeric_functions:
+                year: Ferus\TransactionBundle\DQL\Year
+                month: Ferus\TransactionBundle\DQL\Month
+                day: Ferus\TransactionBundle\DQL\Day
+                sum: Ferus\TransactionBundle\DQL\Sum
         filters:
             softdeleteable:
                 class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter

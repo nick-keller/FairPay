@@ -32,6 +32,7 @@ class PublicController extends Controller
     public function indexAction()
     {
         $graphData = $this->em->getRepository('FerusTransactionBundle:Transaction')->getGraphData($this->getUser()->getAccount());
+        $graphData->computeData($this->getUser()->getAccount()->getBalance());
 
         return array(
             'graphData' => $graphData,

@@ -1,7 +1,8 @@
 {% extends '::layout.html.twig' %}
 
 {% block body %}
-    {{ dump(graphData) }}
+    <h1>Bonjour {{ app.user }}</h1>
+    <p>Voici quelques statistiques sur vos 30 derniers jours de consomation. Pour plus de détails, allez voir votre <a href="{{ path('user_statement') }}">relevé</a>.</p>
     <div class="row">
         <div class="col-lg-4 col-md-6">
             <h3>Dépences</h3>
@@ -52,7 +53,7 @@
                 yAxis: {
                     min: 0,
                     title: {text: 'Montant'},
-                    minorTickInterval: .5,
+                    minorTickInterval: 1,
                     labels: {format:'{value} €'}
                 },
                 legend: {enabled: false},
@@ -60,7 +61,7 @@
                 series: [{
                     name: 'Dépences',
                     pointInterval: 24 * 3600 * 1000,
-                    pointStart: Date.UTC(2014, 1, 28),
+                    pointStart: Date.UTC({{ graphData.min|date('Y, m-1, d') }}),
                     groupPadding: 0,
                     tooltip: {
                         dateTimeLabelFormats: {day:"%a %e %b %Y"},
@@ -68,7 +69,7 @@
                         valueDecimals: 2,
                         valueSuffix: ' €'
                     },
-                    data: [.5,.5,0,1,1.5,.5,0,0,1,.5,.5,.5,0,1,1.5,.5,0,0,1,.5,.5,.5,0,1,1.5,.5,0,0,1,.5,.5,.5,0,1,1.5,.5,0,0,1,.5,.5,.5,0,1,1.5,.5,0,0,1,.5,.5,.5,0,1,1.5,.5,0,0,1,.5]
+                    data: [{{ graphData.outcomes }}]
                 }]
             });
 
@@ -86,7 +87,7 @@
                 yAxis: {
                     min: 0,
                     title: {text: 'Montant'},
-                    minorTickInterval: .5,
+                    minorTickInterval: 1,
                     labels: {format:'{value} €'}
                 },
                 legend: {enabled: false},
@@ -94,7 +95,7 @@
                 series: [{
                     name: 'Dépences',
                     pointInterval: 24 * 3600 * 1000,
-                    pointStart: Date.UTC(2014, 1, 28),
+                    pointStart: Date.UTC({{ graphData.min|date('Y, m-1, d') }}),
                     groupPadding: 0,
                     color: '#61B084',
                     tooltip: {
@@ -103,7 +104,7 @@
                         valueDecimals: 2,
                         valueSuffix: ' €'
                     },
-                    data: [.5,.5,0,1,1.5,.5,0,0,1,.5,.5,.5,0,1,1.5,.5,0,0,1,.5,.5,.5,0,1,1.5,.5,0,0,1,.5,.5,.5,0,1,1.5,.5,0,0,1,.5,.5,.5,0,1,1.5,.5,0,0,1,.5,.5,.5,0,1,1.5,.5,0,0,1,.5]
+                    data: [{{ graphData.incomes }}]
                 }]
             });
 
@@ -119,18 +120,15 @@
                     }
                 },
                 yAxis: {
-                    min: 0,
-                    title: {text: 'Montant'},
-                    minorTickInterval: .5,
+                    title: {text: 'Solde'},
+                    minorTickInterval: 1,
                     labels: {format:'{value} €'}
                 },
                 legend: {enabled: false},
                 credits: {enabled: false},
                 series: [{
-                    name: 'Dépences',
                     pointInterval: 24 * 3600 * 1000,
-                    pointStart: Date.UTC(2014, 1, 28),
-                    groupPadding: 0,
+                    pointStart: Date.UTC({{ graphData.min|date('Y, m-1, d') }}),
                     color: '#B04D4B',
                     tooltip: {
                         dateTimeLabelFormats: {day:"%a %e %b %Y"},
@@ -138,7 +136,7 @@
                         valueDecimals: 2,
                         valueSuffix: ' €'
                     },
-                    data: [.5,.5,0,1,1.5,.5,0,0,1,.5,.5,.5,0,1,1.5,.5,0,0,1,.5,.5,.5,0,1,1.5,.5,0,0,1,.5,.5,.5,0,1,1.5,.5,0,0,1,.5,.5,.5,0,1,1.5,.5,0,0,1,.5,.5,.5,0,1,1.5,.5,0,0,1,.5]
+                    data: [{{ graphData.balance }}]
                 }]
             });
         });
