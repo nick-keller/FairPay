@@ -22,6 +22,12 @@ class Deposit
     private $amount;
 
     /**
+     * @var string
+     * @Assert\NotBlank()
+     */
+    private $cause = 'Dépot en cash au BDE';
+
+    /**
      * @param Account|null $account
      */
     public function setAccount(Account $account = null)
@@ -51,5 +57,21 @@ class Deposit
     public function getAmount()
     {
         return $this->amount;
+    }
+
+    /**
+     * @param mixed $cause
+     */
+    public function setCause($cause)
+    {
+        $this->cause = $cause;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCause()
+    {
+        return $this->cause;
     }
 } 

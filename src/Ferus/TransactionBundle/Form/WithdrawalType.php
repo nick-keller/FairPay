@@ -21,6 +21,9 @@ class WithdrawalType extends AbstractType
             ->add('amount', 'euro', array(
                 'label' => 'Montant',
             ))
+            ->add('cause', 'text', array(
+                'label' => 'Motif',
+            ))
             ->add('actions', 'form_actions', [
                 'buttons' => array(
                     'save' => [

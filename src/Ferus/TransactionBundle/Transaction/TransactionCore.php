@@ -42,7 +42,7 @@ class TransactionCore
         $transaction = new Transaction;
         $transaction->setReceiver($deposit->getAccount());
         $transaction->setAmount($deposit->getAmount());
-        $transaction->setCause('Dépot en cash au BDE');
+        $transaction->setCause($deposit->getCause());
 
         $receiver = $deposit->getAccount();
         $receiver->setBalance($receiver->getBalance() + $deposit->getAmount());
@@ -56,7 +56,7 @@ class TransactionCore
         $transaction = new Transaction;
         $transaction->setIssuer($withdrawal->getAccount());
         $transaction->setAmount($withdrawal->getAmount());
-        $transaction->setCause('Retrait au BDE');
+        $transaction->setCause($withdrawal->getCause());
 
         $issuer = $withdrawal->getAccount();
         $issuer->setBalance($issuer->getBalance() - $withdrawal->getAmount());

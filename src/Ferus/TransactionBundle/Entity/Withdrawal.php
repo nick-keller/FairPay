@@ -24,6 +24,12 @@ class Withdrawal
     private $amount;
 
     /**
+     * @var string
+     * @Assert\NotBlank()
+     */
+    private $cause = 'Retrait au BDE';
+
+    /**
      * @param \Ferus\AccountBundle\Entity\Account $account
      */
     public function setAccount($account)
@@ -53,6 +59,22 @@ class Withdrawal
     public function getAmount()
     {
         return $this->amount;
+    }
+
+    /**
+     * @param mixed $cause
+     */
+    public function setCause($cause)
+    {
+        $this->cause = $cause;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCause()
+    {
+        return $this->cause;
     }
 
     /**
