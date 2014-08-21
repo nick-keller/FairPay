@@ -24,6 +24,12 @@ ferus_index:
         _controller: FrameworkBundle:Template:template
         template: '::homepage.html.twig'
 
+ferus_other_operations:
+    path: /other-operations
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template: '::other-operations.html.twig'
+
 ferus_admin_index:
     path: /admin
     defaults:
