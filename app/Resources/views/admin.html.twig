@@ -11,13 +11,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ path('ferus_admin_index') }}">FairPay Admin</a>
+                <a class="navbar-brand hidden-sm" href="{{ path('ferus_admin_index') }}">FairPay Admin</a>
             </div>
 
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="{{ path('user_admin_index') }}">Administrateurs</a>
+                        <a href="{{ path('user_admin_index') }}" class="hidden-sm">Administrateurs</a>
+                        <a href="{{ path('user_admin_index') }}" class="visible-sm-block">Admins</a>
                     </li>
                     <li>
                         <a href="{{ path('student_admin_index') }}">Etudiants</a>
@@ -26,7 +27,8 @@
                         <a href="{{ path('seller_admin_index') }}">Marchands</a>
                     </li>
                     <li>
-                        <a href="{{ path('account_admin_index') }}">Comptes bancaires</a>
+                        <a href="{{ path('account_admin_index') }}" class="hidden-sm">Comptes bancaires</a>
+                        <a href="{{ path('account_admin_index') }}" class="visible-sm-block">Comptes</a>
                     </li>
                     <li>
                         <a href="{{ path('transaction_admin_index') }}">Transactions</a>
@@ -68,12 +70,107 @@
     </div>
 
     {% block content %}
-        <div class="list-group">
-            <a href="{{ path('user_admin_index') }}" class="list-group-item">Administrateurs</a>
-            <a href="{{ path('student_admin_index') }}" class="list-group-item">Etudiants</a>
-            <a href="{{ path('seller_admin_index') }}" class="list-group-item">Marchands</a>
-            <a href="{{ path('account_admin_index') }}" class="list-group-item">Comptes bancaires</a>
-            <a href="{{ path('transaction_admin_index') }}" class="list-group-item">Transactions</a>
+        <div class="row">
+            <div class="col-md-7">
+                <div class="panel panel-default">
+                    <div class="panel-heading">{{ icon('dashboard') }} Tableau de bord</div>
+                    <div class="panel-body">
+                        <p>Il se peut que vous n'ayez pas accés à toutes les facette de l'administration. Pour rappel vos droits sont les suivants :</p>
+                        <p>
+                            {% for role in app.user.roles %}
+                                <span class="label label-default">{{ role|trans({}, 'roles_short') }}</span>
+                            {% endfor %}
+                        </p>
+                    </div>
+
+                    <div class="list-group visible-xs-block">
+                        <a href="{{ path('user_admin_index') }}" class="list-group-item">Administrateurs</a>
+                        <a href="{{ path('student_admin_index') }}" class="list-group-item">Etudiants</a>
+                        <a href="{{ path('seller_admin_index') }}" class="list-group-item">Marchands</a>
+                        <a href="{{ path('account_admin_index') }}" class="list-group-item">Comptes bancaires</a>
+                        <a href="{{ path('transaction_admin_index') }}" class="list-group-item">Transactions</a>
+                    </div>
+
+                    <ul class="list-group hidden-xs" style="text-align: right">
+                        <li class="list-group-item">
+                            <a class="pull-left" href="{{ path('user_admin_index') }}">
+                                Administrateurs
+                            </a>
+
+                            <div class="btn-group btn-group-sm">
+                                <a class="btn btn-default" href="{{ path('user_admin_index') }}">
+                                    {{ icon('th-list') }} Liste
+                                </a>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{{ path('student_admin_index') }}" class="pull-left">
+                                Etudiants
+                            </a>
+
+                            <div class="btn-group btn-group-sm">
+                                <a class="btn btn-default" href="{{ path('student_admin_index') }}">
+                                    {{ icon('th-list') }} Liste
+                                </a>
+                                <a class="btn btn-default" href="{{ path('student_admin_add') }}">
+                                    {{ icon('plus') }} Ajouter
+                                </a>
+                                <a class="btn btn-default" href="{{ path('student_admin_contributors') }}">
+                                    {{ icon('euro') }} Cotisations
+                                </a>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{{ path('seller_admin_index') }}" class="pull-left">
+                                Marchands
+                            </a>
+
+                            <div class="btn-group btn-group-sm">
+                                <a class="btn btn-default" href="{{ path('seller_admin_index') }}">
+                                    {{ icon('th-list') }} Liste
+                                </a>
+                                <a class="btn btn-default" href="{{ path('seller_admin_add') }}">
+                                    {{ icon('plus') }} Ajouter
+                                </a>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{{ path('account_admin_index') }}" class="pull-left">
+                                Comptes bancaires
+                            </a>
+
+                            <div class="btn-group btn-group-sm">
+                                <a class="btn btn-default" href="{{ path('account_admin_index') }}">
+                                    {{ icon('th-list') }} Liste
+                                </a>
+                                <a class="btn btn-default" href="{{ path('account_admin_add') }}">
+                                    {{ icon('plus') }} Ajouter
+                                </a>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{{ path('transaction_admin_index') }}" class="pull-left">
+                                Transactions
+                            </a>
+
+                            <div class="btn-group btn-group-sm">
+                                <a class="btn btn-default" href="{{ path('transaction_admin_index') }}">
+                                    {{ icon('th-list') }} Liste
+                                </a>
+                                <a class="btn btn-default" href="{{ path('transaction_admin_new') }}">
+                                    {{ icon('transfer') }} Transaction
+                                </a>
+                                <a class="btn btn-default" href="{{ path('transaction_admin_deposit') }}">
+                                    {{ icon('import') }} Dépot
+                                </a>
+                                <a class="btn btn-default" href="{{ path('transaction_admin_withdrawal') }}">
+                                    {{ icon('export') }} Retrait
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     {% endblock %}
 {% endblock %}
