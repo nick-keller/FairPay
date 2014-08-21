@@ -6,21 +6,42 @@
 {% endblock %}
 
 {% block actions %}
-    <div class="btn-group btn-group-sm">
-        <a class="btn btn-default" href="{{ path('account_admin_index') }}">
-            {{ icon('th-list') }} Liste
-        </a>
-        <a class="btn btn-success" href="{{ path('account_admin_add') }}">
-            {{ icon('plus') }} Nouveau
-        </a>
-    </div>
-
-    <form class="form-inline" style="width: 200px;display: inline-block;vertical-align: middle" action="{{ path('account_admin_index') }}" method="get">
-        <div class="input-group input-group-sm">
-            <input type="text" class="form-control" placeholder="Id, Nom, Prénom" name="search" value="{{ search|default(null) }}">
-            <span class="input-group-btn">
-                <button class="btn btn-default" type="submit">{{ icon('search') }}</button>
-            </span>
+    <div class="hidden-xs">
+        <div class="btn-group btn-group-sm">
+            <a class="btn btn-default" href="{{ path('account_admin_index') }}">
+                {{ icon('th-list') }} Liste
+            </a>
+            <a class="btn btn-success" href="{{ path('account_admin_add') }}">
+                {{ icon('plus') }} Nouveau
+            </a>
         </div>
-    </form>
+
+        <form class="form-inline" style="width: 200px;display: inline-block;vertical-align: middle" action="{{ path('account_admin_index') }}" method="get">
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="Id, Nom, Prénom" name="search" value="{{ search|default(null) }}">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit">{{ icon('search') }}</button>
+                </span>
+            </div>
+        </form>
+    </div>
+    <div class="visible-xs-block">
+        <div class="btn-group btn-group-sm btn-group-justified">
+            <a class="btn btn-default" href="{{ path('account_admin_index') }}">
+                {{ icon('th-list') }} Liste
+            </a>
+            <a class="btn btn-success" href="{{ path('account_admin_add') }}">
+                {{ icon('plus') }} Nouveau
+            </a>
+        </div>
+
+        <form class="form-inline" style="margin-top: 10px" action="{{ path('account_admin_index') }}" method="get">
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="Id, Nom, Prénom" name="search" value="{{ search|default(null) }}">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit">{{ icon('search') }}</button>
+                </span>
+            </div>
+        </form>
+    </div>
 {% endblock %}

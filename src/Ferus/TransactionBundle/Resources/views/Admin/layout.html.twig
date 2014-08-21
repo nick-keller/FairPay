@@ -6,18 +6,36 @@
 {% endblock %}
 
 {% block actions %}
-    <div class="btn-group btn-group-sm">
-        <a class="btn btn-default" href="{{ path('transaction_admin_index') }}">
-            {{ icon('th-list') }} Liste
-        </a>
-        <a class="btn btn-success" href="{{ path('transaction_admin_new') }}">
-            {{ icon('transfer') }} Nouvelle transaction
-        </a>
-        <a class="btn btn-primary" href="{{ path('transaction_admin_deposit') }}">
-            {{ icon('import') }} Dépot
-        </a>
-        <a class="btn btn-warning" href="{{ path('transaction_admin_withdrawal') }}">
-            {{ icon('export') }} Retrait
-        </a>
+    <div class="hidden-xs">
+        <div class="btn-group btn-group-sm">
+            <a class="btn btn-default" href="{{ path('transaction_admin_index') }}">
+                {{ icon('th-list') }} Liste
+            </a>
+            <a class="btn btn-success" href="{{ path('transaction_admin_new') }}">
+                {{ icon('transfer') }} Nouvelle transaction
+            </a>
+            <a class="btn btn-primary" href="{{ path('transaction_admin_deposit') }}">
+                {{ icon('import') }} Dépot
+            </a>
+            <a class="btn btn-warning" href="{{ path('transaction_admin_withdrawal') }}">
+                {{ icon('export') }} Retrait
+            </a>
+        </div>
+    </div>
+    <div class="visible-xs-block">
+        <div class="btn-group btn-group-sm btn-group-justified">
+            <a class="btn btn-default" href="{{ path('transaction_admin_index') }}">
+                {{ icon('th-list') }} Liste
+            </a>
+            <a class="btn btn-success" href="{{ path('transaction_admin_new') }}">
+                {{ icon('transfer') }} Trans.
+            </a>
+            <a class="btn btn-primary" href="{{ path('transaction_admin_deposit') }}">
+                {{ icon('import') }} Dépot
+            </a>
+            <a class="btn btn-warning" href="{{ path('transaction_admin_withdrawal') }}">
+                {{ icon('export') }} Retrait
+            </a>
+        </div>
     </div>
 {% endblock %}
