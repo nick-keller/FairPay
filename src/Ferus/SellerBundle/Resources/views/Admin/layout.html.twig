@@ -6,12 +6,24 @@
 {% endblock %}
 
 {% block actions %}
-    <div class="btn-group btn-group-sm">
-        <a class="btn btn-default" href="{{ path('seller_admin_index') }}">
-            {{ icon('th-list') }} Liste
-        </a>
-        <a class="btn btn-success" href="{{ path('seller_admin_add') }}">
-            {{ icon('plus') }} Ajouter
-        </a>
+    <div class="hidden-xs">
+        <div class="btn-group btn-group-sm">
+            <a class="btn btn-default" href="{{ path('seller_admin_index') }}">
+                {{ icon('th-list') }} Liste
+            </a>
+            <a class="btn btn-success" href="{{ path('seller_admin_add') }}">
+                {{ icon('plus') }} Ajouter
+            </a>
+        </div>
+    </div>
+    <div class="visible-xs-block">
+        <div class="btn-group btn-group-sm btn-group-justified">
+            <a class="btn btn-default" href="{{ path('seller_admin_index') }}">
+                {{ icon('th-list') }} Liste
+            </a>
+            <a class="btn btn-success" href="{{ path('seller_admin_add') }}">
+                {{ icon('plus') }} Ajouter
+            </a>
+        </div>
     </div>
 {% endblock %}
