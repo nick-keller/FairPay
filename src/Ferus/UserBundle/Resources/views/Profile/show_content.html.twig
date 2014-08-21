@@ -46,6 +46,16 @@
             <div class="panel-heading">Compte bancaire</div>
             <ul class="list-group">
                 <li class="list-group-item">Solde : € {{ user.account.balance }}</li>
+                {% if user.account.seller is not null %}
+                <li class="list-group-item">
+                    <a href="{{ path('seller_cash_register', {salt:app.user.salt}) }}">Stand virtuel</a>
+                    <button class="badge"
+                            style="border: none"
+                            data-toggle="popover"
+                            title="Stand virtuel"
+                            data-content="Vous pouvez partager ce lien avec votre staff pour encaisser des achats lorsque vous tenez un stand. Ce lien ne permet pas d'accéder à votre interface web.">?</button>
+                </li>
+                {% endif %}
             </ul>
         </div>
     </div>

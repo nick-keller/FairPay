@@ -6,3 +6,7 @@ ferus_seller_bundle_api:
     type : rest
     resource : "routing/api.yml"
     prefix : /api
+
+ferus_seller_bundle_seller:
+    resource: routing/seller.yml
+    prefix: /sellers

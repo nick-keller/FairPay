@@ -1,0 +1,3 @@
+seller_cash_register:
+    pattern: /{salt}/cash-register
+    defaults: { _controller: FerusSellerBundle:Seller:cashRegister }

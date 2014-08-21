@@ -1,0 +1,11 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+            <h1>{{ seller }} : stand virtuel</h1>
+            <p>Vous pouvez communiquer l'adresse de cette page à tout le staff qui tiens le stand.</p>
+            {{ form(form, {style:'horizontal'}) }}
+        </div>
+    </div>
+{% endblock %}
