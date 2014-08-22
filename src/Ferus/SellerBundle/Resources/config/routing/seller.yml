@@ -1,5 +1,5 @@
 seller_dashboard:
-    pattern: /seller-dashboard
+    pattern: /dashboard
     defaults: { _controller: FerusSellerBundle:Seller:dashboard }
 
 seller_cash_register:

@@ -63,7 +63,7 @@ class SellerController extends Controller
 
     /**
      * @Template
-     * @Secure(roles="ROLE_USER, ROLE_SELLER")
+     * @Secure(roles="ROLE_SELLER")
      */
     public function dashboardAction(Request $request)
     {
