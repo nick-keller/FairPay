@@ -13,6 +13,7 @@ use Knp\Component\Pager\Paginator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 class SellerController extends Controller
 {
@@ -62,11 +63,11 @@ class SellerController extends Controller
 
     /**
      * @Template
+     * @Secure(roles="ROLE_USER, ROLE_SELLER")
      */
     public function dashboardAction(Request $request)
     {
         $seller = $this->getUser()->getAccount()->getSeller();
-        if($seller == null) return $this->createNotFoundException();
 
         if(preg_match('/^((15|30) min|[1-3] hours?)$/', $request->query->get('add_time', ''))){
             if($seller->getCashRegisterExpiresAt() > new \DateTime)

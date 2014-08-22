@@ -105,6 +105,8 @@ class AdminController extends Controller
                 $user->setAccount($account);
                 $user->setEnabled(true);
 
+                if($account->getSeller() !== null) $user->addRole('ROLE_SELLER');
+
                 $this->em->persist($user);
                 $this->em->flush();
 

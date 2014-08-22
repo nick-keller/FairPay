@@ -27,7 +27,7 @@
                     <ul class="nav navbar-nav">
                         {{ macro.navbarlink('user_statement', 'list-alt', 'Relevé') }}
                         {{ macro.navbarlink('user_transfer', 'transfer', 'Virements') }}
-                        {% if app.user.account.seller is not null %}
+                        {% if is_granted('ROLE_SELLER') %}
                             {{ macro.navbarlink('seller_dashboard', 'shopping-cart', 'Vente') }}
                         {% endif %}
                         {{ macro.navbarlink('ferus_other_operations', 'briefcase', 'Autres opérations') }}

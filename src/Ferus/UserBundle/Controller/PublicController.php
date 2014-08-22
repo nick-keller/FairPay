@@ -10,6 +10,7 @@ use Knp\Component\Pager\Paginator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Braincrafted\Bundle\BootstrapBundle\Session\FlashMessage;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 class PublicController extends Controller
 {
@@ -30,6 +31,7 @@ class PublicController extends Controller
 
     /**
      * @Template
+     * @Secure(roles="ROLE_USER")
      */
     public function indexAction()
     {
@@ -43,6 +45,7 @@ class PublicController extends Controller
 
     /**
      * @Template
+     * @Secure(roles="ROLE_USER")
      */
     public function statementAction(Request $request)
     {
@@ -64,6 +67,7 @@ class PublicController extends Controller
 
     /**
      * @Template
+     * @Secure(roles="ROLE_USER")
      */
     public function transferAction(Request $request)
     {

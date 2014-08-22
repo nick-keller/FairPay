@@ -39,6 +39,7 @@
         "knplabs/knp-paginator-bundle": "~2.4",
         "friendsofsymfony/rest-bundle": "dev-master",
         "jms/serializer-bundle": "dev-master",
+        "jms/security-extra-bundle": "dev-master",
         "nelmio/api-doc-bundle": "@stable",
         "stof/doctrine-extensions-bundle": "dev-master"
     },

@@ -8,7 +8,7 @@
                 <li class="list-group-item">{{ icon('user') }} {{ user }}</li>
                 <li class="list-group-item">{{ icon('envelope') }} {{ user.email }}</li>
                 <li class="list-group-item">{{ icon('barcode') }} {{ user.account.owner.barcode }}</li>
-                {% if user.account.student is not null %}
+                {% if not is_granted('ROLE_SELLER') %}
                     {% if user.account.student.isContributor %}
                         <li class="list-group-item">
                             {{ icon('ok-circle') }} Vous avez cotisé
@@ -46,7 +46,7 @@
             <div class="panel-heading">Compte bancaire</div>
             <ul class="list-group">
                 <li class="list-group-item">Solde : € {{ user.account.balance }}</li>
-                {% if user.account.seller is not null %}
+                {% if is_granted('ROLE_SELLER') %}
                 <li class="list-group-item">
                     <a href="{{ path('seller_cash_register', {salt:app.user.salt}) }}">Stand virtuel</a>
                     <button class="badge"
