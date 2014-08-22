@@ -4,8 +4,17 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <h1>{{ seller }} : stand virtuel</h1>
-            <p>Vous pouvez communiquer l'adresse de cette page à tout le staff qui tiens le stand.</p>
-            {{ form(form, {style:'horizontal'}) }}
+            {% if expired|default(false) %}
+                <div class="alert alert-danger">
+                    <h2>Erreur</h2>
+                    <p style="margin-bottom: 15px">Le stand est fermé. Ajoutez du temp pour l'ouvrir.</p>
+                    <a class="btn btn-default" href="{{ path('seller_dashboard') }}">Ouvir</a>
+                </div>
+            {% else %}
+                <p>Vous pouvez communiquer l'adresse de cette page à tout le staff qui tiens le stand.</p>
+                <p style="margin-bottom: 15px">Le stand est ouvert jusqu'à {{ seller.cashRegisterExpiresAt|date('H:i') }}.</p>
+                {{ form(form, {style:'horizontal'}) }}
+            {% endif %}
         </div>
     </div>
 {% endblock %}

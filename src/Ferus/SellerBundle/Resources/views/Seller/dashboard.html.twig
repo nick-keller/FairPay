@@ -1,0 +1,108 @@
+{% extends '::layout.html.twig' %}
+
+{% block body %}
+    <h1>Vente</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <h2>
+                Boutique virtuel
+                <small data-toggle="collapse" style="cursor: pointer" data-target="#virtual-shop-help">+ d'infos</small>
+            </h2>
+            <div class="collapse text-justify" id="virtual-shop-help">
+                <p>
+                    Si vous disposez d’un frigo en libre service ou tout autre système basé sur la confiance où chacun
+                    doit pouvoir payer l’article qu’il prend lui même alors cette solution est la plus adapté.
+                </p>
+                <p>
+                    Il est nécessaire dans un premier temps de créer une boutique. Les boutiques permettent d’organiser
+                    les articles. Pour un frigo en libre service il faudra donc créer une boutique “frigo”. Il est
+                    maintenant possible de créer des articles. Un article possède un prix fixe, vous pouvez créer des
+                    articles généraux (canette, snack…) si toutes les canettes sont au même prix ou des articles plus
+                    précis pour appliquer une tarification différente (Oasis, Redbull…)
+                </p>
+                <p>
+                    Comme pour l’interface stand il est alors possible d’ouvrir une interface boutique. Cette interface
+                    permet de sélectionner un ou plusieurs articles de la boutique et de payer en tapant ou en scannant
+                    le numéros de la carte étudiante.
+
+                </p>
+                <p>
+                    Il est également possible d’utiliser l’interface boutique pour tenir un stand et aller plus vite.
+                    On créer alors un article par menu et/ou par item et on a plus qu’à sélectionner le choix de l’élève.
+                    Le motif de la transaction sera automatiquement créé en fonction des articles sélectionnés.
+                </p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h2>
+                Stand virtuel
+                <small data-toggle="collapse" style="cursor: pointer" data-target="#cash-register-help">+ d'infos</small>
+            </h2>
+            <div class="collapse text-justify" id="cash-register-help">
+                <p>
+                    Lorsque votre organisation tient un stand qui permet aux élèves d’acheter quelque chose via Fair Pay il
+                    est possible d’ouvrir une interface simple depuis le site qui permet d’encaisser des sommes variables.
+                </p>
+                <p>
+                    Il est possible d’ouvrir cette interface sur plusieurs terminaux en même temps. Une fois l’interface
+                    ouverte il n’est pas possible de faire des virements ou toute autre opération frauduleuse, on peut donc
+                    envoyer le lien sereinement à tout le staff qui tient le stand.
+                </p>
+                <p>
+                    Pour éviter tout débordement, le stand n'est actif qu'un temps limité, une fois ce temps écoulé il n'est
+                    plus possible d'encaisser. Vous pouvez ajouter autant de temps que vous voulez au conteur.
+                </p>
+            </div>
+
+            <div class="panel panel-default">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        {% if seller.cashRegisterExpiresAt > date('now') %}
+                            <span class="text-success">
+                                {{ icon('ok-circle') }}
+                                Le stand est ouvert jusqu'à {{ seller.cashRegisterExpiresAt|date('H:i') }}.
+                            </span>
+                        {% else %}
+                            Le stand est fermé, ajoutez du temps pour l'ouvrir.
+                        {% endif %}
+                    </li>
+                    <li class="list-group-item">
+                        {% if seller.cashRegisterExpiresAt > date('now') and seller.cashRegisterExpiresAt.diff(date('now')).h >= 3 %}
+                            Le stand ferme dans plus de 3 heures, vous ne pouvez plus ajouter de temp.
+                        {% else %}
+                            <div class="hidden-xs">
+                                Ajouter du temp
+                                <div class="dropdown" style="display: inline-block;margin-left: 15px">
+                                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                                        Durée
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="?add_time=15 min">15 minutes</a></li>
+                                        <li><a href="?add_time=30 min">30 minutes</a></li>
+                                        <li><a href="?add_time=1 hour">1 heure</a></li>
+                                        <li><a href="?add_time=2 hour">2 heures</a></li>
+                                        <li><a href="?add_time=3 hour">3 heures</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="btn-group btn-group-justified visible-xs-block">
+                                <a class="btn btn-default" href="?add_time=15 min">+15m</a>
+                                <a class="btn btn-default" href="?add_time=30 min">+30m</a>
+                                <a class="btn btn-default" href="?add_time=1 hour">+1h</a>
+                                <a class="btn btn-default" href="?add_time=2 hours">+2h</a>
+                                <a class="btn btn-default" href="?add_time=3 hours">+3h</a>
+                            </div>
+                        {% endif %}
+                    </li>
+                    <li class="list-group-item hidden-xs">
+                        <a class="btn btn-primary" href="{{ path('seller_cash_register', {salt:app.user.salt}) }}">Accéder stand virtuel</a>
+                    </li>
+                    <li class="list-group-item visible-xs-block">
+                        <a class="btn btn-primary btn-block" href="{{ path('seller_cash_register', {salt:app.user.salt}) }}">Accéder stand virtuel</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

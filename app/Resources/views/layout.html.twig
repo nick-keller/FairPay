@@ -1,5 +1,13 @@
 {% extends '::base.html.twig' %}
 
+{% macro navbarlink(route, icon, text) %}
+    <li{% if app.request.attributes.get('_route') == route %} class="active"{% endif %}>
+        <a href="{{ path(route) }}">{{ icon(icon) }} {{ text }}</a>
+    </li>
+{% endmacro %}
+
+{% import _self as macro %}
+
 {% block navbar %}
     <nav class="navbar navbar-default" role="navigation">
         <div class="container">
@@ -17,15 +25,12 @@
             <div class="collapse navbar-collapse" id="navbar">
                 {% if is_granted('ROLE_USER') %}
                     <ul class="nav navbar-nav">
-                        <li>
-                            <a href="{{ path('user_statement') }}">Relevé</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('user_transfer') }}">Passer un virement</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('ferus_other_operations') }}">Autres opérations</a>
-                        </li>
+                        {{ macro.navbarlink('user_statement', 'list-alt', 'Relevé') }}
+                        {{ macro.navbarlink('user_transfer', 'transfer', 'Virements') }}
+                        {% if app.user.account.seller is not null %}
+                            {{ macro.navbarlink('seller_dashboard', 'shopping-cart', 'Vente') }}
+                        {% endif %}
+                        {{ macro.navbarlink('ferus_other_operations', 'briefcase', 'Autres opérations') }}
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
