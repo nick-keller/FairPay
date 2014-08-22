@@ -29,6 +29,11 @@ Ferus\SellerBundle\Entity\Seller:
             length: 255
             unique: true
 
+        cashRegisterExpiresAt:
+            column: cash_register_expires_at
+            type: datetime
+            nullable: true
+
         deletedAt:
             column: deleted_at
             type: date

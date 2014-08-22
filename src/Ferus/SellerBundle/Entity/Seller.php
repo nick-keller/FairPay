@@ -37,6 +37,11 @@ class Seller
     /**
      * @var \DateTime
      */
+    private $cashRegisterExpiresAt;
+
+    /**
+     * @var \DateTime
+     */
     private $deletedAt;
 
     /**
@@ -162,5 +167,21 @@ class Seller
     public function generateApiKey()
     {
         $this->apiKey = uniqid('api_');
+    }
+
+    /**
+     * @param \DateTime $cashRegisterExpiresAt
+     */
+    public function setCashRegisterExpiresAt($cashRegisterExpiresAt)
+    {
+        $this->cashRegisterExpiresAt = $cashRegisterExpiresAt;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCashRegisterExpiresAt()
+    {
+        return $this->cashRegisterExpiresAt;
     }
 }
