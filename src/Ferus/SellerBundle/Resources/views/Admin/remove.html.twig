@@ -10,7 +10,7 @@
     {% if seller.account is not null and seller.account.deletedAt is null %}
         <div class="alert alert-danger" role="alert">
             <h2>Impossible !</h2>
-            <p>Vous ne pouvez pas supprimer <b>{{ seller }}</b> car il as un <a href="{{ path('account_admin_view', {id:seller.account.id}) }}">compte bancaire</a>.</p>
+            <p>Vous ne pouvez pas supprimer <b>{{ seller }}</b> car il a un <a href="{{ path('account_admin_view', {id:seller.account.id}) }}">compte bancaire</a>.</p>
             <form method="post" style="margin-top: 10px">
                 <a class="btn btn-default" href="{{ path('seller_admin_index') }}">
                     Annuler

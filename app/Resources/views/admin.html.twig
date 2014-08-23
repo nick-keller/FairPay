@@ -75,7 +75,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">{{ icon('dashboard') }} Tableau de bord</div>
                     <div class="panel-body">
-                        <p>Il se peut que vous n'ayez pas accés à toutes les facette de l'administration. Pour rappel vos droits sont les suivants :</p>
+                        <p>Il se peut que vous n'ayez pas accés à toutes les parties de l'administration. Pour rappel vos droits sont les suivants :</p>
                         <p>
                             {% for role in app.user.roles %}
                                 <span class="label label-default">{{ role|trans({}, 'roles_short') }}</span>

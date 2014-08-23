@@ -21,14 +21,14 @@
                     précis pour appliquer une tarification différente (Oasis, Redbull…)
                 </p>
                 <p>
-                    Comme pour l’interface stand il est alors possible d’ouvrir une interface boutique. Cette interface
+                    Comme pour l’interface stand, il est alors possible d’ouvrir une interface boutique. Cette interface
                     permet de sélectionner un ou plusieurs articles de la boutique et de payer en tapant ou en scannant
-                    le numéros de la carte étudiante.
+                    le numéro de la carte étudiante.
 
                 </p>
                 <p>
                     Il est également possible d’utiliser l’interface boutique pour tenir un stand et aller plus vite.
-                    On créer alors un article par menu et/ou par item et on a plus qu’à sélectionner le choix de l’élève.
+                    On crée alors un article par menu et/ou par item et on a plus qu’à sélectionner le choix de l’élève.
                     Le motif de la transaction sera automatiquement créé en fonction des articles sélectionnés.
                 </p>
             </div>
@@ -50,7 +50,7 @@
                 </p>
                 <p>
                     Pour éviter tout débordement, le stand n'est actif qu'un temps limité, une fois ce temps écoulé il n'est
-                    plus possible d'encaisser. Vous pouvez ajouter autant de temps que vous voulez au conteur.
+                    plus possible d'encaisser. Vous pouvez ajouter autant de temps que vous voulez au compteur.
                 </p>
             </div>
 
@@ -68,10 +68,10 @@
                     </li>
                     <li class="list-group-item">
                         {% if seller.cashRegisterExpiresAt > date('now') and seller.cashRegisterExpiresAt.diff(date('now')).h >= 3 %}
-                            Le stand ferme dans plus de 3 heures, vous ne pouvez plus ajouter de temp.
+                            Le stand ferme dans plus de 3 heures, vous ne pouvez plus ajouter de temps.
                         {% else %}
                             <div class="hidden-xs">
-                                Ajouter du temp
+                                Ajouter du temps
                                 <div class="dropdown" style="display: inline-block;margin-left: 15px">
                                     <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
                                         Durée
@@ -96,10 +96,10 @@
                         {% endif %}
                     </li>
                     <li class="list-group-item hidden-xs">
-                        <a class="btn btn-primary" href="{{ path('seller_cash_register', {salt:app.user.salt}) }}">Accéder stand virtuel</a>
+                        <a class="btn btn-primary" href="{{ path('seller_cash_register', {salt:app.user.salt}) }}">Accéder au stand virtuel</a>
                     </li>
                     <li class="list-group-item visible-xs-block">
-                        <a class="btn btn-primary btn-block" href="{{ path('seller_cash_register', {salt:app.user.salt}) }}">Accéder stand virtuel</a>
+                        <a class="btn btn-primary btn-block" href="{{ path('seller_cash_register', {salt:app.user.salt}) }}">Accéder au stand virtuel</a>
                     </li>
                 </ul>
             </div>
