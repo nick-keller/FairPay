@@ -3,6 +3,7 @@
 namespace Ferus\SellerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Product
@@ -16,11 +17,14 @@ class Product
 
     /**
      * @var string
+     * @Assert\NotBlank()
      */
     private $name;
 
     /**
      * @var float
+     * @Assert\NotBlank()
+     * @Assert\GreaterThan(0)
      */
     private $price;
 

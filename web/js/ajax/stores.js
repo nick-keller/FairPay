@@ -9,6 +9,24 @@ $(function(){
                 $thisProduct.remove();
             });
         });
+
+        $product.find('[data-edit]').click(function(){
+            var $thisProduct = $(this).parents('.product');
+            var $form = $(this).parents('.form');
+
+            $.get($(this).data('edit'), {
+                name: $form.find('[name=name]').val(),
+                price:$form.find('[name=price]').val()
+            });
+
+            $thisProduct.find('.collapse').collapse('toggle');
+            $thisProduct.find('[data-name]').text($form.find('[name=name]').val());
+            $thisProduct.find('[data-price]').text($form.find('[name=price]').val()+' €');
+        });
+
+        $product.find('.collapse').click(function(e){
+            e.stopPropagation();
+        })
     }
 
     function makeStore($store){

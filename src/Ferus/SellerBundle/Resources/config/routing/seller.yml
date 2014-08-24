@@ -21,3 +21,7 @@ seller_new_product:
 seller_remove_product:
     pattern: /products/{id}/remove
     defaults: { _controller: FerusSellerBundle:Seller:removeProduct }
+
+seller_edit_product:
+    pattern: /products/{id}/edit
+    defaults: { _controller: FerusSellerBundle:Seller:editProduct }

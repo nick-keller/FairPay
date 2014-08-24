@@ -106,8 +106,14 @@ class SellerController extends Controller
         );
     }
 
+    /**
+     * @Secure(roles="ROLE_SELLER")
+     */
     public function removeStoreAction(Store $store)
     {
+        if($store->getSeller()->getId() != $this->getUser()->getAccount()->getSeller()->getId())
+            $this->createAccessDeniedException();
+
         $this->em->remove($store);
         $this->em->flush();
 
@@ -134,11 +140,40 @@ class SellerController extends Controller
         );
     }
 
+    /**
+     * @Secure(roles="ROLE_SELLER")
+     */
     public function removeProductAction(Product $product)
     {
+        if($product->getStore()->getSeller()->getId() != $this->getUser()->getAccount()->getSeller()->getId())
+            $this->createAccessDeniedException();
+
         $this->em->remove($product);
         $this->em->flush();
 
         return new Response('OK');
+    }
+
+    /**
+     * @Secure(roles="ROLE_SELLER")
+     */
+    public function editProductAction(Product $product, Request $request)
+    {
+        if($product->getStore()->getSeller()->getId() != $this->getUser()->getAccount()->getSeller()->getId())
+            $this->createAccessDeniedException();
+
+        $product->setName($request->query->get('name', null));
+        $product->setPrice($request->query->get('price', null));
+
+        $err = $this->get('validator')->validate($product);
+
+        if(!count($err)){
+            $this->em->persist($product);
+            $this->em->flush();
+
+            return new Response('OK');
+        }
+
+        return new Response('Error', 401);
     }
 } 
