@@ -2,6 +2,7 @@
 
 namespace Ferus\SellerBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Ferus\AccountBundle\Entity\Account;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -48,6 +49,18 @@ class Seller
      * @var Account
      */
     private $account;
+
+    /**
+     * @var ArrayCollection
+     */
+    private $stores;
+
+
+    public function __construct()
+    {
+        $this->stores = new ArrayCollection;
+    }
+
 
     public function __toString()
     {
@@ -183,5 +196,38 @@ class Seller
     public function getCashRegisterExpiresAt()
     {
         return $this->cashRegisterExpiresAt;
+    }
+
+    /**
+     * Add stores
+     *
+     * @param \Ferus\SellerBundle\Entity\Store $stores
+     * @return Seller
+     */
+    public function addStore(\Ferus\SellerBundle\Entity\Store $stores)
+    {
+        $this->stores[] = $stores;
+
+        return $this;
+    }
+
+    /**
+     * Remove stores
+     *
+     * @param \Ferus\SellerBundle\Entity\Store $stores
+     */
+    public function removeStore(\Ferus\SellerBundle\Entity\Store $stores)
+    {
+        $this->stores->removeElement($stores);
+    }
+
+    /**
+     * Get stores
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getStores()
+    {
+        return $this->stores;
     }
 }

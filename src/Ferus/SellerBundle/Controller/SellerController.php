@@ -6,6 +6,7 @@ namespace Ferus\SellerBundle\Controller;
 use Braincrafted\Bundle\BootstrapBundle\Session\FlashMessage;
 use Doctrine\ORM\EntityManager;
 use Ferus\SellerBundle\Entity\Seller;
+use Ferus\SellerBundle\Entity\Store;
 use Ferus\SellerBundle\Form\SellType;
 use Ferus\TransactionBundle\Entity\Transaction;
 use Ferus\UserBundle\Entity\User;
@@ -14,6 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use JMS\SecurityExtraBundle\Annotation\Secure;
+use Symfony\Component\HttpFoundation\Response;
 
 class SellerController extends Controller
 {
@@ -84,5 +86,30 @@ class SellerController extends Controller
         return array(
             'seller' => $seller,
         );
+    }
+
+    /**
+     * @Template
+     * @Secure(roles="ROLE_SELLER")
+     */
+    public function newStoreAction(Request $request)
+    {
+        $store = new Store($request->query->get('name'));
+        $store->setSeller($this->getUser()->getAccount()->getSeller());
+
+        $this->em->persist($store);
+        $this->em->flush();
+
+        return array(
+            'store' => $store,
+        );
+    }
+
+    public function removeStoreAction(Store $store)
+    {
+        $this->em->remove($store);
+        $this->em->flush();
+
+        return new Response('OK');
     }
 } 

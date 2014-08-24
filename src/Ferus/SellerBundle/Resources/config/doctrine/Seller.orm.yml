@@ -44,5 +44,12 @@ Ferus\SellerBundle\Entity\Seller:
             targetEntity: Ferus\AccountBundle\Entity\Account
             mappedBy: seller
 
+    oneToMany:
+        stores:
+            targetEntity: Ferus\SellerBundle\Entity\Store
+            mappedBy: seller
+            cascade:
+                - remove
+
     lifecycleCallbacks:
         prePersist: [ generateApiKey ]

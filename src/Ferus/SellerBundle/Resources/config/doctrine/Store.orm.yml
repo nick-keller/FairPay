@@ -1,0 +1,21 @@
+Ferus\SellerBundle\Entity\Store:
+    type: entity
+    table: ferus_store
+    repositoryClass: Ferus\SellerBundle\Repository\StoreRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '100'
+
+    manyToOne:
+        seller:
+            targetEntity: Ferus\SellerBundle\Entity\Seller
+            inversedBy: stores
+
+    lifecycleCallbacks: {  }

@@ -32,35 +32,25 @@
                     Le motif de la transaction sera automatiquement créé en fonction des articles sélectionnés.
                 </p>
             </div>
-            <script type="text/html" id="store-template">
-                <div class="panel panel-default">
-                    <div class="panel-heading" data-content-prepend="storeName">
-                        <a class="btn btn-danger btn-xs pull-right">
-                            {{ icon('remove') }} Supprimer
-                        </a>
+            <div id="stores" style="margin-bottom: 20px">
+                {% for store in seller.stores %}
+                    {% include '@FerusSeller/Seller/newStore.html.twig' %}
+                {% endfor %}
+            </div>
+            <form class="form-inline" id="add-new-store" action="{{ path('seller_new_store') }}">
+                <fieldset>
+                    <label class="visible-sm-block visible-xs-block">
+                        Nouvelle boutique :
+                    </label>
+                    <div class="input-group input-group-sm" style="width: 100%">
+                        <input type="text" class="form-control" placeholder="Nom" required>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit">{{ icon('plus') }}</button>
+                        </span>
                     </div>
-                    <div class="list-group">
-                        <div class="list-group-item" data-toggle="collapse" data-target="#product-1">
-                            Canette
-                            <div id="product-1" class="collapse">
-                                hello
-                            </div>
-                        </div>
-                        <a class="list-group-item">
-                            {{ icon('plus') }} Ajouter un article
-                        </a>
-                    </div>
-                </div>
-            </script>
-            <div id="stores"></div>
-            <form class="form-inline" id="add-new-store">
-                <div class="input-group input-group-sm" style="width: 100%">
-                    <input type="text" class="form-control" placeholder="Nom" name="name" required>
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit">{{ icon('plus') }}</button>
-                    </span>
-                </div>
+                </fieldset>
             </form>
+            <hr style="margin: 40px 0" class="visible-sm-block visible-xs-block">
         </div>
         <div class="col-md-6">
             <h2>

@@ -5,3 +5,11 @@ seller_dashboard:
 seller_cash_register:
     pattern: /{salt}/cash-register
     defaults: { _controller: FerusSellerBundle:Seller:cashRegister }
+
+seller_new_store:
+    pattern: /stores/new
+    defaults: { _controller: FerusSellerBundle:Seller:newStore }
+
+seller_remove_store:
+    pattern: /stores/{id}/remove
+    defaults: { _controller: FerusSellerBundle:Seller:removeStore }
