@@ -2,6 +2,7 @@
 
 namespace Ferus\SellerBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -24,9 +25,15 @@ class Store
      */
     private $seller;
 
+    /**
+     * @var ArrayCollection
+     */
+    private $products;
+
     function __construct($name = null)
     {
         $this->name = $name;
+        $this->products = new ArrayCollection;
     }
 
     public function __toString()
@@ -82,5 +89,38 @@ class Store
     public function getSeller()
     {
         return $this->seller;
+    }
+
+    /**
+     * Add products
+     *
+     * @param \Ferus\SellerBundle\Entity\Product $products
+     * @return Store
+     */
+    public function addProduct(\Ferus\SellerBundle\Entity\Product $products)
+    {
+        $this->products[] = $products;
+
+        return $this;
+    }
+
+    /**
+     * Remove products
+     *
+     * @param \Ferus\SellerBundle\Entity\Product $products
+     */
+    public function removeProduct(\Ferus\SellerBundle\Entity\Product $products)
+    {
+        $this->products->removeElement($products);
+    }
+
+    /**
+     * Get products
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getProducts()
+    {
+        return $this->products;
     }
 }

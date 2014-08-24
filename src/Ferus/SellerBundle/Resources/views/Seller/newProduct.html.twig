@@ -1,0 +1,9 @@
+<div class="list-group-item product" data-toggle="collapse" data-target="#product-{{ product.id }}">
+    {{ product }}
+    <div class="badge">{{ product.price|number_format(2, '.', ' ') }} €</div>
+    <div id="product-{{ product.id }}" class="collapse">
+        <a class="btn btn-danger" data-remove-product="{{ path('seller_remove_product', {id:product.id}) }}">
+            {{ icon('remove') }} Supprimer
+        </a>
+    </div>
+</div>

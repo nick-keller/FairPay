@@ -1,18 +1,30 @@
 <div class="panel panel-default store">
     <div class="panel-heading">
         {{ store }}
-        <button class="btn btn-danger btn-xs pull-right" data-remove="{{ path('seller_remove_store', {id:store.id}) }}">
-            {{ icon('remove') }} Supprimer
-        </button>
+        <div class="btn-group btn-group-xs pull-right hidden-xs">
+            <a class="btn btn-primary">
+                {{ icon('shopping-cart') }} Accéder à la boutique
+            </a>
+            <button class="btn btn-danger" data-remove="{{ path('seller_remove_store', {id:store.id}) }}">
+                {{ icon('remove') }} Supprimer
+            </button>
+        </div>
+    </div>
+    <div class="panel-body visible-xs-block">
+        <div class="btn-group btn-group-justified">
+            <a class="btn btn-primary">
+                {{ icon('shopping-cart') }} Accéder
+            </a>
+            <a class="btn btn-danger" data-remove="{{ path('seller_remove_store', {id:store.id}) }}">
+                {{ icon('remove') }} Supprimer
+            </a>
+        </div>
     </div>
     <div class="list-group">
-        <div class="list-group-item" data-toggle="collapse" data-target="#product-1">
-            Canette
-            <div id="product-1" class="collapse">
-                hello
-            </div>
-        </div>
-        <a class="list-group-item">
+        {% for product in store.products %}
+            {% include '@FerusSeller/Seller/newProduct.html.twig' %}
+        {% endfor %}
+        <a class="list-group-item" data-new-product="{{ path('seller_new_product', {id:store.id}) }}" style="cursor: pointer">
             {{ icon('plus') }} Ajouter un article
         </a>
     </div>

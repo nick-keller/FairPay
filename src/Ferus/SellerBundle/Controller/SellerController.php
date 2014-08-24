@@ -5,6 +5,7 @@ namespace Ferus\SellerBundle\Controller;
 
 use Braincrafted\Bundle\BootstrapBundle\Session\FlashMessage;
 use Doctrine\ORM\EntityManager;
+use Ferus\SellerBundle\Entity\Product;
 use Ferus\SellerBundle\Entity\Seller;
 use Ferus\SellerBundle\Entity\Store;
 use Ferus\SellerBundle\Form\SellType;
@@ -108,6 +109,34 @@ class SellerController extends Controller
     public function removeStoreAction(Store $store)
     {
         $this->em->remove($store);
+        $this->em->flush();
+
+        return new Response('OK');
+    }
+
+    /**
+     * @Template
+     * @Secure(roles="ROLE_SELLER")
+     */
+    public function newProductAction(Store $store)
+    {
+        if($store->getSeller()->getId() != $this->getUser()->getAccount()->getSeller()->getId())
+            $this->createAccessDeniedException();
+
+        $product = new Product;
+        $product->setStore($store);
+
+        $this->em->persist($product);
+        $this->em->flush();
+
+        return array(
+            'product' => $product,
+        );
+    }
+
+    public function removeProductAction(Product $product)
+    {
+        $this->em->remove($product);
         $this->em->flush();
 
         return new Response('OK');

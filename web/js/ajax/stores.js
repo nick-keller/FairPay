@@ -1,5 +1,16 @@
 $(function(){
 
+    function makeProduct($product){
+        $product.find('[data-remove-product]').click(function(){
+            $.get($(this).data('remove-product'));
+
+            var $thisProduct = $(this).parents('.product');
+            $thisProduct.fadeTo(500, 0, function(){
+                $thisProduct.remove();
+            });
+        });
+    }
+
     function makeStore($store){
         $store.find('[data-remove]').click(function(){
             $.get($(this).data('remove'));
@@ -12,6 +23,22 @@ $(function(){
                 $div.remove();
             })
         });
+
+        $store.find('[data-new-product]').click(function(){
+            var $this = $(this);
+            var $loading = $('<div class="list-group-item">Chargement...</div>');
+
+            $this.before($loading)
+
+            $.get($this.data('new-product'), function(data){
+                $loading.remove();
+                var $product = $(data);
+                $this.before($product);
+                makeProduct($product);
+            });
+        });
+
+        makeProduct($store.find('.product'));
     }
 
     makeStore($('.store'));

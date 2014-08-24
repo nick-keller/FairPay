@@ -12,10 +12,18 @@ Ferus\SellerBundle\Entity\Store:
         name:
             type: string
             length: '100'
+            nullable: false
 
     manyToOne:
         seller:
             targetEntity: Ferus\SellerBundle\Entity\Seller
             inversedBy: stores
+
+    oneToMany:
+        products:
+            targetEntity: Ferus\SellerBundle\Entity\Product
+            mappedBy: store
+            cascade:
+                - remove
 
     lifecycleCallbacks: {  }

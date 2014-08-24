@@ -13,3 +13,11 @@ seller_new_store:
 seller_remove_store:
     pattern: /stores/{id}/remove
     defaults: { _controller: FerusSellerBundle:Seller:removeStore }
+
+seller_new_product:
+    pattern: /stores/{id}/new-product
+    defaults: { _controller: FerusSellerBundle:Seller:newProduct }
+
+seller_remove_product:
+    pattern: /products/{id}/remove
+    defaults: { _controller: FerusSellerBundle:Seller:removeProduct }
