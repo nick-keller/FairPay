@@ -6,8 +6,10 @@ namespace Ferus\SellerBundle\Controller;
 use Braincrafted\Bundle\BootstrapBundle\Session\FlashMessage;
 use Doctrine\ORM\EntityManager;
 use Ferus\SellerBundle\Entity\Product;
+use Ferus\SellerBundle\Entity\ProductsSelection;
 use Ferus\SellerBundle\Entity\Seller;
 use Ferus\SellerBundle\Entity\Store;
+use Ferus\SellerBundle\Form\ProductsSelectionType;
 use Ferus\SellerBundle\Form\SellType;
 use Ferus\TransactionBundle\Entity\Transaction;
 use Ferus\UserBundle\Entity\User;
@@ -103,6 +105,34 @@ class SellerController extends Controller
 
         return array(
             'store' => $store,
+        );
+    }
+
+    /**
+     * @Template
+     */
+    public function storeAction(Store $store, Request $request)
+    {
+        $selection = new ProductsSelection;
+        $selection->setSeller($store->getSeller()->getAccount());
+        $form = $this->createForm(new ProductsSelectionType, $selection);
+
+        if($request->isMethod('POST')){
+            $form->handleRequest($request);
+
+            if($form->isValid()){
+                $transactionCore = $this->get('ferus_transaction.transaction_core');
+                $transactionCore->cashProductsSelection($selection);
+
+                $this->flash->success('Paiement effectué. Il reste '.$selection->getClient()->getBalance().' € sur le compte de '.$selection->getClient()->getOwner().'.');
+
+                return $this->redirect($this->generateUrl('seller_store', array('id'=>$store->getId())));
+            }
+        }
+
+        return array(
+            'store' => $store,
+            'form' => $form->createView(),
         );
     }
 

@@ -5,6 +5,7 @@ namespace Ferus\TransactionBundle\Transaction;
 
 use Doctrine\ORM\EntityManager;
 use Ferus\SellerBundle\Entity\Api\Cash;
+use Ferus\SellerBundle\Entity\ProductsSelection;
 use Ferus\TransactionBundle\Entity\Deposit;
 use Ferus\TransactionBundle\Entity\Transaction;
 use Ferus\TransactionBundle\Entity\Withdrawal;
@@ -86,6 +87,17 @@ class TransactionCore
         $transaction->setReceiver($deposit->client_id->getAccount());
         $transaction->setAmount($deposit->amount);
         $transaction->setCause($deposit->cause);
+
+        $this->execute($transaction);
+    }
+
+    public function cashProductsSelection(ProductsSelection $selection)
+    {
+        $transaction = new Transaction;
+        $transaction->setIssuer($selection->getClient());
+        $transaction->setReceiver($selection->getSeller());
+        $transaction->setAmount($selection->getAmount());
+        $transaction->setCause($selection->getCause());
 
         $this->execute($transaction);
     }
