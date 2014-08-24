@@ -32,6 +32,35 @@
                     Le motif de la transaction sera automatiquement créé en fonction des articles sélectionnés.
                 </p>
             </div>
+            <script type="text/html" id="store-template">
+                <div class="panel panel-default">
+                    <div class="panel-heading" data-content-prepend="storeName">
+                        <a class="btn btn-danger btn-xs pull-right">
+                            {{ icon('remove') }} Supprimer
+                        </a>
+                    </div>
+                    <div class="list-group">
+                        <div class="list-group-item" data-toggle="collapse" data-target="#product-1">
+                            Canette
+                            <div id="product-1" class="collapse">
+                                hello
+                            </div>
+                        </div>
+                        <a class="list-group-item">
+                            {{ icon('plus') }} Ajouter un article
+                        </a>
+                    </div>
+                </div>
+            </script>
+            <div id="stores"></div>
+            <form class="form-inline" id="add-new-store">
+                <div class="input-group input-group-sm" style="width: 100%">
+                    <input type="text" class="form-control" placeholder="Nom" name="name" required>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">{{ icon('plus') }}</button>
+                    </span>
+                </div>
+            </form>
         </div>
         <div class="col-md-6">
             <h2>
@@ -105,4 +134,9 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/ajax/stores.js') }}"></script>
 {% endblock %}
