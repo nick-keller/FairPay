@@ -1,19 +1,23 @@
 $(function(){
     function updateCheck(){
         var products = [];
+        var formAction = [];
         var total = 0;
 
         $('[data-product]').each(function(){
             var $this = $(this);
 
-            if(parseInt($this.val()) > 0)
+            if(parseInt($this.val()) > 0){
                 products.push($this.val()+' '+$this.data('product'));
+                formAction.push($this.data('product')+'='+$this.val());
+            }
             total += parseFloat($this.data('price')) * parseInt($this.val());
         });
 
         $('[data-display]').text(total.toFixed(2));
         $('[data-input=amount]').val(total);
         $('[data-input=cause]').val(products.join(', '));
+        $('form').attr('action', '?'+formAction.join('&'));
     }
 
     $('[data-add]').click(function(){
@@ -43,4 +47,6 @@ $(function(){
         $this.data('prev', $this.val());
         $this.val('');
     });
+
+    updateCheck();
 });

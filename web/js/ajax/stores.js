@@ -10,9 +10,13 @@ $(function(){
             });
         });
 
-        $product.find('[data-edit]').click(function(){
+        $product.find('[data-edit]').submit(function(e){
+            e.preventDefault();
+
             var $thisProduct = $(this).parents('.product');
-            var $form = $(this).parents('.form');
+            var $form = $(this);
+
+            $form.find('[name=price]').blur();
 
             $.get($(this).data('edit'), {
                 name: $form.find('[name=name]').val(),
@@ -26,7 +30,9 @@ $(function(){
 
         $product.find('.collapse').click(function(e){
             e.stopPropagation();
-        })
+        });
+
+        $product.find('input[data-type=money]').money();
     }
 
     function makeStore($store){

@@ -1,36 +1,30 @@
 <div class="list-group-item product" data-toggle="collapse" data-target="#product-{{ product.id }}">
-    <span data-name>{{ product }}</span>
     <div class="badge" data-price>{{ product.price|number_format(2, '.', ' ') }} €</div>
+    <span data-name>{{ product }}</span>
     <div id="product-{{ product.id }}" class="collapse">
-        <div class="input-group hidden-xs form" style="width: 100%; margin-top: 10px">
+        <form class="input-group hidden-xs form" style="width: 100%; margin-top: 10px" data-edit="{{ path('seller_edit_product', {id:product.id}) }}">
             <input type="text" name="name" class="form-control" style="width: 50%" value="{{ product.name }}" placeholder="Nom">
             <input type="text" name="price" class="form-control" data-type="money" style="width: 50%" value="{{ product.price|number_format(2, '.', ' ') }}" placeholder="Prix">
             <div class="input-group-btn">
-                <button
-                        class="btn btn-default"
-                        data-edit="{{ path('seller_edit_product', {id:product.id}) }}"
-                        >{{ icon('ok') }}</button>
-                <button class="btn btn-danger" data-remove-product="{{ path('seller_remove_product', {id:product.id}) }}">
+                <button class="btn btn-default" type="submit">{{ icon('ok') }}</button>
+                <button class="btn btn-danger" data-remove-product="{{ path('seller_remove_product', {id:product.id}) }}" type="button">
                     {{ icon('remove') }}
                 </button>
             </div>
-        </div>
+        </form>
         <div class="visible-xs-block">
-            <div class="form">
+            <form class="form" data-edit="{{ path('seller_edit_product', {id:product.id}) }}">
                 <input type="text" style="margin-top: 10px" name="name" class="form-control" value="{{ product.name }}" placeholder="Nom">
                 <input type="text" style="margin-top: 10px" name="price" class="form-control" data-type="money" value="{{ product.price|number_format(2, '.', ' ') }}" placeholder="Prix">
 
                 <div class="btn-group btn-group-justified" style="margin-top: 10px">
-                    <a
-                            class="btn btn-default"
-                            data-edit="{{ path('seller_edit_product', {id:product.id}) }}"
-                            >{{ icon('ok') }} Editer
-                    </a>
-                    <a class="btn btn-danger" data-remove-product="{{ path('seller_remove_product', {id:product.id}) }}">
+                    <button class="btn btn-default" style="width: 50%">{{ icon('ok') }} Editer
+                    </button>
+                    <button class="btn btn-danger" data-remove-product="{{ path('seller_remove_product', {id:product.id}) }}" style="width: 50%">
                         {{ icon('remove') }} Supprimer
-                    </a>
+                    </button>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>

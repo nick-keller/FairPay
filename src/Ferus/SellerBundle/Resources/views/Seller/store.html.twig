@@ -5,31 +5,40 @@
         <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <h1>{{ store.seller }} : {{ store }}</h1>
             <div class="panel panel-default">
-                <table class="table table-hover">
-                    {% for product in store.products %}
-                        <tr>
-                            <td>{{ product }}</td>
-                            <td>{{ product.price }} €</td>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        {% for product in store.products %}
+                            <tr>
+                                <td>
+                                    <span class="hidden-xs">
+                                        {{ product }}
+                                    </span>
+                                    <span class="visible-xs-block" style="max-width:100px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">
+                                        {{ product }}
+                                    </span>
+                                </td>
+                                <td style="min-width: 55px">{{ product.price }} €</td>
+                                <td>
+                                    <div class="input-group input-group-sm" style="width: 100px">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-default" data-add="-1">{{ icon('minus') }}</button>
+                                        </div>
+                                        <input type="tel" class="form-control text-center" value="{{ app.request.get(product.name, 0) }}" data-product="{{ product }}" data-price="{{ product.price }}">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-default" data-add="1">{{ icon('plus') }}</button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        <tr class="active">
                             <td>
-                                <div class="input-group input-group-sm" style="max-width: 100px">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-default" data-add="-1">{{ icon('minus') }}</button>
-                                    </div>
-                                    <input class="form-control text-center" value="0" data-product="{{ product }}" data-price="{{ product.price }}">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-default" data-add="1">{{ icon('plus') }}</button>
-                                    </div>
-                                </div>
+                                Totale
                             </td>
+                            <td colspan="2"><span data-display>0.00</span> €</td>
                         </tr>
-                    {% endfor %}
-                    <tr class="active">
-                        <td>
-                            Totale
-                        </td>
-                        <td colspan="2"><span data-display>0.00</span> €</td>
-                    </tr>
-                </table>
+                    </table>
+                </div>
             </div>
             {{ form(form) }}
         </div>
