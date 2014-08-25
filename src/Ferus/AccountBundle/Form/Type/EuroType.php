@@ -23,6 +23,7 @@ class EuroType extends AbstractType
                 'input_group' => array(
                     'prepend' => '.icon-euro',
                 ),
+                'autocomplete' => 'off',
                 'data-type' => 'money'
             )
         ));

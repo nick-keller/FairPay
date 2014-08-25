@@ -36,6 +36,7 @@ class BarcodeType extends AbstractType
                 'input_group' => array(
                     'prepend' => '.icon-barcode',
                 ),
+                'autocomplete' => 'off',
                 'help_text' => 'Numéro figurant sur la carte étudiante',
             ),
             'data' => 'account'
