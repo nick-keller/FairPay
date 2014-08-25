@@ -9,7 +9,7 @@ $(function(){
 
             if(parseInt($this.val()) > 0){
                 products.push($this.val()+' '+$this.data('product'));
-                formAction.push($this.data('product')+'='+$this.val());
+                formAction.push($this.data('id')+'='+$this.val());
             }
             total += parseFloat($this.data('price')) * parseInt($this.val());
         });
