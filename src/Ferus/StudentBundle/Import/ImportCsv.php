@@ -41,10 +41,18 @@ class ImportCsv
 
                 $this->success++;
             }
-            else
+            else{
+                $student = $this->em->getRepository('FerusStudentBundle:Student')->findOneById($student->getId());
+                $student->setLastName($info[1]);
+                $student->setFirstName($info[2]);
+                $student->setIsContributor(false);
+                $this->em->persist($student);
+                $this->em->flush();
+
                 $this->error++;
+            }
         }
 
-        return $this->success . ' étudiants créés et '.$this->error.' erreur.';
+        return $this->success . ' étudiants créés et '.$this->error.' mis à jours.';
     }
 } 
