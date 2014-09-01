@@ -2,3 +2,7 @@ parameters:
 #    ferus_student.example.class: Ferus\StudentBundle\Example
 
 services:
+    import_csv:
+        class:        Ferus\StudentBundle\Import\ImportCsv
+        arguments:
+            - "@doctrine.orm.entity_manager"

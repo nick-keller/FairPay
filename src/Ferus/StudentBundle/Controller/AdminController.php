@@ -5,7 +5,9 @@ namespace Ferus\StudentBundle\Controller;
 
 use Braincrafted\Bundle\BootstrapBundle\Session\FlashMessage;
 use Doctrine\ORM\EntityManager;
+use Ferus\StudentBundle\Entity\CsvImport;
 use Ferus\StudentBundle\Entity\Student;
+use Ferus\StudentBundle\Form\CsvImportType;
 use Ferus\StudentBundle\Form\StudentType;
 use Knp\Component\Pager\Paginator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -55,7 +57,9 @@ class AdminController extends Controller
     public function addAction(Request $request)
     {
         $student = new Student;
+        $csv = new CsvImport;
         $form = $this->createForm(new StudentType, $student);
+        $csvImport = $this->createForm(new CsvImportType($this->get('router')), $csv);
 
         if($request->isMethod('POST')){
             $form->handleRequest($request);
@@ -87,6 +91,7 @@ class AdminController extends Controller
 
         return array(
             'form' => $form->createView(),
+            'csvImport' => $csvImport->createView(),
         );
     }
 
@@ -114,6 +119,22 @@ class AdminController extends Controller
             'student' => $student,
             'form' => $form->createView(),
         );
+    }
+
+    public function importAction(Request $request)
+    {
+        $csv = new CsvImport;
+        $form = $this->createForm(new CsvImportType($this->get('router')), $csv);
+        $form->handleRequest($request);
+
+        if($form->isValid()){
+            $this->flash->info($this->get('import_csv')->import($csv->getCsv()));
+            return $this->redirect($this->generateUrl('student_admin_add'));
+        }
+        else{
+            $this->flash->error('Erreur dans le formulaire.');
+            return $this->redirect($this->generateUrl('student_admin_add'));
+        }
     }
 
     /**

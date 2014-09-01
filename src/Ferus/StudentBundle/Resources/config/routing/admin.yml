@@ -6,6 +6,12 @@ student_admin_add:
     pattern: /add
     defaults: { _controller: FerusStudentBundle:Admin:add }
 
+student_admin_import:
+    pattern: /import
+    defaults: { _controller: FerusStudentBundle:Admin:import }
+    requirements:
+        _method:  POST
+
 student_admin_edit:
     pattern: /{id}/edit
     defaults: { _controller: FerusStudentBundle:Admin:edit }

@@ -94,4 +94,15 @@ class StudentRepository extends EntityRepository
             return null;
         }
     }
+
+    public function isIdAvailable($id)
+    {
+        return $this->createQueryBuilder('s')
+            ->select('COUNT(s)')
+            ->where('s.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getSingleScalarResult()
+            == 0;
+    }
 }
