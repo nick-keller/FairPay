@@ -33,6 +33,8 @@ class ImportCsv
             $student->setId($info[0]);
             $student->setLastName($info[1]);
             $student->setFirstName($info[2]);
+            if(isset($info[3]) && $info[3] != '') $student->setClass(preg_replace('#^[0-9]+_(.+)$#', '$1', $info[3]));
+            if(isset($info[4]) && $info[4] != '') $student->setEmail($info[4]);
             $student->setIsContributor(false);
 
             if($this->em->getRepository('FerusStudentBundle:Student')->isIdAvailable($student->getId())){
@@ -45,7 +47,9 @@ class ImportCsv
                 $student = $this->em->getRepository('FerusStudentBundle:Student')->findOneById($student->getId());
                 $student->setLastName($info[1]);
                 $student->setFirstName($info[2]);
-                $student->setIsContributor(false);
+                $student->setEmail(null);
+                if(isset($info[3]) && $info[3] != '') $student->setClass(preg_replace('#^[0-9]+_(.+)$#', '$1', $info[3]));
+                if(isset($info[4]) && $info[4] != '') $student->setEmail($info[4]);
                 $this->em->persist($student);
                 $this->em->flush();
 

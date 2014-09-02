@@ -30,6 +30,23 @@ class StudentType extends AbstractType
             ->add('lastName', 'text', array(
                 'label' => 'Nom',
             ))
+            ->add('class', 'text', array(
+                'label' => 'Promo',
+            ))
+            ->add('email', 'text', array(
+                'label' => 'Email ESIEE',
+                'required' => false,
+                'attr' => array(
+                    'placeholder' => 'Généré automatiquement',
+                )
+            ))
+            ->add('login', 'text', array(
+                'label' => 'Login ESIEE',
+                'required' => false,
+                'attr' => array(
+                    'placeholder' => 'Généré automatiquement',
+                )
+            ))
             ->add('isContributor', 'choice', array(
                 'label' => 'Statut',
                 'choices' => ['Non cotsant', 'Cotisant'],

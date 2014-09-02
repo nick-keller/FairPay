@@ -57,6 +57,11 @@ class Student
     private $login;
 
     /**
+     * @var string
+     */
+    private $class;
+
+    /**
      * @var \DateTime
      */
     private $deletedAt;
@@ -194,6 +199,22 @@ class Student
     }
 
     /**
+     * @param string $class
+     */
+    public function setClass($class)
+    {
+        $this->class = $class;
+    }
+
+    /**
+     * @return string
+     */
+    public function getClass()
+    {
+        return $this->class;
+    }
+
+    /**
      * @param \DateTime $deletedAt
      */
     public function setDeletedAt($deletedAt)
@@ -227,6 +248,8 @@ class Student
 
     public function generateLogin()
     {
+        if($this->login != null) return;
+
         $this->login =
             substr($this->cleanStr($this->lastName), 0, 7) .
             substr($this->cleanStr($this->firstName), 0, 1);
@@ -234,6 +257,8 @@ class Student
 
     public function generateEmail()
     {
+        if($this->email != null) return;
+
         $this->email =
             $this->cleanStr($this->firstName) . '.' .
             $this->cleanStr($this->lastName) . '@edu.esiee.fr';

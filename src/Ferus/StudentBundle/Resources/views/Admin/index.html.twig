@@ -12,6 +12,7 @@
                 <th>{{ knp_pagination_sortable(students, '#', 's.id') }}</th>
                 <th>{{ knp_pagination_sortable(students, 'Prénom', 's.firstName') }}</th>
                 <th>{{ knp_pagination_sortable(students, 'Nom', 's.lastName') }}</th>
+                <th>{{ knp_pagination_sortable(students, 'Promo', 's.class') }}</th>
                 <th>Email</th>
                 <th>Login</th>
                 <th>Cotisant</th>
@@ -22,6 +23,7 @@
                     <td>{{ student.id }}</td>
                     <td>{{ student.firstName }}</td>
                     <td>{{ student.lastName }}</td>
+                    <td>{{ student.class }}</td>
                     <td>{{ student.email }}</td>
                     <td>{{ student.login }}</td>
                     <td>

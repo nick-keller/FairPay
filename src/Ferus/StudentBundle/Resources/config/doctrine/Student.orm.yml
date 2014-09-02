@@ -40,6 +40,11 @@ Ferus\StudentBundle\Entity\Student:
             length: 8
             nullable: false
 
+        class:
+            type: string
+            length: 10
+            nullable: false
+
         deletedAt:
             column: deleted_at
             type: date

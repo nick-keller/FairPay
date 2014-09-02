@@ -24,9 +24,6 @@ class CsvImportType extends AbstractType
         $builder
             ->add('csv', 'textarea', array(
                 'label' => 'Contenu',
-                'attr' => array(
-                    'placeholder' => 'Id;Nom;Prénom;Promo'
-                )
             ))
             ->add('actions', 'form_actions', [
                 'buttons' => array(
