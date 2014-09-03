@@ -16,7 +16,7 @@
 
 </head>
 
-<body>
+<body data-get-student-api="{{ path('api_get_student', {query:"-query-"}) }}">
 
 {% block navbar %}{% endblock %}
 
@@ -30,6 +30,7 @@
     <script src="{{ asset('js/lib/jquery.loadTemplate-1.4.4.min.js') }}"></script>
     <script src="{{ asset('bootstrap/js/bootstrap.js') }}"></script>
     <script src="{{ asset('js/form/money.js') }}"></script>
+    <script src="{{ asset('js/form/student.js') }}"></script>
 {% endblock %}
 
 </body>

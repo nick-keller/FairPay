@@ -38,6 +38,7 @@ class BarcodeType extends AbstractType
                 ),
                 'autocomplete' => 'off',
                 'help_text' => 'Numéro figurant sur la carte étudiante',
+                'data-preview' => 'student',
             ),
             'data' => 'account'
         ));
