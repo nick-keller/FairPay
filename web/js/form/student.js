@@ -14,22 +14,32 @@ $(function(){
                     $this.data('searching', true);
 
                     setTimeout(function(){
-                        $.get($this.data('api').replace('-query-', $this.val()), function(data){
-                            $this.data('searching', false);
-                            if($this.data('waiting')){
-                                $this.data('waiting', false);
-                                $this.keyup();
+                        $.ajax($this.data('api').replace('-query-', $this.val()), {
+                            error: function(){
+                                $this.data('searching', false);
+                                if($this.data('waiting')){
+                                    $this.data('waiting', false);
+                                    $this.keyup();
+                                }
+                            },
+                            success: function(data){
+                                $this.data('searching', false);
+                                if($this.data('waiting')){
+                                    $this.data('waiting', false);
+                                    $this.keyup();
+                                }
+
+                                $this.val(data.id);
+                                $this.blur();
+                                $helpTxt.html('<b>' + data.first_name + ' ' + data.last_name + '</b>');
+
+                                if(data.is_contributor)
+                                    $helpTxt.append(' cotisant');
+                                else
+                                    $helpTxt.append(' non-cotisant');
                             }
-
-                            $this.val(data.id);
-                            $this.blur();
-                            $helpTxt.html('<b>' + data.first_name + ' ' + data.last_name + '</b>');
-
-                            if(data.is_contributor)
-                                $helpTxt.append(' cotisant');
-                            else
-                                $helpTxt.append(' non-cotisant');
                         });
+
                     }, 100);
                 })
                 .keyup(function(){
