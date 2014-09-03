@@ -12,3 +12,6 @@ services:
         arguments: ["@doctrine.orm.entity_manager"]
         tags:
             - { name: form.type, alias: barcode }
+
+    password_generator:
+        class: Ferus\AccountBundle\Services\PasswordGenerator

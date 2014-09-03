@@ -98,7 +98,7 @@ class AdminController extends Controller
 
                 // Now that the accont is created we create a user for it
                 $user = $this->get('fos_user.user_manager')->createUser();
-                $password = uniqid();
+                $password = $this->get('password_generator')->generate();
                 $user->setEmail($account->getOwner()->getEmail());
                 $user->setUsername($account->getOwner());
                 $user->setPlainPassword($password);
