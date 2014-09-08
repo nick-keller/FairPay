@@ -48,6 +48,7 @@ class Student
 
     /**
      * @var string
+     * @Expose
      */
     private $email;
 
@@ -58,6 +59,7 @@ class Student
 
     /**
      * @var string
+     * @Expose
      */
     private $class;
 
