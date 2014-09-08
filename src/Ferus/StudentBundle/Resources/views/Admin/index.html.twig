@@ -15,7 +15,7 @@
                 <th>{{ knp_pagination_sortable(students, 'Promo', 's.class') }}</th>
                 <th>Email</th>
                 <th>Login</th>
-                <th>Cotisant</th>
+                <th>{{ knp_pagination_sortable(students, 'Cotisant', 's.isContributor') }}</th>
                 <th></th>
             </tr>
             {% for student in students %}
