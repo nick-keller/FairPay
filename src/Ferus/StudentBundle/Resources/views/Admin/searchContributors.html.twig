@@ -5,6 +5,7 @@
             <th class="hidden-xs">#</th>
             <th>Prénom</th>
             <th>Nom</th>
+            <th>Promo</th>
             <th>Cotisant</th>
         </tr>
         {% for student in students %}
@@ -12,6 +13,7 @@
                 <td class="hidden-xs">{{ student.id }}</td>
                 <td>{{ student.firstName }}</td>
                 <td>{{ student.lastName }}</td>
+                <td>{{ student.class }}</td>
                 <td>
                     <div class="btn-group btn-group-xs" data-contributor="{{ student.isContributor ? 1 : 0 }}" style="min-width: 62px">
                         <button type="button"
