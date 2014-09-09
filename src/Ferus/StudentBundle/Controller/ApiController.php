@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations\Get;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Knp\Component\Pager\Paginator;
+use Symfony\Component\HttpFoundation\Request;
 
 class ApiController extends Controller
 {
@@ -14,6 +16,11 @@ class ApiController extends Controller
      * @var EntityManager
      */
     private $em;
+
+    /**
+     * @var Paginator
+     */
+    private $paginator;
 
     /**
      * Récupérer un étudiant.
@@ -76,12 +83,39 @@ class ApiController extends Controller
      * Récupérer tous les étudiants
      *
      * @ApiDoc(
-     *      section="Etudiants"
+     *      section="Etudiants",
+     *      requirements={
+     *          {
+     *              "name"="page",
+     *              "dataType"="integer",
+     *              "description"="Numéro de page"
+     *          }
+     *      }
      * )
      */
-    public function getStudentsAction()
+    public function getStudentsAction(Request $request)
     {
-        $students = $this->em->getRepository('FerusStudentBundle:Student')->findAll();
-        return $students;
+        $students = $this->paginator->paginate(
+            $this->em->getRepository('FerusStudentBundle:Student')->queryAll(),
+            $request->query->get('page', 1),
+            21
+        );
+
+        $result = array(
+            'students' => $students->getItems(),
+            'current_page' => intval($students->getCurrentPageNumber()),
+            'items_per_page' => $students->getItemNumberPerPage(),
+            'total_count' => $students->getTotalItemCount(),
+            'next_page' => $this->generateUrl($students->getRoute(), [$students->getPaginatorOptions()['pageParameterName'] => $students->getCurrentPageNumber()+1], true),
+            'prev_page' => $this->generateUrl($students->getRoute(), [$students->getPaginatorOptions()['pageParameterName'] => $students->getCurrentPageNumber()-1], true),
+        );
+
+        if($request->query->get('page', 1) == 1)
+            $result['prev_page'] = false;
+
+        if($result['current_page'] * $result['items_per_page'] >= $result['total_count'])
+            $result['next_page'] = false;
+
+        return $result;
     }
 } 
