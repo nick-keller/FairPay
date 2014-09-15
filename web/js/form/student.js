@@ -40,7 +40,7 @@ $(function(){
                             }
                         });
 
-                    }, 100);
+                    }, 200);
                 })
                 .keyup(function(){
                     $(this).change();
