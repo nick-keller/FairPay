@@ -1,0 +1,3 @@
+event_admin_index:
+    pattern: /
+    defaults: { _controller: FerusEventBundle:Admin:index }

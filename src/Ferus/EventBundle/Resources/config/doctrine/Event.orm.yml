@@ -1,0 +1,16 @@
+Ferus\EventBundle\Entity\Event:
+    type: entity
+    table: ferus_event
+    repositoryClass: Ferus\EventBundle\Repository\EventRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '100'
+
+    lifecycleCallbacks: {  }

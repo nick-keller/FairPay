@@ -1,0 +1,18 @@
+{% extends '::admin.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li><a href="{{ path('event_admin_index') }}">Evenements</a></li>
+{% endblock %}
+
+{% block actions %}
+    <div class="hidden-xs">
+        <div class="btn-group btn-group-sm">
+            <a class="btn btn-default" href="{{ path('event_admin_index') }}">
+                {{ icon('th-list') }} Liste
+            </a>
+        </div>
+    </div>
+    <div class="visible-xs-block">
+    </div>
+{% endblock %}

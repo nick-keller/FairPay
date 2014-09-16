@@ -1,6 +1,7 @@
 ROLE_USER:              Utilisateur
 ROLE_SELLER:            Marchand
 ROLE_ADMIN:             Administrateur
+ROLE_EVENT:             Gestion évenements
 ROLE_USER_ADMIN:        Gestion utilisateurs
 ROLE_STUDENT_ADMIN:     Gestion étudiants
 ROLE_SELLER_ADMIN:      Gestion marchands

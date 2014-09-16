@@ -5,6 +5,7 @@ security:
     role_hierarchy:
         ROLE_SELLER:            ROLE_USER
         ROLE_ADMIN:             ROLE_USER
+        ROLE_EVENT:             ROLE_ADMIN
         ROLE_USER_ADMIN:        ROLE_ADMIN
         ROLE_STUDENT_ADMIN:     ROLE_ADMIN
         ROLE_SELLER_ADMIN:      ROLE_ADMIN

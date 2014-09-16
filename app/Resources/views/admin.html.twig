@@ -33,6 +33,9 @@
                     <li>
                         <a href="{{ path('transaction_admin_index') }}">Transactions</a>
                     </li>
+                    <li>
+                        <a href="{{ path('event_admin_index') }}">Evenements</a>
+                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
@@ -89,6 +92,7 @@
                         <a href="{{ path('seller_admin_index') }}" class="list-group-item">Marchands</a>
                         <a href="{{ path('account_admin_index') }}" class="list-group-item">Comptes bancaires</a>
                         <a href="{{ path('transaction_admin_index') }}" class="list-group-item">Transactions</a>
+                        <a href="{{ path('event_admin_index') }}" class="list-group-item">Evenements</a>
                     </div>
 
                     <ul class="list-group hidden-xs" style="text-align: right">
@@ -165,6 +169,17 @@
                                 </a>
                                 <a class="btn btn-default" href="{{ path('transaction_admin_withdrawal') }}">
                                     {{ icon('export') }} Retrait
+                                </a>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{{ path('event_admin_index') }}" class="pull-left">
+                                Evenements
+                            </a>
+
+                            <div class="btn-group btn-group-sm">
+                                <a class="btn btn-default" href="{{ path('event_admin_index') }}">
+                                    {{ icon('th-list') }} Liste
                                 </a>
                             </div>
                         </li>
