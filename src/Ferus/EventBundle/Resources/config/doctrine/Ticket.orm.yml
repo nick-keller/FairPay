@@ -1,0 +1,34 @@
+Ferus\EventBundle\Entity\Ticket:
+    type: entity
+    table: ferus_ticket
+    repositoryClass: Ferus\EventBundle\Repository\TicketRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '100'
+
+        maxTickets:
+            column: max_tickets
+            type: integer
+
+        price:
+            type: decimal
+            scale: 2
+
+        priceContributor:
+            column: price_contributor
+            type: decimal
+            scale: 2
+
+    manyToOne:
+        event:
+            targetEntity: Ferus\EventBundle\Entity\Event
+            inversedBy: tickets
+
+    lifecycleCallbacks: {  }

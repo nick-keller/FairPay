@@ -1,3 +1,15 @@
 event_admin_index:
     pattern: /
     defaults: { _controller: FerusEventBundle:Admin:index }
+
+event_admin_add:
+    pattern: /add
+    defaults: { _controller: FerusEventBundle:Admin:add }
+
+event_admin_edit:
+    pattern: /{id}/edit
+    defaults: { _controller: FerusEventBundle:Admin:edit }
+
+event_admin_remove:
+    pattern: /{id}/remove
+    defaults: { _controller: FerusEventBundle:Admin:remove }

@@ -1,0 +1,35 @@
+{% extends '@FerusEvent/Admin/layout.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li>{{ event }}</li>
+    <li class="active">NEditer</li>
+{% endblock %}
+
+{% block content %}
+    <h2>Editer {{ event }}</h2>
+    {{ form_start(form, { 'style': 'horizontal' }) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.date) }}
+
+        <h3>Tarification</h3>
+        {% for ticket in form.tickets %}
+            <div class="well">
+                {{ form_widget(ticket) }}
+                <div class="text-right">
+                    <button class="btn btn-danger" data-remove-widget>
+                        {{ icon('remove') }} Supprimer
+                    </button>
+                </div>
+            </div>
+        {% endfor %}
+        <button type="button" class="btn btn-success" data-prototype="{{ form_widget(form.tickets.vars.prototype)|e }}">{{ icon('plus') }}Ajouter une tarification</button>
+        <div style="display: none">{{ form_widget(form.tickets) }}</div>
+        {{ form_rest(form) }}
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/form/collection.js') }}"></script>
+{% endblock %}

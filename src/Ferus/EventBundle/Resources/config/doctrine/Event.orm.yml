@@ -13,4 +13,15 @@ Ferus\EventBundle\Entity\Event:
             type: string
             length: '100'
 
+        date:
+            type: datetime
+
+    oneToMany:
+        tickets:
+            targetEntity: Ferus\EventBundle\Entity\Ticket
+            mappedBy: event
+            cascade:
+                - persist
+                - remove
+
     lifecycleCallbacks: {  }
