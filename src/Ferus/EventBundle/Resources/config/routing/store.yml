@@ -1,0 +1,3 @@
+event_store_index:
+    pattern: /{id}
+    defaults: { _controller: FerusEventBundle:Store:index }

@@ -1,3 +1,7 @@
 ferus_event_bundle_admin:
     resource: routing/admin.yml
     prefix: /admin/events
+
+ferus_event_bundle_store:
+    resource: routing/store.yml
+    prefix: /events/stores

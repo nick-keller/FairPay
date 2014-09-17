@@ -12,6 +12,7 @@
                 <th>#</th>
                 <th>Nom</th>
                 <th>Date</th>
+                <th>Outils</th>
                 <th></th>
             </tr>
             {% for event in events %}
@@ -23,7 +24,19 @@
                         </a>
                     </td>
                     <td>
-                        {{ event.date|date('d/m Y') }}
+                        {{ event.date|date('d/m/Y') }}
+                    </td>
+                    <td>
+                        <div class="btn-group btn-group-xs">
+                            <a class="btn btn-primary" href="{{ path('event_store_index', {id:event.id}) }}">
+                                {{ icon('shopping-cart') }}
+                                Boutique en ligne
+                            </a>
+                            <a class="btn btn-default" href="">
+                                {{ icon('th-list') }}
+                                Participants
+                            </a>
+                        </div>
                     </td>
                     <td>
                         <div class="btn-group btn-group-xs">
