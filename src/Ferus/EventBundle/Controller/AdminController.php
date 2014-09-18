@@ -52,6 +52,7 @@ class AdminController extends Controller
     {
         $event = new Event;
         $ticket = new Ticket();
+        $ticket->setName('Place');
         $event->addTicket($ticket);
         $form = $this->createForm(new EventType, $event);
 

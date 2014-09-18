@@ -4,6 +4,57 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <h1>{{ event }} <small>{{ event.date|date('d/m/Y') }}</small></h1>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Tarifs</div>
+
+                <table id="tickets" class="table">
+                    {% for ticket in event.tickets %}
+                        <tr class="ticket" data-name="{{ ticket }}" data-price="{{ ticket.price }}" data-price-contributor="{{ ticket.priceContributor }}">
+                            <td>{{ ticket }}</td>
+                            <td class="text-right">
+                                {{ ticket.priceContributor }} €
+                                {% if ticket.price != ticket.priceContributor %}
+                                    ({{ ticket.price }} € non-cotisant)
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+
+            <h2>Acheter une place</h2>
+
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-barcode"></span>
+                </span>
+                <input class="form-control" type="text" data-preview="student" autocomplete="off" required="required">
+            </div>
+            <span class="help-block">Numéro figurant sur la carte étudiante</span>
+
+            <div class="btn-group btn-group-lg btn-group-justified" id="ticket-selector">
+            </div>
+
+            <div class="btn-group btn-group-lg btn-group-justified" id="payment-selector" style="display: none;margin-top: 15px">
+                <a class="btn btn-default" data-payment="cb">
+                    CB
+                </a>
+                <a class="btn btn-default" data-payment="cheque">
+                    Chèque
+                </a>
+                <a class="btn btn-default" data-payment="cash">
+                    Espèces
+                </a>
+                <a class="btn btn-default" data-payment="fairpay">
+                    FairPay
+                </a>
+            </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/ajax/event-store.js') }}"></script>
 {% endblock %}

@@ -39,6 +39,11 @@ class Ticket
      */
     private $event;
 
+    public function __toString()
+    {
+        return$this->name;
+    }
+
 
     /**
      * Get id

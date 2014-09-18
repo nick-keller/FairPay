@@ -8,6 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\VirtualProperty;
 
 /**
  * Student
@@ -246,6 +247,15 @@ class Student
     public function getAccount()
     {
         return $this->account;
+    }
+
+    /**
+     * @VirtualProperty
+     * @return bool
+     */
+    public function hasFairpay()
+    {
+        return $this->account !== null;
     }
 
     public function generateLogin()

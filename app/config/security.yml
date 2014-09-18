@@ -12,7 +12,7 @@ security:
         ROLE_ACCOUNT_ADMIN:     ROLE_ADMIN
         ROLE_TRANSACTION_ADMIN: ROLE_ACCOUNT_ADMIN
         ROLE_WITHDRAWAL_ADMIN:  ROLE_TRANSACTION_ADMIN
-        ROLE_SUPER_ADMIN:       [ROLE_WITHDRAWAL_ADMIN, ROLE_SELLER_ADMIN, ROLE_STUDENT_ADMIN, ROLE_USER_ADMIN]
+        ROLE_SUPER_ADMIN:       [ROLE_WITHDRAWAL_ADMIN, ROLE_SELLER_ADMIN, ROLE_STUDENT_ADMIN, ROLE_USER_ADMIN, ROLE_EVENT]
 
     providers:
         fos_userbundle:
@@ -47,3 +47,4 @@ security:
         - { path: ^/admin/transactions/withdrawal, role: ROLE_WITHDRAWAL_ADMIN }
         - { path: ^/admin/transactions, role: ROLE_TRANSACTION_ADMIN }
         - { path: ^/admin, role: ROLE_ADMIN }
+        - { path: ^/events, role: ROLE_EVENT }
