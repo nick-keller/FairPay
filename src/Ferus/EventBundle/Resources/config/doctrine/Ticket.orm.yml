@@ -26,6 +26,9 @@ Ferus\EventBundle\Entity\Ticket:
             type: decimal
             scale: 2
 
+        forceCheck:
+            type: boolean
+
     manyToOne:
         event:
             targetEntity: Ferus\EventBundle\Entity\Event

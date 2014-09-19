@@ -35,6 +35,11 @@ class Ticket
     private $priceContributor;
 
     /**
+     * @var boolean
+     */
+    private $forceCheck;
+
+    /**
      * @var Event
      */
     private $event;
@@ -145,6 +150,22 @@ class Ticket
     public function getPriceContributor()
     {
         return $this->priceContributor;
+    }
+
+    /**
+     * @param boolean $forceCheck
+     */
+    public function setForceCheck($forceCheck)
+    {
+        $this->forceCheck = $forceCheck;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getForceCheck()
+    {
+        return $this->forceCheck;
     }
 
     /**

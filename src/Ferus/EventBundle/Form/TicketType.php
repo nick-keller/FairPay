@@ -27,6 +27,14 @@ class TicketType extends AbstractType
             ->add('priceContributor', 'euro', array(
                 'label' => 'Prix cotisant'
             ))
+            ->add('forceCheck', 'choice', array(
+                'label' => 'Type de paiement',
+                'expanded' => true,
+                'choices' => array(
+                    'Libre',
+                    'Par chèque'
+                )
+            ))
         ;
     }
     
