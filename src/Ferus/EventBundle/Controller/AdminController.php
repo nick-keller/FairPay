@@ -11,6 +11,7 @@ use Knp\Component\Pager\Paginator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Braincrafted\Bundle\BootstrapBundle\Session\FlashMessage;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 class AdminController extends Controller
 {
@@ -47,6 +48,7 @@ class AdminController extends Controller
 
     /**
      * @Template
+     * @Secure(roles="ROLE_EVENT_ADMIN")
      */
     public function addAction(Request $request)
     {
@@ -75,6 +77,7 @@ class AdminController extends Controller
 
     /**
      * @Template
+     * @Secure(roles="ROLE_EVENT_ADMIN")
      */
     public function editAction(Event $event, Request $request)
     {
@@ -113,6 +116,22 @@ class AdminController extends Controller
         return array(
             'event' => $event,
             'participants' => $participants,
+        );
+    }
+
+    /**
+     * @Template
+     */
+    public function detailsAction(Event $event, $email)
+    {
+        $payments = $this->em->getRepository('FerusEventBundle:Payment')->findBy(array(
+            'event' =>$event,
+            'email' => $email,
+        ));
+
+        return array(
+            'event' => $event,
+            'payments' => $payments,
         );
     }
 }

@@ -1,0 +1,52 @@
+{% extends '@FerusEvent/Admin/layout.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li>{{ event }}</li>
+    <li><a href="{{ path('event_admin_participants', {id:event.id}) }}">Liste des participants</a></li>
+    <li class="active">{{ payments[0].firstName }} {{ payments[0].lastName }}</li>
+{% endblock %}
+
+{% block content %}
+    <h1>{{ payments[0].firstName }} {{ payments[0].lastName }} <small>{{ event }}</small></h1>
+    <div class="row">
+        {% for payment in payments %}
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">{{ payment.ticket }}</div>
+                    <table class="table">
+                        <tr>
+                            <td>Montant payé :</td>
+                            <td>{{ payment.amount|number_format(2, '.') }} €</td>
+                        </tr>
+                        <tr>
+                            <td>Méthode de paiement :</td>
+                            <td>
+                                {% if payment.method == 'cb' %}
+                                    CB
+                                {% elseif payment.method == 'cheque' %}
+                                    Chèque
+                                {% elseif payment.method == 'cash' %}
+                                    Espèces
+                                {% elseif payment.method == 'fairpay' %}
+                                    FairPay
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Payé le :</td>
+                            <td>{{ payment.createdAt|date('d/m/Y à H:i') }}</td>
+                        </tr>
+                        <tr>
+                            <td>Mandataire :</td>
+                            <td>{{ payment.representative }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <a class="btn btn-primary" href="{{ path('event_admin_participants', {id:event.id}) }}">
+        {{ icon('arrow-left') }} Liste des participants
+    </a>
+{% endblock %}

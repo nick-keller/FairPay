@@ -51,4 +51,11 @@ Ferus\EventBundle\Entity\Payment:
             targetEntity: Ferus\EventBundle\Entity\Ticket
             inversedBy: payments
 
+        representative:
+            targetEntity: Ferus\UserBundle\Entity\User
+            fetch: EAGER
+            gedmo:
+                blameable:
+                    on: create
+
     lifecycleCallbacks: {  }

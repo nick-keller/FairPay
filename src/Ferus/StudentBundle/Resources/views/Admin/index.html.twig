@@ -9,7 +9,7 @@
     <div class="table-responsive">
         <table class="table table-striped table-hover">
             <tr>
-                <th>{{ knp_pagination_sortable(students, '#', 's.id') }}</th>
+                <th>{{ icon('barcode') }}</th>
                 <th>{{ knp_pagination_sortable(students, 'Prénom', 's.firstName') }}</th>
                 <th>{{ knp_pagination_sortable(students, 'Nom', 's.lastName') }}</th>
                 <th>{{ knp_pagination_sortable(students, 'Promo', 's.class') }}</th>
@@ -20,7 +20,7 @@
             </tr>
             {% for student in students %}
                 <tr>
-                    <td>{{ student.id }}</td>
+                    <td><code>{{ student.id }}</code></td>
                     <td>{{ student.firstName }}</td>
                     <td>{{ student.lastName }}</td>
                     <td>{{ student.class }}</td>

@@ -6,6 +6,7 @@ security:
         ROLE_SELLER:            ROLE_USER
         ROLE_ADMIN:             ROLE_USER
         ROLE_EVENT:             ROLE_ADMIN
+        ROLE_EVENT_ADMIN:       ROLE_EVENT
         ROLE_USER_ADMIN:        ROLE_ADMIN
         ROLE_STUDENT_ADMIN:     ROLE_ADMIN
         ROLE_SELLER_ADMIN:      ROLE_ADMIN
@@ -46,5 +47,6 @@ security:
         - { path: ^/admin/accounts, role: ROLE_ACCOUNT_ADMIN }
         - { path: ^/admin/transactions/withdrawal, role: ROLE_WITHDRAWAL_ADMIN }
         - { path: ^/admin/transactions, role: ROLE_TRANSACTION_ADMIN }
+        - { path: ^/admin/events, role: ROLE_EVENT }
         - { path: ^/admin, role: ROLE_ADMIN }
         - { path: ^/events, role: ROLE_EVENT }

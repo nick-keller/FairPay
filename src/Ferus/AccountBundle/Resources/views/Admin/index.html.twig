@@ -9,14 +9,14 @@
     <div class="table-responsive">
         <table class="table table-striped table-hover">
             <tr>
-                <th>#</th>
+                <th>{{ icon('barcode') }}</th>
                 <th>Nom</th>
                 <th>Solde</th>
                 <th></th>
             </tr>
             {% for account in accounts %}
                 <tr>
-                    <td>{{ account.owner.barcode }}</td>
+                    <td><code>{{ account.owner.barcode }}</code></td>
                     <td>
                         <a href="{{ path('account_admin_view', {id:account.id}) }}">
                             {{ account.owner }}

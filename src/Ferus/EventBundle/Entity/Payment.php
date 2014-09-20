@@ -63,6 +63,11 @@ class Payment
     private $ticket;
 
     /**
+     * @var \Ferus\UserBundle\Entity\User
+     */
+    private $representative;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -278,5 +283,29 @@ class Payment
     public function getTicket()
     {
         return $this->ticket;
+    }
+
+
+    /**
+     * Set representative
+     *
+     * @param \Ferus\UserBundle\Entity\User $representative
+     * @return Payment
+     */
+    public function setRepresentative(\Ferus\UserBundle\Entity\User $representative = null)
+    {
+        $this->representative = $representative;
+
+        return $this;
+    }
+
+    /**
+     * Get representative
+     *
+     * @return \Ferus\UserBundle\Entity\User 
+     */
+    public function getRepresentative()
+    {
+        return $this->representative;
     }
 }

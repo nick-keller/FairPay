@@ -2,7 +2,7 @@
 <div class="table-responsive">
     <table class="table table-striped">
         <tr>
-            <th class="hidden-xs">#</th>
+            <th class="hidden-xs">{{ icon('barcode') }}</th>
             <th>Prénom</th>
             <th>Nom</th>
             <th>Promo</th>
@@ -10,7 +10,7 @@
         </tr>
         {% for student in students %}
             <tr>
-                <td class="hidden-xs">{{ student.id }}</td>
+                <td class="hidden-xs"><code>{{ student.id }}</code></td>
                 <td>{{ student.firstName }}</td>
                 <td>{{ student.lastName }}</td>
                 <td>{{ student.class }}</td>

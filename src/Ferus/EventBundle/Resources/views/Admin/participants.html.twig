@@ -7,8 +7,9 @@
 {% endblock %}
 
 {% block content %}
+    <h1>Liste des participants <small>{{ event }}</small></h1>
     <div class="table-responsive">
-        <table class="table">
+        <table class="table table-striped table-hover">
             <tr>
                 <th>{{ icon('barcode') }}</th>
                 <th>Participant</th>
@@ -18,6 +19,7 @@
                         <div style="width: 40px; overflow: hidden; text-overflow: ellipsis">{{ ticket }}</div>
                     </th>
                 {% endfor %}
+                <th></th>
             </tr>
             {% for participant in participants %}
                 <tr>
@@ -25,10 +27,14 @@
                         {% if participant.studentId is null %}
                             {{ label_primary('Externe') }}
                         {% else %}
-                            {{ participant.studentId }}
+                            <code>{{ participant.studentId }}</code>
                         {% endif %}
                     </td>
-                    <td>{{ participant.name }}</td>
+                    <td>
+                        <a href="{{ path('event_admin_payment_details', {id:event.id, email:participant.email}) }}">
+                            {{ participant.name }}
+                        </a>
+                    </td>
                     <td>{{ participant.email }}</td>
                     {% for ticket in event.tickets %}
                         {% if participant['ticket_'~ticket.id] %}
@@ -41,10 +47,15 @@
                             </td>
                         {% endif %}
                     {% endfor %}
+                    <td class="text-center">
+                        <a class="btn btn-xs btn-default" href="{{ path('event_admin_payment_details', {id:event.id, email:participant.email}) }}">
+                            {{ icon('search') }} Détails
+                        </a>
+                    </td>
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="{{ 2 + event.tickets|length }}">
+                    <td colspan="{{ 4 + event.tickets|length }}">
                         Pas encore de participants
                     </td>
                 </tr>
