@@ -19,7 +19,7 @@
                 <tr>
                     <td>{{ event.id }}</td>
                     <td>
-                        <a href="{{ path('event_admin_edit', {id:event.id}) }}">
+                        <a href="{{ path('event_admin_participants', {id:event.id}) }}">
                             {{ event }}
                         </a>
                     </td>
@@ -30,11 +30,11 @@
                         <div class="btn-group btn-group-xs">
                             <a class="btn btn-primary" href="{{ path('event_store_index', {id:event.id}) }}">
                                 {{ icon('shopping-cart') }}
-                                Boutique en ligne
+                                <span class="visible-sm-inline visible-md-inline visible-lg-inline">Boutique en ligne</span>
                             </a>
                             <a class="btn btn-default" href="{{ path('event_admin_participants', {id:event.id}) }}">
                                 {{ icon('th-list') }}
-                                Participants
+                                <span class="visible-sm-inline visible-md-inline visible-lg-inline">Participants</span>
                             </a>
                         </div>
                     </td>

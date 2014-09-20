@@ -19,6 +19,8 @@ class AccountRepository extends EntityRepository
     public function queryAll()
     {
         return $this->createQueryBuilder('a')
+            ->select('a, IDENTITY(a.seller) HIDDEN ob')
+            ->orderBy('ob', 'DESC')
             ->getQuery();
     }
 

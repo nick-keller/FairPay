@@ -17,5 +17,13 @@
         </div>
     </div>
     <div class="visible-xs-block">
+        <div class="btn-group btn-group-sm btn-group-justified">
+            <a class="btn btn-default" href="{{ path('event_admin_index') }}">
+                {{ icon('th-list') }} Liste
+            </a>
+            <a class="btn btn-success" href="{{ path('event_admin_add') }}">
+                {{ icon('plus') }} Nouveau
+            </a>
+        </div>
     </div>
 {% endblock %}

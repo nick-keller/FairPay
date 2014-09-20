@@ -3,7 +3,7 @@ Nous t'envoyons ce mail pour te confirmer que nous avons bien reçus ton paiemen
 
 Pour rappel voici les informations de ton paiement
 - Motif : {{ payment.ticket }} {{ payment.event }}
-- Montant : {{ payment.amount }}
+- Montant : {{ payment.amount }} €
 - Méthode de paiement : {% if payment.method == 'cb' %}CB{% elseif payment.method == 'cheque' %}Chèque{% elseif payment.method == 'cash' %}Espèces{% elseif payment.method == 'fairpay' %}FairPay{% endif %}
 
 - Date : {{ payment.createdAt|date('d/m/Y à H:i') }}
