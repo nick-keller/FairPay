@@ -6,6 +6,7 @@ $(function(){
         var $this = $(this);
 
         tickets.push({
+            id: $this.data('id'),
             name: $this.data('name'),
             price: $this.data('price'),
             price_contributor: $this.data('price-contributor'),
@@ -15,6 +16,8 @@ $(function(){
 
     function chooseTicket(id, price, student, forceCheck){
         $('#validate-payment').hide();
+        $('#amount').val(price);
+        $('#ticket').val(tickets[id].id);
         var $selector = $('#payment-selector');
         $selector.show()
             .find('[data-payment]')
@@ -50,6 +53,7 @@ $(function(){
                     .removeClass('btn-default');
 
                 $('#validate-payment').show();
+                $('#method').val($this.data('payment'))
         });
     }
 
@@ -79,6 +83,11 @@ $(function(){
         if(tickets.length == 1){
             $selector.find('a:first').click();
         }
+
+        $('#firstName').val(student.first_name);
+        $('#lastName').val(student.last_name);
+        $('#email').val(student.email);
+        $('#studentId').val(student.id);
     });
 
     $('form[data-user]').submit(function(e){
@@ -111,5 +120,5 @@ $(function(){
         $('#ticket-selector').html('');
         $('#payment-selector').hide();
         $('#validate-payment').hide();
-    })
+    });
 });

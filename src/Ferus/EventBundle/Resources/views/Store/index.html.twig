@@ -10,7 +10,7 @@
 
                 <table id="tickets" class="table">
                     {% for ticket in event.tickets %}
-                        <tr class="ticket" data-force-check="{{ ticket.forceCheck }}" data-name="{{ ticket }}" data-price="{{ ticket.price }}" data-price-contributor="{{ ticket.priceContributor }}">
+                        <tr class="ticket" data-id="{{ ticket.id }}" data-force-check="{{ ticket.forceCheck }}" data-name="{{ ticket }}" data-price="{{ ticket.price }}" data-price-contributor="{{ ticket.priceContributor }}">
                             <td>{{ ticket }}</td>
                             <td class="text-right">
                                 {{ ticket.priceContributor }} €
@@ -77,10 +77,13 @@
                 </a>
             </div>
 
-            <button id="validate-payment" class="btn btn-lg btn-primary btn-block" style="display: none;margin-top: 15px">
-                {{ icon('credit-card') }}
-                Valider le paiement
-            </button>
+            <form method="post">
+                {{ form_widget(form) }}
+                <button id="validate-payment" class="btn btn-lg btn-primary btn-block" style="display: none;margin-top: 15px" type="submit">
+                    {{ icon('credit-card') }}
+                    Valider le paiement
+                </button>
+            </form>
         </div>
     </div>
 {% endblock %}

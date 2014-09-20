@@ -44,6 +44,19 @@ class Ticket
      */
     private $event;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $payments;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->payments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
     public function __toString()
     {
         return$this->name;
@@ -182,5 +195,38 @@ class Ticket
     public function getEvent()
     {
         return $this->event;
+    }
+
+    /**
+     * Add payments
+     *
+     * @param \Ferus\EventBundle\Entity\Payment $payments
+     * @return Ticket
+     */
+    public function addPayment(\Ferus\EventBundle\Entity\Payment $payments)
+    {
+        $this->payments[] = $payments;
+
+        return $this;
+    }
+
+    /**
+     * Remove payments
+     *
+     * @param \Ferus\EventBundle\Entity\Payment $payments
+     */
+    public function removePayment(\Ferus\EventBundle\Entity\Payment $payments)
+    {
+        $this->payments->removeElement($payments);
+    }
+
+    /**
+     * Get payments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPayments()
+    {
+        return $this->payments;
     }
 }

@@ -2,6 +2,8 @@ parameters:
 #    ferus_event.example.class: Ferus\EventBundle\Example
 
 services:
-#    ferus_event.example:
-#        class: %ferus_event.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    ferus_event.form.type.ticket:
+        class: Ferus\EventBundle\Form\Type\TicketType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type, alias: ticket }

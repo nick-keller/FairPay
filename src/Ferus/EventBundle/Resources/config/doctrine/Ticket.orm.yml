@@ -34,4 +34,11 @@ Ferus\EventBundle\Entity\Ticket:
             targetEntity: Ferus\EventBundle\Entity\Event
             inversedBy: tickets
 
+    oneToMany:
+        payments:
+            targetEntity: Ferus\EventBundle\Entity\Payment
+            mappedBy: tickets
+            cascade:
+                - remove
+
     lifecycleCallbacks: {  }

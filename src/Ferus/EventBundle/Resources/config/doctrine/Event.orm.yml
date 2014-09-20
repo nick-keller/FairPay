@@ -24,4 +24,8 @@ Ferus\EventBundle\Entity\Event:
                 - persist
                 - remove
 
+        payments:
+            targetEntity: Ferus\EventBundle\Entity\Payment
+            mappedBy: event
+
     lifecycleCallbacks: {  }
