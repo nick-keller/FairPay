@@ -64,9 +64,23 @@ class StoreController extends Controller
                 $this->em->persist($payment);
                 $this->em->flush();
 
-                $this->flash->success(sprintf('%s %s a payé sa %s pour l\'evènement %s',
-                    $payment->getFirstName(),
-                    $payment->getLastName(),
+                $message = \Swift_Message::newInstance()
+                    ->setSubject("[{$payment->getEvent()}] Validation de paiement : {$payment->getTicket()}")
+                    ->setFrom(array('bde@edu.esiee.fr' => 'BDE ESIEE Paris'))
+                    ->setTo(array($payment->getEmail() => $payment->getFullName()))
+                    ->setBody(
+                        $this->renderView(
+                            'FerusEventBundle:Email:registerSuccess.txt.twig',
+                            array(
+                                'payment' => $payment,
+                            )
+                        )
+                    )
+                ;
+                $this->get('mailer')->send($message);
+
+                $this->flash->success(sprintf('%s a payé : %s pour l\'evènement %s',
+                    $payment->getFullName(),
                     $payment->getTicket(),
                     $payment->getEvent()
                 ));
