@@ -37,7 +37,7 @@ Ferus\EventBundle\Entity\Ticket:
     oneToMany:
         payments:
             targetEntity: Ferus\EventBundle\Entity\Payment
-            mappedBy: tickets
+            mappedBy: ticket
             cascade:
                 - remove
 

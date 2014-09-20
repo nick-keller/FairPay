@@ -9,9 +9,15 @@
                 <div class="panel-heading">Tarifs</div>
 
                 <table id="tickets" class="table">
+                    <tr>
+                        <th>Formule</th>
+                        <th>Places dispo</th>
+                        <th class="text-right">Prix</th>
+                    </tr>
                     {% for ticket in event.tickets %}
                         <tr class="ticket" data-id="{{ ticket.id }}" data-force-check="{{ ticket.forceCheck }}" data-name="{{ ticket }}" data-price="{{ ticket.price }}" data-price-contributor="{{ ticket.priceContributor }}">
                             <td>{{ ticket }}</td>
+                            <td>{{ ticket.maxTickets - ticket.payments|length }}</td>
                             <td class="text-right">
                                 {{ ticket.priceContributor }} €
                                 {% if ticket.price != ticket.priceContributor %}

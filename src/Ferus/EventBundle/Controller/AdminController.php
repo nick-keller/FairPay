@@ -102,4 +102,17 @@ class AdminController extends Controller
             'form' => $form->createView(),
         );
     }
+
+    /**
+     * @Template
+     */
+    public function participantsAction(Event $event)
+    {
+        $participants = $this->em->getRepository('FerusEventBundle:Payment')->findFromEvent($event);
+
+        return array(
+            'event' => $event,
+            'participants' => $participants,
+        );
+    }
 }

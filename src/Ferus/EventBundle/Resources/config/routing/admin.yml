@@ -13,3 +13,11 @@ event_admin_edit:
 event_admin_remove:
     pattern: /{id}/remove
     defaults: { _controller: FerusEventBundle:Admin:remove }
+
+event_admin_participants:
+    pattern: /{id}/participants
+    defaults: { _controller: FerusEventBundle:Admin:participants }
+
+event_admin_payment_details:
+    pattern: /{id}/participants/{email}
+    defaults: { _controller: FerusEventBundle:Admin:details }

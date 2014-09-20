@@ -71,6 +71,8 @@ doctrine:
                 month: Ferus\TransactionBundle\DQL\Month
                 day: Ferus\TransactionBundle\DQL\Day
                 sum: Ferus\TransactionBundle\DQL\Sum
+                if: Ferus\EventBundle\DQL\IfFunction
+                nullif: Ferus\EventBundle\DQL\NullIf
         filters:
             softdeleteable:
                 class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter

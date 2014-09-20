@@ -1,0 +1,54 @@
+{% extends '@FerusEvent/Admin/layout.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li>{{ event }}</li>
+    <li class="active">Liste des participants</li>
+{% endblock %}
+
+{% block content %}
+    <div class="table-responsive">
+        <table class="table">
+            <tr>
+                <th>{{ icon('barcode') }}</th>
+                <th>Participant</th>
+                <th>Email</th>
+                {% for ticket in event.tickets %}
+                    <th style="width: 40px" title="{{ ticket }}">
+                        <div style="width: 40px; overflow: hidden; text-overflow: ellipsis">{{ ticket }}</div>
+                    </th>
+                {% endfor %}
+            </tr>
+            {% for participant in participants %}
+                <tr>
+                    <td>
+                        {% if participant.studentId is null %}
+                            {{ label_primary('Externe') }}
+                        {% else %}
+                            {{ participant.studentId }}
+                        {% endif %}
+                    </td>
+                    <td>{{ participant.name }}</td>
+                    <td>{{ participant.email }}</td>
+                    {% for ticket in event.tickets %}
+                        {% if participant['ticket_'~ticket.id] %}
+                            <td class="text-center" style="background: #5cb85c;color: white">
+                                {{ icon('ok') }}
+                            </td>
+                        {% else %}
+                            <td class="text-center" style="background: #d9534f;color: white">
+                                {{ icon('remove') }}
+                            </td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="{{ 2 + event.tickets|length }}">
+                        Pas encore de participants
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}
