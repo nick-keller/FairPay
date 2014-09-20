@@ -7,6 +7,8 @@ use Ferus\EventBundle\Entity\Payment;
 use Ferus\EventBundle\Entity\Ticket;
 use Ferus\EventBundle\Form\EventType;
 use Ferus\EventBundle\Form\PaymentType;
+use Ferus\TransactionBundle\Entity\Withdrawal;
+use Ferus\TransactionBundle\Transaction\Exception\InsufficientBalanceException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\ORM\EntityManager;
 use Knp\Component\Pager\Paginator;
@@ -44,6 +46,21 @@ class StoreController extends Controller
             $form->handleRequest($request);
 
             if($form->isValid()){
+                if($payment->getMethod() == 'fairpay'){
+                    $withdrawal = new Withdrawal;
+                    $withdrawal->setAmount($payment->getAmount());
+                    $withdrawal->setAccount($this->em->getRepository('FerusAccountBundle:Account')->findOneByBarcode($payment->getStudentId()));
+                    $withdrawal->setCause($payment->getTicket() .' '. $payment->getEvent());
+
+                    try{
+                        $this->get('ferus_transaction.transaction_core')->withdrawal($withdrawal);
+                    }
+                    catch(InsufficientBalanceException $e){
+                        $this->flash->error('Solde insufisant sur le compte FairPay.');
+                        return $this->redirect($this->generateUrl('event_store_index', array('id'=>$event->getId())));
+                    }
+                }
+
                 $this->em->persist($payment);
                 $this->em->flush();
 

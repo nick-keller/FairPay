@@ -1,0 +1,34 @@
+{% extends '@FerusEvent/Admin/layout.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li>{{ event }}</li>
+    <li class="active">Supprimer</li>
+{% endblock %}
+
+{% block content %}
+    {% if event.payments|length %}
+        <div class="alert alert-danger" role="alert">
+            <h2>Impossible !</h2>
+            <p>Vous ne pouvez pas supprimer l'événement <b>{{ event }}</b> car des personnes sont déjà inscrites.</p>
+            <form method="post" style="margin-top: 10px">
+                <a class="btn btn-default" href="{{ path('event_admin_index') }}">
+                    Annuler
+                </a>
+            </form>
+        </div>
+    {% else %}
+        <div class="alert alert-warning" role="alert">
+            <h2>Attention !</h2>
+            <p>Vous êtes sur le point de supprimer définitivement l'événement <b>{{ event }}</b>. Voulez vous continuer ?</p>
+            <form method="post" style="margin-top: 10px">
+                <button type="submit" class="btn btn-danger">
+                    {{ icon('remove') }} Supprimer {{ event }}
+                </button>
+                <a class="btn btn-default" href="{{ path('event_admin_index') }}">
+                    Annuler
+                </a>
+            </form>
+        </div>
+    {% endif %}
+{% endblock %}

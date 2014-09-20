@@ -109,6 +109,26 @@ class AdminController extends Controller
     /**
      * @Template
      */
+    public function removeAction(Event $event, Request $request)
+    {
+        if($request->isMethod('POST') && !count($event->getPayments())){
+
+            $this->em->remove($event);
+            $this->em->flush();
+
+            $this->flash->success('Evénement supprimé.');
+
+            return $this->redirect($this->generateUrl('event_admin_index'));
+        }
+
+        return array(
+            'event' => $event,
+        );
+    }
+
+    /**
+     * @Template
+     */
     public function participantsAction(Event $event)
     {
         $participants = $this->em->getRepository('FerusEventBundle:Payment')->findFromEvent($event);
