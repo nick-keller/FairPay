@@ -1,0 +1,59 @@
+{% extends '@FerusEvent/Admin/layout.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li>{{ event }}</li>
+    <li class="active">Trézo</li>
+{% endblock %}
+
+{% macro table(stats) %}
+    {% set tot = 0 %}
+    <div class="panel panel-default"">
+        <table class="table">
+            {% for payment in stats %}
+                {% set tot = tot + payment.amount %}
+                <tr>
+                    <td>
+                        {% if payment.method == 'cb' %}
+                            CB
+                        {% elseif payment.method == 'cheque' %}
+                            Chèque
+                        {% elseif payment.method == 'cash' %}
+                            Espèces
+                        {% elseif payment.method == 'fairpay' %}
+                            FairPay
+                        {% endif %}
+                    </td>
+                    <td>{{ payment.amount|number_format(2, '.') }} €</td>
+                </tr>
+            {% endfor %}
+            <tr class="active">
+                <td>Total</td>
+                <td>{{ tot|number_format(2, '.') }} €</td>
+            </tr>
+        </table>
+    </div>
+{% endmacro %}
+
+{% import _self as self %}
+
+{% block content %}
+    <h1>Trésorerie <small>{{ event }}</small></h1>
+    {% if statsTickets|length > 1 %}
+        <h2>Global</h2>
+        <div class="row">
+            <div class="col-sm-4">
+                {{ self.table(stats) }}
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="row">
+        {% for name, stat in statsTickets %}
+            <div class="col-sm-4">
+                <h2>{{ name }}</h2>
+                {{ self.table(stat) }}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

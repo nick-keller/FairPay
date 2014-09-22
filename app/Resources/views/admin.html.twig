@@ -16,26 +16,38 @@
 
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="nav navbar-nav">
+                    {% if is_granted('ROLE_USER_ADMIN') %}
                     <li>
                         <a href="{{ path('user_admin_index') }}" class="hidden-sm">Administrateurs</a>
                         <a href="{{ path('user_admin_index') }}" class="visible-sm-block">Admins</a>
                     </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_STUDENT_ADMIN') %}
                     <li>
                         <a href="{{ path('student_admin_index') }}">Etudiants</a>
                     </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_SELLER_ADMIN') %}
                     <li>
                         <a href="{{ path('seller_admin_index') }}">Marchands</a>
                     </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_ACCOUNT_ADMIN') %}
                     <li>
                         <a href="{{ path('account_admin_index') }}" class="hidden-sm">Comptes bancaires</a>
                         <a href="{{ path('account_admin_index') }}" class="visible-sm-block">Comptes</a>
                     </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_TRANSACTION_ADMIN') %}
                     <li>
                         <a href="{{ path('transaction_admin_index') }}">Transactions</a>
                     </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_EVENT') %}
                     <li>
                         <a href="{{ path('event_admin_index') }}">Evénements</a>
                     </li>
+                    {% endif %}
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
@@ -87,15 +99,28 @@
                     </div>
 
                     <div class="list-group visible-xs-block">
+                        {% if is_granted('ROLE_USER_ADMIN') %}
                         <a href="{{ path('user_admin_index') }}" class="list-group-item">Administrateurs</a>
+                        {% endif %}
+                        {% if is_granted('ROLE_STUDENT_ADMIN') %}
                         <a href="{{ path('student_admin_index') }}" class="list-group-item">Etudiants</a>
+                        {% endif %}
+                        {% if is_granted('ROLE_SELLER_ADMIN') %}
                         <a href="{{ path('seller_admin_index') }}" class="list-group-item">Marchands</a>
+                        {% endif %}
+                        {% if is_granted('ROLE_ACCOUNT_ADMIN') %}
                         <a href="{{ path('account_admin_index') }}" class="list-group-item">Comptes bancaires</a>
+                        {% endif %}
+                        {% if is_granted('ROLE_TRANSACTION_ADMIN') %}
                         <a href="{{ path('transaction_admin_index') }}" class="list-group-item">Transactions</a>
+                        {% endif %}
+                        {% if is_granted('ROLE_EVENT') %}
                         <a href="{{ path('event_admin_index') }}" class="list-group-item">Evénements</a>
+                        {% endif %}
                     </div>
 
                     <ul class="list-group hidden-xs" style="text-align: right">
+                        {% if is_granted('ROLE_USER_ADMIN') %}
                         <li class="list-group-item">
                             <a class="pull-left" href="{{ path('user_admin_index') }}">
                                 Administrateurs
@@ -107,6 +132,8 @@
                                 </a>
                             </div>
                         </li>
+                        {% endif %}
+                        {% if is_granted('ROLE_STUDENT_ADMIN') %}
                         <li class="list-group-item">
                             <a href="{{ path('student_admin_index') }}" class="pull-left">
                                 Etudiants
@@ -124,6 +151,8 @@
                                 </a>
                             </div>
                         </li>
+                        {% endif %}
+                        {% if is_granted('ROLE_SELLER_ADMIN') %}
                         <li class="list-group-item">
                             <a href="{{ path('seller_admin_index') }}" class="pull-left">
                                 Marchands
@@ -138,6 +167,8 @@
                                 </a>
                             </div>
                         </li>
+                        {% endif %}
+                        {% if is_granted('ROLE_ACCOUNT_ADMIN') %}
                         <li class="list-group-item">
                             <a href="{{ path('account_admin_index') }}" class="pull-left">
                                 Comptes bancaires
@@ -152,6 +183,8 @@
                                 </a>
                             </div>
                         </li>
+                        {% endif %}
+                        {% if is_granted('ROLE_TRANSACTION_ADMIN') %}
                         <li class="list-group-item">
                             <a href="{{ path('transaction_admin_index') }}" class="pull-left">
                                 Transactions
@@ -167,11 +200,16 @@
                                 <a class="btn btn-default" href="{{ path('transaction_admin_deposit') }}">
                                     {{ icon('import') }} Dépot
                                 </a>
+
+                                {% if is_granted('ROLE_WITHDRAWAL_ADMIN') %}
                                 <a class="btn btn-default" href="{{ path('transaction_admin_withdrawal') }}">
                                     {{ icon('export') }} Retrait
                                 </a>
+                                {% endif %}
                             </div>
                         </li>
+                        {% endif %}
+                        {% if is_granted('ROLE_EVENT') %}
                         <li class="list-group-item">
                             <a href="{{ path('event_admin_index') }}" class="pull-left">
                                 Evénements
@@ -181,11 +219,14 @@
                                 <a class="btn btn-default" href="{{ path('event_admin_index') }}">
                                     {{ icon('th-list') }} Liste
                                 </a>
+                                {% if is_granted('ROLE_EVENT_ADMIN') %}
                                 <a class="btn btn-default" href="{{ path('event_admin_add') }}">
                                     {{ icon('plus') }} Ajouter
                                 </a>
+                                {% endif %}
                             </div>
                         </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>

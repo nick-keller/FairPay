@@ -18,6 +18,10 @@ event_admin_participants:
     pattern: /{id}/participants
     defaults: { _controller: FerusEventBundle:Admin:participants }
 
+event_admin_money:
+    pattern: /{id}/money
+    defaults: { _controller: FerusEventBundle:Admin:money }
+
 event_admin_payment_details:
     pattern: /{id}/participants/{email}
     defaults: { _controller: FerusEventBundle:Admin:details }

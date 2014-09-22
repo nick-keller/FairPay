@@ -154,4 +154,18 @@ class AdminController extends Controller
             'payments' => $payments,
         );
     }
+
+    /**
+     * @Template
+     */
+    public function moneyAction(Event $event)
+    {
+        $stats = $this->em->getRepository('FerusEventBundle:Payment')->findEventStats($event);
+        $statsTickets = $this->em->getRepository('FerusEventBundle:Payment')->findEventStatsTickets($event);
+
+        return array(
+            'stats' => $stats,
+            'statsTickets' => $statsTickets,
+        );
+    }
 }

@@ -17,10 +17,12 @@ class PaymentRepository extends EntityRepository
     public function findFromEvent(Event $event)
     {
         $qb = $this->createQueryBuilder('p')
-            ->select('p.studentId, CONCAT(p.firstName, CONCAT(\' \', p.lastName)) name, p.email')
+            ->select('p.studentId, CONCAT(p.lastName, CONCAT(\' \', p.firstName)) name, p.email')
             ->where('p.event = :event')
             ->setParameter('event', $event)
             ->groupBy('p.email')
+            ->orderBy('p.lastName', 'ASC')
+            ->addOrderBy('p.firstName', 'ASC')
         ;
 
         foreach($event->getTickets() as $ticket){
@@ -31,5 +33,38 @@ class PaymentRepository extends EntityRepository
             ->getQuery()
             ->getResult(Query::HYDRATE_ARRAY)
         ;
+    }
+
+    public function findEventStats(Event $event)
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p.method, SUM(p.amount) amount')
+            ->where('p.event = :event')
+            ->setParameter('event', $event)
+            ->groupBy('p.method')
+            ->getQuery()
+            ->getResult(Query::HYDRATE_ARRAY);
+    }
+
+    public function findEventStatsTickets(Event $event)
+    {
+        $stat = $this->createQueryBuilder('p')
+            ->select('p.method, t.name, SUM(p.amount) amount')
+            ->where('p.event = :event')
+            ->setParameter('event', $event)
+            ->join('p.ticket', 't')
+            ->groupBy('t.id, p.method')
+            ->getQuery()
+            ->getResult(Query::HYDRATE_ARRAY);
+
+        $result = array();
+
+        foreach($stat as $s){
+            if(!isset($result[$s['name']]))
+                $result[$s['name']] =  array();
+            $result[$s['name']][] = $s;
+        }
+
+        return $result;
     }
 }
