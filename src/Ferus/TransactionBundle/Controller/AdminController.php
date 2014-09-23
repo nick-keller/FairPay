@@ -78,6 +78,13 @@ class AdminController extends Controller
     public function depositAction(Request $request)
     {
         $deposit = new Deposit;
+
+        if($request->query->has('account'))
+            $deposit->setAccount(
+                $this->em->getRepository('FerusAccountBundle:Account')
+                    ->findOneById($request->query->get('account'))
+            );
+
         $form = $this->createForm(new DepositType, $deposit);
 
         if($request->isMethod('POST')){
@@ -105,6 +112,13 @@ class AdminController extends Controller
     public function withdrawalAction(Request $request)
     {
         $withdrawal = new Withdrawal;
+
+        if($request->query->has('account'))
+            $withdrawal->setAccount(
+                $this->em->getRepository('FerusAccountBundle:Account')
+                    ->findOneById($request->query->get('account'))
+            );
+
         $form = $this->createForm(new WithdrawalType, $withdrawal);
 
         if($request->isMethod('POST')){

@@ -14,6 +14,7 @@ class EventRepository extends EntityRepository
 {
     public function queryAll()
     {
-        return $this->createQueryBuilder('e');
+        return $this->createQueryBuilder('e')
+            ->orderBy('e.date', 'DESC');
     }
 }

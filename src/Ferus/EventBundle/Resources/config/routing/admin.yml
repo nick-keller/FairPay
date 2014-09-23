@@ -25,3 +25,11 @@ event_admin_money:
 event_admin_payment_details:
     pattern: /{id}/participants/{email}
     defaults: { _controller: FerusEventBundle:Admin:details }
+
+event_admin_payment_remove_from:
+    pattern: /{id}/participants/{email}/remove
+    defaults: { _controller: FerusEventBundle:Admin:removeFrom }
+
+event_admin_payment_remove:
+    pattern: /remove-payment/{id}
+    defaults: { _controller: FerusEventBundle:Admin:removePayment }

@@ -6,9 +6,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Ferus\AccountBundle\Entity\Account;
 use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\VirtualProperty;
+use JMS\Serializer\Annotation\SerializedName;
 
 /**
  * Seller
+ * @ExclusionPolicy("all")
  */
 class Seller
 {
@@ -20,6 +25,8 @@ class Seller
     /**
      * @var string
      * @Assert\NotBlank()
+     * @Expose
+     * @SerializedName("first_name")
      */
     private $name;
 
@@ -27,6 +34,7 @@ class Seller
      * @var string
      * @Assert\NotBlank()
      * @Assert\Email()
+     * @Expose
      */
     private $email;
 
@@ -78,6 +86,11 @@ class Seller
         return $this->id;
     }
 
+    /**
+     * @VirtualProperty
+     * @SerializedName("id")
+     * @return string
+     */
     public function getBarCode()
     {
         return 'S'.$this->id;
@@ -229,5 +242,41 @@ class Seller
     public function getStores()
     {
         return $this->stores;
+    }
+
+    /**
+     * @VirtualProperty
+     * @return bool
+     */
+    public function hasFairpay()
+    {
+        return $this->account !== null;
+    }
+
+    /**
+     * @VirtualProperty
+     * @return string
+     */
+    public function lastName()
+    {
+        return '';
+    }
+
+    /**
+     * @VirtualProperty
+     * @return bool
+     */
+    public function isContributor()
+    {
+        return false;
+    }
+
+    /**
+     * @VirtualProperty
+     * @return string
+     */
+    public function getClass()
+    {
+        return '';
     }
 }

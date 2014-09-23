@@ -40,7 +40,8 @@ class BarcodeType extends AbstractType
                 'help_text' => 'Numéro figurant sur la carte étudiante',
                 'data-preview' => 'student',
             ),
-            'data' => 'account'
+            'data' => 'account',
+            'data_class' => null,
         ));
 
         $resolver->setAllowedValues(array(

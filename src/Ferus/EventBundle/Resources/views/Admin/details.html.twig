@@ -13,7 +13,14 @@
         {% for payment in payments %}
             <div class="col-md-4">
                 <div class="panel panel-default">
-                    <div class="panel-heading">{{ payment.ticket }}</div>
+                    <div class="panel-heading">
+                        {{ payment.ticket }}
+                        {% if is_granted('ROLE_EVENT_ADMIN') %}
+                            <a href="{{ path('event_admin_payment_remove', {id:payment.id}) }}" class="btn btn-xs btn-danger pull-right">
+                                {{ icon('remove') }} Suppr.
+                            </a>
+                        {% endif %}
+                    </div>
                     <table class="table">
                         <tr>
                             <td>Montant payé :</td>

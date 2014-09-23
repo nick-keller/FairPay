@@ -67,4 +67,16 @@ class PaymentRepository extends EntityRepository
 
         return $result;
     }
+
+    public function removeFrom(Event $event, $email)
+    {
+        $this->createQueryBuilder('p')
+            ->delete()
+            ->where('p.event = :event AND p.email = :email')
+            ->setParameter('event', $event)
+            ->setParameter('email', $email)
+            ->getQuery()
+            ->execute()
+            ;
+    }
 }

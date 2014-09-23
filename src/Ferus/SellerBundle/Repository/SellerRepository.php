@@ -59,4 +59,20 @@ class SellerRepository extends EntityRepository
             ->getQuery()
             ->execute();
     }
+
+    public function search($query)
+    {
+        if(preg_match('#[sS][0-9]+#', $query))
+            return $this->createQueryBuilder('se')
+                ->where('se.id = :barcode')
+                ->setParameter('barcode', substr($query, 1))
+                ->getQuery()
+                ->getResult();
+
+        return $this->createQueryBuilder('se')
+            ->where('se.name LIKE :name')
+            ->setParameter('name', "%$query%")
+            ->getQuery()
+            ->getResult();
+    }
 }

@@ -46,6 +46,9 @@ class ApiController extends Controller
         $students = $this->em->getRepository('FerusStudentBundle:Student')->search($query);
 
         if(count($students) == 0)
+            $students = $this->em->getRepository('FerusSellerBundle:Seller')->search($query);
+
+        if(count($students) == 0)
             throw new HttpException(404, 'Aucun résultat pour cette requête.');
 
         if(count($students) != 1)

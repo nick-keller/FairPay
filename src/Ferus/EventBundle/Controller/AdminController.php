@@ -3,6 +3,7 @@
 namespace Ferus\EventBundle\Controller;
 
 use Ferus\EventBundle\Entity\Event;
+use Ferus\EventBundle\Entity\Payment;
 use Ferus\EventBundle\Entity\Ticket;
 use Ferus\EventBundle\Form\EventType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -153,6 +154,24 @@ class AdminController extends Controller
             'event' => $event,
             'payments' => $payments,
         );
+    }
+
+    public function removeFromAction(Event $event, $email)
+    {
+        $this->em->getRepository('FerusEventBundle:Payment')->removeFrom($event, $email);
+        $this->flash->success("Tous les paiements de $email ont étés supprimés.");
+
+        return $this->redirect($this->generateUrl('event_admin_participants', array('id'=>$event->getId())));
+    }
+
+    public function removePaymentAction(Payment $payment)
+    {
+        $event = $payment->getEvent();
+        $this->em->remove($payment);
+        $this->em->flush();
+        $this->flash->success("Le paiement a été supprimé.");
+
+        return $this->redirect($this->generateUrl('event_admin_participants', array('id'=>$event->getId())));
     }
 
     /**

@@ -51,6 +51,11 @@
                         <a class="btn btn-xs btn-default" href="{{ path('event_admin_payment_details', {id:event.id, email:participant.email}) }}">
                             {{ icon('search') }} Détails
                         </a>
+                        {% if is_granted('ROLE_EVENT_ADMIN') %}
+                            <a class="btn btn-xs btn-danger" href="{{ path('event_admin_payment_remove_from', {id:event.id, email:participant.email}) }}">
+                                {{ icon('remove') }} Suppr.
+                            </a>
+                        {% endif %}
                     </td>
                 </tr>
             {% else %}

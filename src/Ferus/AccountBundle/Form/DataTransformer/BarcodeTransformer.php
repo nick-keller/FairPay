@@ -43,7 +43,7 @@ class BarcodeTransformer implements DataTransformerInterface
         if($item instanceof Account)
             return $item->getOwner()->getBarcode();
 
-        return "";
+        return '';
     }
 
     /**
