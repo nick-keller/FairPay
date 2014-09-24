@@ -1,3 +1,7 @@
+ferus_mail_bundle:
+    resource: "@FerusMailBundle/Resources/config/routing.yml"
+    prefix:   /
+
 ferus_event_bundle:
     resource: "@FerusEventBundle/Resources/config/routing.yml"
     prefix:   /

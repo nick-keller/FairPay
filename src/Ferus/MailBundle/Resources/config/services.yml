@@ -1,0 +1,7 @@
+parameters:
+#    ferus_mail.example.class: Ferus\MailBundle\Example
+
+services:
+#    ferus_mail.example:
+#        class: %ferus_mail.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
