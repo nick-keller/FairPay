@@ -1,0 +1,63 @@
+Ferus\MailBundle\Entity\Template:
+    type: entity
+    table: ferus_template
+    repositoryClass: Ferus\MailBundle\Repository\TemplateRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '100'
+        text:
+            type: text
+
+    manyToMany:
+        firstWaveAuth:
+            targetEntity: Ferus\MailBundle\Entity\Authority
+            joinTable:
+                name: ferus_template_firstWaveAuth
+                joinColumns:
+                    template_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    authority_id:
+                        referencedColumnName: id
+
+        firstWaveCC:
+            targetEntity: Ferus\MailBundle\Entity\Authority
+            joinTable:
+                name: ferus_template_firstWaveCC
+                joinColumns:
+                    template_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    authority_id:
+                        referencedColumnName: id
+
+        secondWaveAuth:
+            targetEntity: Ferus\MailBundle\Entity\Authority
+            joinTable:
+                name: ferus_template_secondWaveAuth
+                joinColumns:
+                    template_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    authority_id:
+                        referencedColumnName: id
+
+        secondWaveCC:
+            targetEntity: Ferus\MailBundle\Entity\Authority
+            joinTable:
+                name: ferus_template_secondWaveCC
+                joinColumns:
+                    template_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    authority_id:
+                        referencedColumnName: id
+
+    lifecycleCallbacks: {  }
