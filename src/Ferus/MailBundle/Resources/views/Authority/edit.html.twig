@@ -1,0 +1,12 @@
+{% extends '@FerusMail/Authority/layout.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li>{{ authority }}</li>
+    <li class="active">Editer</li>
+{% endblock %}
+
+{% block content %}
+    <h1>Editer {{ authority }}</h1>
+    {{ form(form, { 'style': 'horizontal' }) }}
+{% endblock %}

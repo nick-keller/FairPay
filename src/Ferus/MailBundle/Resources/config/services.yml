@@ -2,6 +2,7 @@ parameters:
 #    ferus_mail.example.class: Ferus\MailBundle\Example
 
 services:
-#    ferus_mail.example:
-#        class: %ferus_mail.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    ferus_mail.form.type.tag:
+        class: Ferus\MailBundle\Form\Type\TagType
+        tags:
+            - { name: form.type, alias: tag }

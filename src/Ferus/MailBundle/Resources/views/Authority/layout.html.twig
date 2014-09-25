@@ -1,0 +1,23 @@
+{% extends '@FerusMail/layout.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li><a href="{{ path('authority_admin_index') }}">Autorités</a></li>
+{% endblock %}
+
+{% block actions %}
+    <div class="hidden-xs">
+        <div class="btn-group btn-group-sm">
+            <a class="btn btn-default" href="{{ path('authority_admin_index') }}">
+                {{ icon('th-list') }} Liste
+            </a>
+            <a class="btn btn-success" href="{{ path('authority_admin_add') }}">
+                {{ icon('plus') }} Nouveau
+            </a>
+        </div>
+    </div>
+    <div class="visible-xs-block">
+        <div class="btn-group btn-group-sm btn-group-justified">
+        </div>
+    </div>
+{% endblock %}

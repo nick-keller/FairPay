@@ -1,0 +1,3 @@
+ferus_mail_bundle_authority_admin:
+    resource: routing/authority.yml
+    prefix: /admin/authorizations/authorities

@@ -1,6 +1,8 @@
 ROLE_USER:                  Utilisataur lambda.
 ROLE_ADMIN:                 Administrateur lambda.
 ROLE_EVENT:                 Peut gérer la liste des inscrits à un événement.
+ROLE_MAIL:                  Peut consulter les demandes d'autorisation.
+ROLE_MAIL_ADMIN:            Peut envoyer et gérer les demandes d'autorisation.
 ROLE_EVENT_ADMIN:           Peut ajouter, modifier et supprimer des événements et gérer la liste des inscrits.
 ROLE_USER_ADMIN:            Peut ajouter et supprimer des administrateurs. Peut donc s'attribuer tous les droits.
 ROLE_STUDENT_ADMIN:         Peut ajouter, modifier et supprimer des étudiants. Peut donc modifier la liste des cotisants.

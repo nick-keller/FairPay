@@ -1,0 +1,15 @@
+authority_admin_index:
+    pattern: /
+    defaults: { _controller: FerusMailBundle:Authority:index }
+
+authority_admin_add:
+    pattern: /add
+    defaults: { _controller: FerusMailBundle:Authority:add }
+
+authority_admin_edit:
+    pattern: /{id}/edit
+    defaults: { _controller: FerusMailBundle:Authority:edit }
+
+authority_admin_remove:
+    pattern: /{id}/remove
+    defaults: { _controller: FerusMailBundle:Authority:remove }

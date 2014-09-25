@@ -1,0 +1,25 @@
+Ferus\MailBundle\Entity\Authority:
+    type: entity
+    table: ferus_authority
+    repositoryClass: Ferus\MailBundle\Repository\AuthorityRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        email:
+            type: string
+            length: '100'
+        name:
+            type: string
+            length: 255
+        okMessage:
+            type: array
+            column: ok_message
+        noMessage:
+            type: array
+            column: no_message
+
+    lifecycleCallbacks: {  }
