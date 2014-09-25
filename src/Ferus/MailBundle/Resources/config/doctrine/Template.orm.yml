@@ -12,6 +12,11 @@ Ferus\MailBundle\Entity\Template:
         name:
             type: string
             length: '100'
+
+        subject:
+            type: string
+            length: 255
+
         text:
             type: text
 

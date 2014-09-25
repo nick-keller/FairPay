@@ -25,6 +25,11 @@ class Template
     private $text;
 
     /**
+     * @var string
+     */
+    private $subject;
+
+    /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $firstWaveAuth;
@@ -44,11 +49,17 @@ class Template
      */
     private $secondWaveCC;
 
+    public function __toString()
+    {
+        return $this->name;
+    }
+
     /**
      * Constructor
      */
     public function __construct()
     {
+        $this->subject = '[Autorisation] ';
         $this->firstWaveAuth = new \Doctrine\Common\Collections\ArrayCollection();
         $this->firstWaveCC = new \Doctrine\Common\Collections\ArrayCollection();
         $this->secondWaveAuth = new \Doctrine\Common\Collections\ArrayCollection();
@@ -241,5 +252,29 @@ class Template
     public function getSecondWaveCC()
     {
         return $this->secondWaveCC;
+    }
+
+
+    /**
+     * Set subject
+     *
+     * @param string $subject
+     * @return Template
+     */
+    public function setSubject($subject)
+    {
+        $this->subject = $subject;
+
+        return $this;
+    }
+
+    /**
+     * Get subject
+     *
+     * @return string 
+     */
+    public function getSubject()
+    {
+        return $this->subject;
     }
 }

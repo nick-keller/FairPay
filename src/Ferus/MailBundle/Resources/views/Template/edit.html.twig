@@ -1,0 +1,24 @@
+{% extends '@FerusMail/Template/layout.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li>{{ template }}</li>
+    <li class="active">Editer</li>
+{% endblock %}
+
+{% block content %}
+    <h1>
+        Editer le template
+    </h1>
+
+    {{ form_start(form, { 'style': 'horizontal' }) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.subject) }}
+        {{ form_row(form.text) }}
+        <h2>Première vague</h2>
+        {{ form_row(form.firstWaveAuth) }}
+        {{ form_row(form.firstWaveCC) }}
+        <h2>Deuxième vague</h2>
+        {{ form_rest(form) }}
+    {{ form_end(form) }}
+{% endblock %}

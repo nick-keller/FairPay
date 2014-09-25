@@ -1,0 +1,15 @@
+template_admin_index:
+    pattern: /
+    defaults: { _controller: FerusMailBundle:Template:index }
+
+template_admin_add:
+    pattern: /add
+    defaults: { _controller: FerusMailBundle:Template:add }
+
+template_admin_edit:
+    pattern: /{id}/edit
+    defaults: { _controller: FerusMailBundle:Template:edit }
+
+template_admin_remove:
+    pattern: /{id}/remove
+    defaults: { _controller: FerusMailBundle:Template:remove }

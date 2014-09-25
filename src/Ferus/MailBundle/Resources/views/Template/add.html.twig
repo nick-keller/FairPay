@@ -1,0 +1,44 @@
+{% extends '@FerusMail/Template/layout.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li class="active">Ajouter</li>
+{% endblock %}
+
+{% block content %}
+    <h1>
+        Créer un template
+        <button class="btn btn-primary" data-toggle="collapse" data-target="#info">
+            {{ icon('question-sign') }} infos
+        </button>
+    </h1>
+
+
+    <div id="info" class="collapse">
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Champs dynamiques</h4>
+                <p>
+                    Pour créer des champs dynamiques il faut utiliser la syntaxe <code>{{ '{{ nom du champ }}' }}</code>.
+                    Lors de l'envoie d'une demande d'autorisation les champs dynamiques serrons remplis par l'utilisateur.
+                </p>
+            </div>
+            <div class="col-md-6">
+                <h4>Le message</h4>
+                <p>Le champ <b>Message</b> doit simplement décrir la demande, les formules de politesse et la signature sont ajoutés automatiquement.</p>
+            </div>
+        </div>
+        <hr>
+    </div>
+
+    {{ form_start(form, { 'style': 'horizontal' }) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.subject) }}
+        {{ form_row(form.text) }}
+        <h2>Première vague</h2>
+        {{ form_row(form.firstWaveAuth) }}
+        {{ form_row(form.firstWaveCC) }}
+        <h2>Deuxième vague</h2>
+        {{ form_rest(form) }}
+    {{ form_end(form) }}
+{% endblock %}
