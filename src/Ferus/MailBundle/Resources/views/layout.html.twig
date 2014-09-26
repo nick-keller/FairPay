@@ -2,12 +2,20 @@
 
 {% block breadcrumb %}
     {{ parent() }}
-    <li><a href="">Autorisations</a></li>
+    <li><a href="{{ path('auth_admin_index') }}">Autorisations</a></li>
 {% endblock %}
 
 {% block actions %}
     <div class="hidden-xs">
         <div class="btn-group btn-group-sm">
+            <a class="btn btn-default" href="{{ path('template_admin_index') }}">
+                {{ icon('th-list') }}
+                Templates
+            </a>
+            <a class="btn btn-default" href="{{ path('authority_admin_index') }}">
+                {{ icon('th-list') }}
+                Autorités
+            </a>
         </div>
     </div>
     <div class="visible-xs-block">

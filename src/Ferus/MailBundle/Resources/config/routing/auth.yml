@@ -1,0 +1,3 @@
+auth_admin_index:
+    pattern: /
+    defaults: { _controller: FerusMailBundle:Auth:index }

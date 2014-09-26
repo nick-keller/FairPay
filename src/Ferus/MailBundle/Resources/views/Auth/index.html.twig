@@ -1,0 +1,15 @@
+{% extends '@FerusMail/layout.html.twig' %}
+
+{% block content %}
+    <div class="dropdown">
+        <button class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+            Nouvelle demande
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" >
+            {% for template in templates %}
+                <li><a href="#">{{ template }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

@@ -5,3 +5,7 @@ ferus_mail_bundle_authority_admin:
 ferus_mail_bundle_template_admin:
     resource: routing/template.yml
     prefix: /admin/authorizations/templates
+
+ferus_mail_bundle_auth_admin:
+    resource: routing/auth.yml
+    prefix: /admin/authorizations
