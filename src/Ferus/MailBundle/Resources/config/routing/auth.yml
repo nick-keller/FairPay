@@ -1,3 +1,7 @@
 auth_admin_index:
     pattern: /
     defaults: { _controller: FerusMailBundle:Auth:index }
+
+auth_admin_add:
+    pattern: /add/{id}
+    defaults: { _controller: FerusMailBundle:Auth:add }

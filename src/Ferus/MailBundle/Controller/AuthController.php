@@ -2,6 +2,7 @@
 
 namespace Ferus\MailBundle\Controller;
 
+use Ferus\MailBundle\Entity\Auth;
 use Ferus\MailBundle\Entity\Authority;
 use Ferus\MailBundle\Form\AuthorityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -38,6 +39,30 @@ class AuthController  extends Controller
 
         return array(
             'templates' => $templates,
+        );
+    }
+
+    /**
+     * @Template
+     */
+    public function addAction(\Ferus\MailBundle\Entity\Template $template, Request $request)
+    {
+        $auth = new Auth();
+        $auth->setTemplate($template);
+
+        $form = $this->get('ferus_mail.auth_fields_form_factory')->createFromTemplate($template);
+
+        if($request->isMethod('POST')){
+            $form->handleRequest($request);
+
+            if($form->isValid()){
+                $this->get('ferus_mail.auth_manager')->sendAuth($auth, $form->getData());
+            }
+        }
+
+        return array(
+            'template' => $template,
+            'form' => $form->createView(),
         );
     }
 } 

@@ -6,3 +6,14 @@ services:
         class: Ferus\MailBundle\Form\Type\TagType
         tags:
             - { name: form.type, alias: tag }
+
+    ferus_mail.auth_fields_form_factory:
+        class: Ferus\MailBundle\Services\AuthFieldsFormFactory
+        arguments:
+            - @doctrine.orm.entity_manager
+            - @form.factory
+
+    ferus_mail.auth_manager:
+        class: Ferus\MailBundle\Services\AuthManager
+        arguments:
+            - @mailer

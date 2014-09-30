@@ -1,0 +1,25 @@
+{% extends '@FerusMail/layout.html.twig' %}
+
+{% block content %}
+    <h1>Nouvel demande : {{ template }}</h1>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <p>
+                {{ template.subject }}
+            </p>
+            <hr>
+            <p>
+                {% set before = source('@FerusMail/Auth/template_before.txt.twig') %}
+                {% set after = source('@FerusMail/Auth/template_after.txt.twig') %}
+                <span class="text-muted">{{ before|nl2br }}</span>
+                <br>
+                {{ template.text|nl2br }}
+                <br>
+                <span class="text-muted">{{ after|nl2br }}</span>
+            </p>
+        </div>
+    </div>
+
+    {{ form(form, {style: 'horizontal'}) }}
+{% endblock %}

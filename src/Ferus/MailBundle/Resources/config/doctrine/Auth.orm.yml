@@ -1,0 +1,24 @@
+Ferus\MailBundle\Entity\Auth:
+    type: entity
+    table: ferus_auth
+    repositoryClass: Ferus\MailBundle\Repository\AuthRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        createdAt:
+            type: datetime
+            column: created_at
+
+        customFields:
+            type: array
+            column: custom_fields
+
+    manyToOne:
+        template:
+            targetEntity: Ferus\MailBundle\Entity\Template
+
+    lifecycleCallbacks: {  }

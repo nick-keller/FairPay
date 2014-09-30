@@ -277,4 +277,26 @@ class Template
     {
         return $this->subject;
     }
+
+    public function getCustomFields()
+    {
+        $fields = array_merge($this->extractFields($this->subject), $this->extractFields($this->text));
+        return array_unique($fields);
+    }
+
+    /**
+     * @param $string
+     * @return array
+     */
+    private function extractFields($string)
+    {
+        $fields = array();
+
+        preg_replace_callback('#{{(.+)}}#U', function($m) use (&$fields){
+            $fields[] = trim($m[1]);
+            return $m[1];
+        }, $string);
+
+        return $fields;
+    }
 }
