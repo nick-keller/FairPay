@@ -2,6 +2,14 @@ parameters:
 #    ferus_mail.example.class: Ferus\MailBundle\Example
 
 services:
+    imap_wrapper:
+        class: Ferus\MailBundle\Services\ImapWrapper
+        arguments:
+            - %imap_mailbox%
+            - %imap_password%
+            - %imap_port%
+            - %imap_username%
+
     ferus_mail.form.type.tag:
         class: Ferus\MailBundle\Form\Type\TagType
         tags:
@@ -16,4 +24,11 @@ services:
     ferus_mail.auth_manager:
         class: Ferus\MailBundle\Services\AuthManager
         arguments:
+            - @doctrine.orm.entity_manager
             - @mailer
+            - @imap_wrapper
+
+    ferus_mail.twig.mail_render_extension:
+        class: Ferus\MailBundle\Twig\MailRenderExtension
+        tags:
+            - { name: twig.extension }

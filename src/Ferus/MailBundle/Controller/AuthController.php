@@ -4,6 +4,7 @@ namespace Ferus\MailBundle\Controller;
 
 use Ferus\MailBundle\Entity\Auth;
 use Ferus\MailBundle\Entity\Authority;
+use Ferus\MailBundle\Entity\Response;
 use Ferus\MailBundle\Form\AuthorityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\ORM\EntityManager;
@@ -33,12 +34,22 @@ class AuthController  extends Controller
     /**
      * @Template
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $templates = $this->em->getRepository('FerusMailBundle:Template')->findAll();
 
+        $auths = $this->paginator->paginate(
+            $this->em->getRepository('FerusMailBundle:Auth')->queryAll(),
+            $request->query->get('page', 1),
+            20
+        );
+
+        $messages = $this->get('ferus_mail.auth_manager')->fetchMails();
+
         return array(
             'templates' => $templates,
+            'auths' => $auths,
+            'messages' => $messages,
         );
     }
 
@@ -64,5 +75,29 @@ class AuthController  extends Controller
             'template' => $template,
             'form' => $form->createView(),
         );
+    }
+
+    /**
+     * @Template
+     */
+    public function showAction(Auth $auth)
+    {
+        return array(
+            'auth' => $auth,
+        );
+    }
+
+    public function validateAction(Response $response)
+    {
+        $this->get('ferus_mail.auth_manager')->validateResponse($response);
+
+        return $this->redirect($this->generateUrl('auth_admin_show', array('id'=>$response->getAuth()->getId())));
+    }
+
+    public function denyAction(Response $response)
+    {
+        $this->get('ferus_mail.auth_manager')->denyResponse($response);
+
+        return $this->redirect($this->generateUrl('auth_admin_show', array('id'=>$response->getAuth()->getId())));
     }
 } 

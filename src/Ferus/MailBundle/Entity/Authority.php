@@ -39,6 +39,12 @@ class Authority
         return $this->name;
     }
 
+    public function __construct()
+    {
+        $this->okMessage = array('ok', 'oui');
+        $this->noMessage = array('non');
+    }
+
     /**
      * Get id
      *

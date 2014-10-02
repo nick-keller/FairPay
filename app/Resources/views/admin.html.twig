@@ -48,6 +48,11 @@
                         <a href="{{ path('event_admin_index') }}">Evénements</a>
                     </li>
                     {% endif %}
+                    {% if is_granted('ROLE_MAIL') %}
+                    <li>
+                        <a href="{{ path('auth_admin_index') }}">Autorisations</a>
+                    </li>
+                    {% endif %}
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
@@ -116,6 +121,9 @@
                         {% endif %}
                         {% if is_granted('ROLE_EVENT') %}
                         <a href="{{ path('event_admin_index') }}" class="list-group-item">Evénements</a>
+                        {% endif %}
+                        {% if is_granted('ROLE_MAIL') %}
+                        <a href="{{ path('auth_admin_index') }}" class="list-group-item">Autorisations</a>
                         {% endif %}
                     </div>
 
@@ -224,6 +232,16 @@
                                     {{ icon('plus') }} Ajouter
                                 </a>
                                 {% endif %}
+                            </div>
+                        </li>
+                        {% endif %}
+                        {% if is_granted('ROLE_MAIL') %}
+                        <li class="list-group-item">
+                            <a href="{{ path('auth_admin_index') }}" class="pull-left">
+                                Autorisations
+                            </a>
+
+                            <div class="btn-group btn-group-sm">
                             </div>
                         </li>
                         {% endif %}

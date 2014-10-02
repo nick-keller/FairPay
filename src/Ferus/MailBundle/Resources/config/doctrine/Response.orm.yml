@@ -1,0 +1,34 @@
+Ferus\MailBundle\Entity\Response:
+    type: entity
+    table: ferus_response
+    repositoryClass: Ferus\MailBundle\Repository\ResponseRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        receivedAt:
+            type: datetime
+            column: received_at
+            gedmo:
+                timestampable:
+                    on: create
+
+        status:
+            type: string
+            length: '10'
+
+        message:
+            type: text
+
+    manyToOne:
+        auth:
+            targetEntity: Ferus\MailBundle\Entity\Auth
+            inversedBy: responses
+
+        from:
+            targetEntity: Ferus\MailBundle\Entity\Authority
+
+    lifecycleCallbacks: {  }

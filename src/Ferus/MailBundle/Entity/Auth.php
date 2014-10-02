@@ -29,6 +29,28 @@ class Auth
      */
     private $template;
 
+    /**
+     * @var integer
+     */
+    private $firstWaveStatus = 0;
+
+    /**
+     * @var integer
+     */
+    private $secondWaveStatus = 0;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $responses;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->responses = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -108,5 +130,113 @@ class Auth
     public function getTemplate()
     {
         return $this->template;
+    }
+
+
+    /**
+     * Set firstWaveStatus
+     *
+     * @param integer $firstWaveStatus
+     * @return Auth
+     */
+    public function setFirstWaveStatus($firstWaveStatus)
+    {
+        $this->firstWaveStatus = $firstWaveStatus;
+
+        return $this;
+    }
+
+    /**
+     * Get firstWaveStatus
+     *
+     * @return integer 
+     */
+    public function getFirstWaveStatus()
+    {
+        return $this->firstWaveStatus;
+    }
+
+    /**
+     * Set secondWaveStatus
+     *
+     * @param integer $secondWaveStatus
+     * @return Auth
+     */
+    public function setSecondWaveStatus($secondWaveStatus)
+    {
+        $this->secondWaveStatus = $secondWaveStatus;
+
+        return $this;
+    }
+
+    /**
+     * Get secondWaveStatus
+     *
+     * @return integer 
+     */
+    public function getSecondWaveStatus()
+    {
+        return $this->secondWaveStatus;
+    }
+
+    /**
+     * Add reponses
+     *
+     * @param \Ferus\MailBundle\Entity\Response $reponses
+     * @return Auth
+     */
+    public function addResponse(\Ferus\MailBundle\Entity\Response $responses)
+    {
+        $this->responses[] = $responses;
+
+        return $this;
+    }
+
+    /**
+     * Remove reponses
+     *
+     * @param \Ferus\MailBundle\Entity\Response $reponses
+     */
+    public function removeResponse(\Ferus\MailBundle\Entity\Response $responses)
+    {
+        $this->responses->removeElement($responses);
+    }
+
+    /**
+     * Get reponses
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getResponses()
+    {
+        return $this->responses;
+    }
+    /**
+     * @var string
+     */
+    private $status;
+
+
+    /**
+     * Set status
+     *
+     * @param string $status
+     * @return Auth
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string 
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }

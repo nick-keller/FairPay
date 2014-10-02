@@ -1,0 +1,44 @@
+{% extends '@FerusMail/layout.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li class="active">{{ auth.template }}</li>
+{% endblock %}
+
+{% block content %}
+    <h1>Demande : {{ auth.template }} <small>{{ auth.createdAt|date('d/m/Y') }}</small></h1>
+    {% for response in auth.responses %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                {% if response.status == 'ok' %}
+                    {{ label_success(response.from.okMessage[0]) }}
+                {% elseif response.status == 'no' %}
+                    {{ label_danger(response.from.noMessage[0]) }}
+                {% elseif response.status == 'unknown' %}
+                    {{ label_warning('Manuel') }}
+                {% endif %}
+                {{ response.from }} &lt;{{ response.from.email }}>
+                <span class="pull-right text-muted">{{ response.receivedAt|date('d/m/Y H:i') }}</span>
+            </div>
+            <div class="panel-body">
+                <div class="btn-group">
+                    <div class="btn btn-default" data-toggle="collapse" data-target="#{{ response.id }}">
+                        {{ icon('resize-full') }} Afficher
+                    </div>
+                    {% if response.status == 'unknown' %}
+                        <a class="btn btn-success" href="{{ path('auth_admin_validate_response', {id:response.id}) }}">
+                            {{ icon('thumbs-up') }} Valider
+                        </a>
+                        <a class="btn btn-danger" href="{{ path('auth_admin_deny_response', {id:response.id}) }}">
+                            {{ icon('thumbs-down') }} Refuser
+                        </a>
+                    {% endif %}
+                </div>
+                <div id="{{ response.id }}" class="collapse{% if response.status == 'unknown' %}{% endif %}">
+                    <div style="height: 15px"></div>
+                    {{ response.message|decodeMail|blockquote|mailDates|nl2br }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

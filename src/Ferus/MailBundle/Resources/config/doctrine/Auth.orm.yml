@@ -12,13 +12,33 @@ Ferus\MailBundle\Entity\Auth:
         createdAt:
             type: datetime
             column: created_at
+            gedmo:
+                timestampable:
+                    on: create
 
         customFields:
             type: array
             column: custom_fields
 
+        status:
+            type: string
+            length: 10
+
+        firstWaveStatus:
+            type: integer
+            column: first_wave_status
+
+        secondWaveStatus:
+            type: integer
+            column: second_wave_status
+
     manyToOne:
         template:
             targetEntity: Ferus\MailBundle\Entity\Template
+
+    oneToMany:
+        responses:
+            targetEntity: Ferus\MailBundle\Entity\Response
+            mappedBy: auth
 
     lifecycleCallbacks: {  }

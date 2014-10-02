@@ -1,5 +1,33 @@
 {% extends '@FerusMail/layout.html.twig' %}
 
+{% macro progress(value, status) %}
+    <div class="progress" style="margin-bottom: 0;width: 120px">
+        {% if value >= 100 %}
+            <div class="progress-bar progress-bar-success" style="width: 100%;">
+                Validé
+            </div>
+        {% elseif status == 'manual' %}
+            <div class="progress-bar progress-bar-warning progress-bar-striped active" style="width: 100%;">
+                Validation manuel
+            </div>
+        {% elseif status == 'no' %}
+            <div class="progress-bar progress-bar-danger" style="width: 100%;">
+                Refusé
+            </div>
+        {% elseif value == 0 %}
+            <div class="text-center text-muted">
+                En attente
+            </div>
+        {% else %}
+            <div class="progress-bar" style="width: {{ value }}%;">
+                {{ value }}%
+            </div>
+        {% endif %}
+    </div>
+{% endmacro %}
+
+{% import _self as macro %}
+
 {% block content %}
     <div class="dropdown">
         <button class="btn btn-success dropdown-toggle" data-toggle="dropdown">
@@ -12,4 +40,38 @@
             {% endfor %}
         </ul>
     </div>
+
+    <div class="table-responsive" style="margin-top: 15px">
+        <table class="table table-hover table-striped">
+            <tr>
+                <td>#</td>
+                <th>Envoyé le</th>
+                <th>Autorisation</th>
+                <th style="width: 120px">Première vague</th>
+                <th style="width: 120px">Deuxième vague</th>
+                <th></th>
+            </tr>
+            {% for auth in auths %}
+                <tr>
+                    <td>{{ auth.id }}</td>
+                    <td>{{ auth.createdAt|date('d/m/Y') }}</td>
+                    <td>{{ auth.template }}</td>
+                    <td>
+                        {{ macro.progress(auth.firstWaveStatus, auth.status) }}
+                    </td>
+                    <td>
+                        {{ macro.progress(auth.secondWaveStatus, auth.status) }}
+                    </td>
+                    <td>
+                        <div class="btn-group btn-group-xs">
+                            <a class="btn btn-default" href="{{ path('auth_admin_show', {id:auth.id}) }}">
+                                {{ icon('search') }} Détails
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {{ dump(messages) }}
 {% endblock %}

@@ -5,3 +5,15 @@ auth_admin_index:
 auth_admin_add:
     pattern: /add/{id}
     defaults: { _controller: FerusMailBundle:Auth:add }
+
+auth_admin_show:
+    pattern: /{id}
+    defaults: { _controller: FerusMailBundle:Auth:show }
+
+auth_admin_validate_response:
+    pattern: /responses/{id}/validate
+    defaults: { _controller: FerusMailBundle:Auth:validate }
+
+auth_admin_deny_response:
+    pattern: /responses/{id}/deny
+    defaults: { _controller: FerusMailBundle:Auth:deny }

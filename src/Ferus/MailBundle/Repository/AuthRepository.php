@@ -12,4 +12,9 @@ use Doctrine\ORM\EntityRepository;
  */
 class AuthRepository extends EntityRepository
 {
+    public function queryAll()
+    {
+        return $this->createQueryBuilder('a')
+            ->orderBy('a.createdAt', 'DESC');
+    }
 }

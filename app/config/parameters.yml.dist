@@ -17,3 +17,8 @@ parameters:
     debug_toolbar:          true
     debug_redirects:        false
     use_assetic_controller: true
+
+    imap_mailbox:   bde@edu.esiee.fr
+    imap_username:  ~
+    imap_password:  ~
+    imap_port:      ~
