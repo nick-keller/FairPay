@@ -25,6 +25,7 @@ class VariableRepository extends EntityRepository
             return $result[0];
 
         $var = new Variable();
+        $var->setName($name);
         $var->setString($string);
         $var->setNumber($number);
         $var->setDate($date);
