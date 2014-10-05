@@ -16,6 +16,11 @@ Ferus\MailBundle\Entity\Auth:
                 timestampable:
                     on: create
 
+        messageUid:
+            type: string
+            length: 255
+            column: message_uid
+
         customFields:
             type: array
             column: custom_fields

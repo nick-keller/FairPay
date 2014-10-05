@@ -27,6 +27,7 @@ services:
             - @doctrine.orm.entity_manager
             - @mailer
             - @imap_wrapper
+            - @templating
 
     ferus_mail.twig.mail_render_extension:
         class: Ferus\MailBundle\Twig\MailRenderExtension

@@ -45,6 +45,11 @@ class Auth
     private $responses;
 
     /**
+     * @var string
+     */
+    private $messageUid;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -238,5 +243,29 @@ class Auth
     public function getStatus()
     {
         return $this->status;
+    }
+
+
+    /**
+     * Set messageUid
+     *
+     * @param string $messageUid
+     * @return Auth
+     */
+    public function setMessageUid($messageUid)
+    {
+        $this->messageUid = $messageUid;
+
+        return $this;
+    }
+
+    /**
+     * Get messageUid
+     *
+     * @return string 
+     */
+    public function getMessageUid()
+    {
+        return $this->messageUid;
     }
 }

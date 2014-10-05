@@ -27,7 +27,7 @@ class TagTransformer implements DataTransformerInterface
         $array = explode(',', $value);
 
         foreach($array as $k => $e)
-            $array[$k] = trim($e);
+            $array[$k] = strtolower(trim($e));
 
         return $array;
     }

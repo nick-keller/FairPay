@@ -17,3 +17,7 @@ auth_admin_validate_response:
 auth_admin_deny_response:
     pattern: /responses/{id}/deny
     defaults: { _controller: FerusMailBundle:Auth:deny }
+
+auth_admin_fetch_mails:
+    pattern: /responses/fetch
+    defaults: { _controller: FerusMailBundle:Auth:fetchMails }

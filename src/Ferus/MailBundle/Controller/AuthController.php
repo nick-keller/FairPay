@@ -44,13 +44,18 @@ class AuthController  extends Controller
             20
         );
 
-        $messages = $this->get('ferus_mail.auth_manager')->fetchMails();
-
         return array(
             'templates' => $templates,
             'auths' => $auths,
-            'messages' => $messages,
         );
+    }
+
+    public function fetchMailsAction()
+    {
+        $stats = $this->get('ferus_mail.auth_manager')->fetchMails();
+
+        $this->flash->success($stats." nouveaux mails détectés.");
+        return $this->redirect($this->generateUrl('auth_admin_index'));
     }
 
     /**
@@ -68,6 +73,9 @@ class AuthController  extends Controller
 
             if($form->isValid()){
                 $this->get('ferus_mail.auth_manager')->sendAuth($auth, $form->getData());
+                $this->flash->success('Demande envoyée !');
+
+                return $this->redirect($this->generateUrl('auth_admin_index'));
             }
         }
 

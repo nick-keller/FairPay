@@ -1,0 +1,29 @@
+Ferus\MailBundle\Entity\Variable:
+    type: entity
+    table: ferus_variable
+    repositoryClass: Ferus\MailBundle\Repository\VariableRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+
+        string:
+            type: string
+            length: 255
+            nullable: true
+
+        number:
+            type: integer
+            nullable: true
+
+        date:
+            type: datetime
+            nullable: true
+
+    lifecycleCallbacks: {  }

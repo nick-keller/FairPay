@@ -165,4 +165,32 @@ class Response
     {
         return $this->message;
     }
+    /**
+     * @var string
+     */
+    private $messageUid;
+
+
+    /**
+     * Set messageUid
+     *
+     * @param string $messageUid
+     * @return Response
+     */
+    public function setMessageUid($messageUid)
+    {
+        $this->messageUid = $messageUid;
+
+        return $this;
+    }
+
+    /**
+     * Get messageUid
+     *
+     * @return string 
+     */
+    public function getMessageUid()
+    {
+        return $this->messageUid;
+    }
 }

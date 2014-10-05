@@ -33,5 +33,5 @@ assetic:
     use_controller: %use_assetic_controller%
 
 swiftmailer:
-    disable_delivery:  true
+    disable_delivery:  false
 #    delivery_address: me@example.com

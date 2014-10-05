@@ -12,4 +12,12 @@ use Doctrine\ORM\EntityRepository;
  */
 class AuthorityRepository extends EntityRepository
 {
+    public function findOneByEmail($email)
+    {
+        return $this->createQueryBuilder('a')
+            ->where('a.email = :email')
+            ->setParameter('email', preg_replace('#^.*<(.+)>.*$#', '$1', $email))
+            ->getQuery()
+            ->getSingleResult();
+    }
 }

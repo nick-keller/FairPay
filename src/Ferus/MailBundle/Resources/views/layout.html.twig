@@ -8,14 +8,25 @@
 {% block actions %}
     <div class="hidden-xs">
         <div class="btn-group btn-group-sm">
-            <a class="btn btn-default" href="{{ path('template_admin_index') }}">
+            <a class="btn btn-default" href="{{ path('auth_admin_index') }}">
                 {{ icon('th-list') }}
-                Templates
+                Liste
             </a>
-            <a class="btn btn-default" href="{{ path('authority_admin_index') }}">
-                {{ icon('th-list') }}
-                Autorités
+            <a class="btn btn-primary" href="{{ path('auth_admin_fetch_mails') }}">
+                {{ icon('refresh') }}
+                Checker les mails
             </a>
+            <div class="btn-group btn-group-sm">
+                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    {{ icon('cog') }}
+                    Réglages
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="{{ path('template_admin_index') }}">{{ icon('unchecked') }} Templates</a></li>
+                    <li><a href="{{ path('authority_admin_index') }}">{{ icon('user') }} Autorités</a></li>
+                </ul>
+            </div>
         </div>
     </div>
     <div class="visible-xs-block">

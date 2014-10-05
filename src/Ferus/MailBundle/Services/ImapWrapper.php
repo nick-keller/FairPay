@@ -34,7 +34,7 @@ class ImapWrapper
     {
         if($this->mbox !== null) return;
 
-        $this->mbox = imap_open('{'.$this->mailbox.':'.$this->port.'/pop3}INBOX', $this->username, $this->password, OP_READONLY);
+        $this->mbox = imap_open('{'.$this->mailbox.':'.$this->port.'/imap/ssl}INBOX', $this->username, $this->password, OP_READONLY);
         if(false === $this->mbox)
             throw new ConnexionFailedException;
 
@@ -63,7 +63,7 @@ class ImapWrapper
     {
         return new Email(
             imap_headerinfo($this->mbox, imap_msgno($this->mbox, $uid)),
-            imap_fetchbody($this->mbox, $uid, 0, FT_UID|FT_PEEK)
+            imap_fetchbody($this->mbox, $uid, 1, FT_UID|FT_PEEK)
         );
     }
 } 

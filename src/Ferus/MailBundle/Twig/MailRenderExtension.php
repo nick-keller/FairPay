@@ -4,6 +4,8 @@
 namespace Ferus\MailBundle\Twig;
 
 
+use Ferus\MailBundle\Entity\Response;
+
 class MailRenderExtension extends \Twig_Extension
 {
     public function getFilters()
@@ -36,7 +38,7 @@ class MailRenderExtension extends \Twig_Extension
 
     public function mailDates($string)
     {
-        return preg_replace_callback('#Le ([0-9]+ [a-z]+ 20[0-9]{2}) ([0-9]{2}:[0-9]{2}), ([^,]+), ([^&]+) &lt;([^>]+)> a écrit :#', function($m){
+        return preg_replace_callback('#Le ([0-9]+ [^2]+ 20[0-9]{2}) ([0-9]{2}:[0-9]{2}), ([^,]+), ([^&]+) &lt;([^>]+)> a écrit :#', function($m){
             return '<h4 class="bg-info" style="margin:15px 0">'.$m[4].' '.$m[3].' <span style="font-size: 75%;color: #777777;font-weight: normal;line-height: 1;">'.$m[1].', '.$m[2].'</span></h4>';
         }, $string);
     }

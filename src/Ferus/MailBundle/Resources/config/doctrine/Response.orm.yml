@@ -23,6 +23,11 @@ Ferus\MailBundle\Entity\Response:
         message:
             type: text
 
+        messageUid:
+            type: string
+            length: 255
+            column: message_uid
+
     manyToOne:
         auth:
             targetEntity: Ferus\MailBundle\Entity\Auth

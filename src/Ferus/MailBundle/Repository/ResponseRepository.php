@@ -12,4 +12,13 @@ use Doctrine\ORM\EntityRepository;
  */
 class ResponseRepository extends EntityRepository
 {
+    public function responseExist($id)
+    {
+        return $this->createQueryBuilder('r')
+            ->select('COUNT(r)')
+            ->where('r.messageUid = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getSingleScalarResult() > 0;
+    }
 }
