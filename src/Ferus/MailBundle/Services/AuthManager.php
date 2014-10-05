@@ -177,7 +177,7 @@ class AuthManager
 
     public function fetchMails()
     {
-        $lastChecked = $this->em->getRepository('FerusMailBundle:Variable')->findOneBy(array('name'=>'last_checked_mails'));
+        $lastChecked = $this->em->getRepository('FerusMailBundle:Variable')->get('last_checked_mails', null, null, new \DateTime('-7 days'));
         $last = $lastChecked->getDate();//->modify('-1 day');
         $date = new \DateTime( "-7 days" );
         $date = $date > $last ? $date : $last;
