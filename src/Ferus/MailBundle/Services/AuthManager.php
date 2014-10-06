@@ -64,8 +64,8 @@ class AuthManager
             )
         ;
 
-        $auth->setMessageUid($message->getId());
         $this->mailer->send($message);
+        $auth->setMessageUid($message->getId());
 
         $this->em->persist($auth);
         $this->em->flush();
@@ -94,8 +94,8 @@ class AuthManager
             )
         ;
 
-        $auth->setMessageUid($message->getId());
         $this->mailer->send($message);
+        $auth->setMessageUid($message->getId());
 
         $this->em->persist($auth);
         $this->em->flush();
