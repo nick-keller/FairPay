@@ -6,7 +6,24 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Demande : {{ auth.template }} <small>{{ auth.createdAt|date('d/m/Y') }}</small></h1>
+    <h1>Demande : {{ auth.template }}</h1>
+
+    <div class="panel panel-default">
+        <ul class="list-group">
+            <li class="list-group-item">
+                Message UID <span class="pull-right text-muted">{{ auth.messageUid }}</span>
+            </li>
+            <li class="list-group-item">
+                Envoyé le <span class="pull-right text-muted">{{ auth.createdAt|date('d/m/Y') }}</span>
+            </li>
+            {% for name, field in auth.customFields %}
+                <li class="list-group-item">
+                    {{ name }} <span class="pull-right text-muted">{{ field }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
     {% for response in auth.responses %}
         <div class="panel panel-default">
             <div class="panel-heading">
