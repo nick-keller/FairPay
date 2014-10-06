@@ -1,0 +1,22 @@
+{% extends '@FerusMail/layout.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li><a href="{{ path('auth_admin_show', {id:auth.id}) }}">{{ auth.template }}</a></li>
+    <li class="active">Supprimer</li>
+{% endblock %}
+
+{% block content %}
+    <div class="alert alert-warning" role="alert">
+        <h2>Attention !</h2>
+        <p>Vous êtes sur le point de supprimer définitivement la demande de <b>{{ auth.template }}</b>. Voulez vous continuer ?</p>
+        <form method="post" style="margin-top: 10px">
+            <button type="submit" class="btn btn-danger">
+                {{ icon('remove') }} Supprimer la demande
+            </button>
+            <a class="btn btn-default" href="{{ path('account_admin_index') }}">
+                Annuler
+            </a>
+        </form>
+    </div>
+{% endblock %}

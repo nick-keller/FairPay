@@ -10,6 +10,10 @@ auth_admin_show:
     pattern: /{id}
     defaults: { _controller: FerusMailBundle:Auth:show }
 
+auth_admin_remove:
+    pattern: /{id}/remove
+    defaults: { _controller: FerusMailBundle:Auth:remove }
+
 auth_admin_validate_response:
     pattern: /responses/{id}/validate
     defaults: { _controller: FerusMailBundle:Auth:validate }

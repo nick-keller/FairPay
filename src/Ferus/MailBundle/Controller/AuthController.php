@@ -110,4 +110,24 @@ class AuthController  extends Controller
 
         return $this->redirect($this->generateUrl('auth_admin_show', array('id'=>$response->getAuth()->getId())));
     }
+
+    /**
+     * @Template
+     */
+    public function removeAction(Auth $auth, Request $request)
+    {
+        if($request->isMethod('POST')){
+
+            $this->em->remove($auth);
+            $this->em->flush();
+
+            $this->flash->success('Demande supprimée.');
+
+            return $this->redirect($this->generateUrl('auth_admin_index'));
+        }
+
+        return array(
+            'auth' => $auth,
+        );
+    }
 } 

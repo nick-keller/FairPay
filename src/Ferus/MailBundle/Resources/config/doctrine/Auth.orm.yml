@@ -45,5 +45,7 @@ Ferus\MailBundle\Entity\Auth:
         responses:
             targetEntity: Ferus\MailBundle\Entity\Response
             mappedBy: auth
+            cascade:
+                - remove
 
     lifecycleCallbacks: {  }
