@@ -61,6 +61,8 @@ class ImapWrapper
 
     public function getMessage($uid)
     {
+        $this->connect();
+
         return new Email(
             imap_headerinfo($this->mbox, imap_msgno($this->mbox, $uid)),
             imap_fetchbody($this->mbox, $uid, 1, FT_UID|FT_PEEK)

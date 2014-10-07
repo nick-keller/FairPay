@@ -45,7 +45,7 @@ class AuthController  extends Controller
             20
         );
 
-//        $this->get('imap_wrapper')->getMessageUid(null);
+//        $message = $this->get('imap_wrapper')->getMessage(17671);
 
         return array(
             'templates' => $templates,
