@@ -201,16 +201,24 @@ class AuthManager
                 ));
 
                 if($auth == null && property_exists($message->getHeader(), 'references')){
-                    $ref = array();
+//                    $ref = array();
+//
+//                    preg_replace_callback('#<.+>#U', function($m) use(&$ref){
+//                        $ref[] = $m[1];
+//                        return $m[0];
+//                    }, $message->getHeader()->references);
 
-                    preg_replace_callback('#<.+>#U', function($m) use(&$ref){
-                        $ref[] = $m[1];
-                        return $m[0];
-                    }, $message->getHeader()->references);
+//                    foreach($ref as $r){
+//                        $auth = $this->em->getRepository('FerusMailBundle:Auth')->findOneBy(array(
+//                            'messageUid' => $r,
+//                        ));
+//
+//                        if($auth !== null) break;
+//                    }
 
-                    foreach($ref as $r){
+                    foreach($message->getHeader()->references as $ref){
                         $auth = $this->em->getRepository('FerusMailBundle:Auth')->findOneBy(array(
-                            'messageUid' => $r,
+                            'messageUid' => str_replace(array('<', '>'), '', $ref),
                         ));
 
                         if($auth !== null) break;
