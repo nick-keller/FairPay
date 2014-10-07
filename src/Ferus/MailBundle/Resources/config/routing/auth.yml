@@ -14,6 +14,10 @@ auth_admin_edit:
     pattern: /{id}/edit
     defaults: { _controller: FerusMailBundle:Auth:edit }
 
+auth_admin_force:
+    pattern: /{id}/force
+    defaults: { _controller: FerusMailBundle:Auth:force }
+
 auth_admin_remove:
     pattern: /{id}/remove
     defaults: { _controller: FerusMailBundle:Auth:remove }

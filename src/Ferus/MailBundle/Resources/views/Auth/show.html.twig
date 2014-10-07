@@ -6,7 +6,11 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Demande : {{ auth.template }} <a href="{{ path('auth_admin_edit', {id:auth.id}) }}" class="btn btn-primary">{{ icon('pencil') }} Editer</a></h1>
+    <h1>
+        Demande : {{ auth.template }}
+        <a href="{{ path('auth_admin_edit', {id:auth.id}) }}" class="btn btn-primary">{{ icon('pencil') }} Editer</a>
+        <a href="{{ path('auth_admin_force', {id:auth.id}) }}" class="btn btn-success">{{ icon('ok') }} Forcer deuxième vague</a>
+    </h1>
 
     <div class="panel panel-default">
         <ul class="list-group">

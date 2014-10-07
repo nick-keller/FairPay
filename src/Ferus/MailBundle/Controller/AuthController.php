@@ -154,4 +154,13 @@ class AuthController  extends Controller
             'form' => $form,
         );
     }
+
+    public function forceAction(Auth $auth)
+    {
+        $this->get('ferus_mail.auth_manager')->sendSecondWave($auth);
+
+        $this->flash->success('Seconde vague envoyée.');
+
+        return $this->redirect($this->generateUrl('auth_admin_show', array('id' => $auth->getId())));
+    }
 } 
