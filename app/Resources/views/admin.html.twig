@@ -242,6 +242,17 @@
                             </a>
 
                             <div class="btn-group btn-group-sm">
+                                <a class="btn btn-default" href="{{ path('auth_admin_index') }}">
+                                    {{ icon('th-list') }} Liste
+                                </a>
+                                {% if is_granted('ROLE_MAIL_ADMIN') %}
+                                    <a class="btn btn-default" href="{{ path('template_admin_index') }}">
+                                        {{ icon('unchecked') }} Templates
+                                    </a>
+                                    <a class="btn btn-default" href="{{ path('authority_admin_index') }}">
+                                        {{ icon('user') }} Autorités
+                                    </a>
+                                {% endif %}
                             </div>
                         </li>
                         {% endif %}
