@@ -18,9 +18,7 @@
                 {% set before = source('@FerusMail/Auth/template_before.txt.twig') %}
                 {% set after = source('@FerusMail/Auth/template_after.txt.twig') %}
                 <span class="text-muted">{{ before|nl2br }}</span>
-                <br>
                 {{ template.text|nl2br }}
-                <br>
                 <span class="text-muted">{{ after|nl2br }}</span>
             </p>
         </div>

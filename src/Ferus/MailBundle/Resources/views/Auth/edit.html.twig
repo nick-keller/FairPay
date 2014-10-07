@@ -1,0 +1,12 @@
+{% extends '@FerusMail/layout.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li>{{ auth.template }}</li>
+    <li class="active">Editer</li>
+{% endblock %}
+
+{% block content %}
+    <h1>Editer la demande : {{ auth.template }}</h1>
+    {{ form(form) }}
+{% endblock %}

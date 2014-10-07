@@ -6,6 +6,7 @@ use Ferus\MailBundle\Entity\Auth;
 use Ferus\MailBundle\Entity\Authority;
 use Ferus\MailBundle\Entity\Response;
 use Ferus\MailBundle\Form\AuthorityType;
+use Ferus\MailBundle\Form\AuthType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\ORM\EntityManager;
 use Knp\Component\Pager\Paginator;
@@ -128,6 +129,31 @@ class AuthController  extends Controller
 
         return array(
             'auth' => $auth,
+        );
+    }
+
+    /**
+     * @Template
+     */
+    public function editAction(Auth $auth, Request $request)
+    {
+        $form = $this->createForm(new AuthType, $auth);
+
+        if($request->isMethod('POST')){
+            $form->handleRequest($request);
+
+            if($form->isValid()){
+                $this->em->persist($auth);
+                $this->em->flush();
+
+                $this->flash->success('Demande mise à jour.');
+                return $this->redirect($this->generateUrl('auth_admin_show', array('id'=>$auth->getId())));
+            }
+        }
+
+        return array(
+            'auth' => $auth,
+            'form' => $form,
         );
     }
 } 

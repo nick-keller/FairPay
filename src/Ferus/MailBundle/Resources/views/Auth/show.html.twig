@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Demande : {{ auth.template }}</h1>
+    <h1>Demande : {{ auth.template }} <a href="{{ path('auth_admin_edit', {id:auth.id}) }}" class="btn btn-primary">{{ icon('pencil') }} Editer</a></h1>
 
     <div class="panel panel-default">
         <ul class="list-group">
@@ -14,7 +14,7 @@
                 Message UID <span class="pull-right text-muted">{{ auth.messageUid }}</span>
             </li>
             <li class="list-group-item">
-                Envoyé le <span class="pull-right text-muted">{{ auth.createdAt|date('d/m/Y') }}</span>
+                Envoyé le <span class="pull-right text-muted">{{ auth.createdAt|date('d/m/Y à H:i') }}</span>
             </li>
             {% for name, field in auth.customFields %}
                 <li class="list-group-item">
