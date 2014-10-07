@@ -12,7 +12,7 @@
             {% for template in templates %}
                 <tr>
                     <td>{{ template.id }}</td>
-                    <td>{{ template.name }}</td>
+                    <td><a href="{{ path('template_admin_edit', {id:template.id}) }}">{{ template.name }}</a></td>
                     <td>
                         <div class="btn-group btn-group-xs">
                             <a class="btn btn-default" href="{{ path('template_admin_edit', {id:template.id}) }}">

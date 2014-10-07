@@ -31,6 +31,25 @@
     </div>
     <div class="visible-xs-block">
         <div class="btn-group btn-group-sm btn-group-justified">
+            <a class="btn btn-default" href="{{ path('auth_admin_index') }}">
+                {{ icon('th-list') }}
+                Liste
+            </a>
+            <a class="btn btn-primary" href="{{ path('auth_admin_fetch_mails') }}">
+                {{ icon('refresh') }}
+                Check.
+            </a>
+            <div class="btn-group btn-group-sm">
+                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    {{ icon('cog') }}
+                    Réglages
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                    <li><a href="{{ path('template_admin_index') }}">{{ icon('unchecked') }} Templates</a></li>
+                    <li><a href="{{ path('authority_admin_index') }}">{{ icon('user') }} Autorités</a></li>
+                </ul>
+            </div>
         </div>
     </div>
 {% endblock %}

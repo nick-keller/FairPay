@@ -15,7 +15,7 @@
             {% for authority in authorities %}
                 <tr>
                     <td>{{ authority.id }}</td>
-                    <td>{{ authority }}</td>
+                    <td><a href="{{ path('authority_admin_edit', {id:authority.id}) }}">{{ authority }}</a></td>
                     <td>{{ authority.email }}</td>
                     <td>
                         {% for message in authority.okMessage %}

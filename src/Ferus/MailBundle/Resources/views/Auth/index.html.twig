@@ -55,7 +55,7 @@
                 <tr>
                     <td>{{ auth.id }}</td>
                     <td>{{ auth.createdAt|date('d/m/Y') }}</td>
-                    <td>{{ auth.template }}</td>
+                    <td><a href="{{ path('auth_admin_show', {id:auth.id}) }}">{{ auth.template }}</a></td>
                     <td>
                         {{ macro.progress(auth.firstWaveStatus, auth.status) }}
                     </td>
@@ -76,5 +76,4 @@
             {% endfor %}
         </table>
     </div>
-    {{ dump(message) }}
 {% endblock %}

@@ -12,4 +12,11 @@ use Doctrine\ORM\EntityRepository;
  */
 class TemplateRepository extends EntityRepository
 {
+    public function findAll()
+    {
+        return $this->createQueryBuilder('t')
+            ->orderBy('t.name')
+            ->getQuery()
+            ->getResult();
+    }
 }
