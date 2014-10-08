@@ -47,6 +47,7 @@
                 <td>#</td>
                 <th>Envoyé le</th>
                 <th>Autorisation</th>
+                <th>Date</th>
                 <th style="width: 120px">Première vague</th>
                 <th style="width: 120px">Deuxième vague</th>
                 <th></th>
@@ -56,6 +57,11 @@
                     <td>{{ auth.id }}</td>
                     <td>{{ auth.createdAt|date('d/m/Y') }}</td>
                     <td><a href="{{ path('auth_admin_show', {id:auth.id}) }}">{{ auth.template }}</a></td>
+                    <td>
+                        {% if auth.customFields.date is defined %}
+                            {{ auth.customFields.date }}
+                        {% endif %}
+                    </td>
                     <td>
                         {{ macro.progress(auth.firstWaveStatus, auth.status) }}
                     </td>
