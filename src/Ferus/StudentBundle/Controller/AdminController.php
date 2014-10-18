@@ -194,4 +194,16 @@ class AdminController extends Controller
 
         return new Response('Ok', 200);
     }
+
+    /**
+     * @Template
+     */
+    public function statsAction()
+    {
+        $stats = $this->em->getRepository('FerusStudentBundle:Student')->getStats();
+
+        return array(
+            'stats' => $stats,
+        );
+    }
 } 

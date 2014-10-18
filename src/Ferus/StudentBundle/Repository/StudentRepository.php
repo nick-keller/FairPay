@@ -4,6 +4,7 @@ namespace Ferus\StudentBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\Query;
 use Ferus\StudentBundle\Entity\Student;
 
 /**
@@ -104,5 +105,16 @@ class StudentRepository extends EntityRepository
             ->getQuery()
             ->getSingleScalarResult()
             == 0;
+    }
+
+    public function getStats()
+    {
+        return $this->createQueryBuilder('s')
+            ->select('s.class class, COUNT(s) total, SUM(s.isContributor) contributors')
+            ->where('s.class IS NOT NULL')
+            ->andWhere('s.class != \'\'')
+            ->groupBy('s.class')
+            ->getQuery()
+            ->getResult(Query::HYDRATE_ARRAY);
     }
 }

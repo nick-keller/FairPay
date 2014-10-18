@@ -35,6 +35,9 @@ twig:
     exception_controller: 'FOS\RestBundle\Controller\ExceptionController::showAction'
     globals:
         fos_csrf_provider: "@form.csrf_provider"
+    form:
+        resources:
+            - ':Form:form_div_layout.html.twig'
 
 # Assetic Configuration
 assetic:

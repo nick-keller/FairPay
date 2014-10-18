@@ -1,0 +1,77 @@
+{% extends '@FerusStudent/Admin/layout.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li class="active">Statistiques</li>
+{% endblock %}
+
+{% block content %}
+    <h1>Statistiques</h1>
+    <div class="row">
+        {% for stat in stats %}
+            <div class="col-md-4">
+                <div id="chart-{{ stat.class }}" style="min-width: 250px; height: 320px; margin: 0 auto"></div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="//code.highcharts.com/highcharts.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            Highcharts.setOptions({
+                lang: {
+                    decimalPoint: ',',
+                    thousandsSep: ' ',
+                    loading: 'Chargement...',
+                    resetZoom: 'Réinitialiser le zoom',
+                    resetZoomTitle: 'Réinitialiser le zoom à 1:1'
+                }
+            });
+            {% for stat in stats %}
+            $('#chart-{{ stat.class }}').highcharts({
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: 0,
+                    plotShadow: false
+                },
+                title: {
+                    text: '{{ stat.class }}',
+                    align: 'center',
+                    verticalAlign: 'bottom',
+                    y: -70
+                },
+                credits:{
+                    enabled: false
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        dataLabels: {
+                            enabled: false
+                        },
+                        startAngle: -90,
+                        endAngle: 90,
+                        center: ['50%', '100%'],
+                        showInLegend: true,
+                        colors: ['#5CB85C', '#D9534F']
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Répartition',
+                    innerSize: '50%',
+                    data: [
+                        ['Cotisants',   {{ stat.contributors }}],
+                        ['Non-cotisants',       {{ stat.total - stat.contributors }}],
+                    ]
+                }]
+            });
+            {% endfor %}
+        });
+    </script>
+{% endblock %}

@@ -60,5 +60,5 @@ jQuery.fn.extend({
 });
 
 $(function(){
-    $('[data-preview=student]').student();
+    $('[data-preview=student]').student().change();
 });

@@ -16,22 +16,33 @@ class UserType extends AbstractType
     {
         $builder
             ->add('roles', 'choice', array(
-                'label' => 'Droits',
+                'label' => ' ',
                 'multiple' => true,
                 'expanded' => true,
                 'choices' => array(
-                    'ROLE_ADMIN'=>'ROLE_ADMIN',
-                    'ROLE_USER_ADMIN'=>'ROLE_USER_ADMIN',
-                    'ROLE_STUDENT_ADMIN'=>'ROLE_STUDENT_ADMIN',
-                    'ROLE_SELLER_ADMIN'=>'ROLE_SELLER_ADMIN',
-                    'ROLE_ACCOUNT_ADMIN'=>'ROLE_ACCOUNT_ADMIN',
-                    'ROLE_TRANSACTION_ADMIN'=>'ROLE_TRANSACTION_ADMIN',
-                    'ROLE_EVENT'=>'ROLE_EVENT',
-                    'ROLE_EVENT_ADMIN'=>'ROLE_EVENT_ADMIN',
-                    'ROLE_MAIL'=>'ROLE_MAIL',
-                    'ROLE_MAIL_ADMIN'=>'ROLE_MAIL_ADMIN',
-                    'ROLE_WITHDRAWAL_ADMIN'=>'ROLE_WITHDRAWAL_ADMIN',
-                    'ROLE_SUPER_ADMIN'=>'ROLE_SUPER_ADMIN',
+                    'Administrateurs' => array(
+                        'ROLE_USER_ADMIN'=>'ROLE_USER_ADMIN',
+                    ),
+                    'Entités' => array(
+                        'ROLE_STUDENT_ADMIN'=>'ROLE_STUDENT_ADMIN',
+                        'ROLE_SELLER_ADMIN'=>'ROLE_SELLER_ADMIN',
+                    ),
+                    'Comptes bancaires' => array(
+                        'ROLE_ACCOUNT_ADMIN'=>'ROLE_ACCOUNT_ADMIN',
+                        'ROLE_TRANSACTION_ADMIN'=>'ROLE_TRANSACTION_ADMIN',
+                        'ROLE_WITHDRAWAL_ADMIN'=>'ROLE_WITHDRAWAL_ADMIN',
+                    ),
+                    'Evénements' => array(
+                        'ROLE_EVENT'=>'ROLE_EVENT',
+                        'ROLE_EVENT_ADMIN'=>'ROLE_EVENT_ADMIN',
+                    ),
+                    'Autorisations' => array(
+                        'ROLE_MAIL'=>'ROLE_MAIL',
+                        'ROLE_MAIL_ADMIN'=>'ROLE_MAIL_ADMIN',
+                    ),
+                    'Super Admin' => array(
+                        'ROLE_SUPER_ADMIN'=>'ROLE_SUPER_ADMIN',
+                    ),
                 ),
                 'translation_domain' => 'roles_long'
             ))

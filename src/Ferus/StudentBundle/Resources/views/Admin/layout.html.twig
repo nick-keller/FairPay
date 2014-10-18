@@ -17,6 +17,9 @@
             <a class="btn btn-primary" href="{{ path('student_admin_contributors') }}">
                 {{ icon('euro') }} Cotisations
             </a>
+            <a class="btn btn-default" href="{{ path('student_admin_stats') }}">
+                <i class="fa fa-pie-chart"></i> Statistiques
+            </a>
         </div>
 
         <form class="form-inline" role="form" style="width: 200px;display: inline-block;vertical-align: middle" action="{{ path('student_admin_index') }}" method="get">
@@ -37,7 +40,10 @@
                 {{ icon('plus') }} Ajouter
             </a>
             <a class="btn btn-primary" href="{{ path('student_admin_contributors') }}">
-                {{ icon('euro') }} Cotisations
+                {{ icon('euro') }} Cotiz
+            </a>
+            <a class="btn btn-default" href="{{ path('student_admin_stats') }}">
+                <i class="fa fa-pie-chart"></i> Stats
             </a>
         </div>
 

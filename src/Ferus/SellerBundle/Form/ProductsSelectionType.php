@@ -28,16 +28,6 @@ class ProductsSelectionType extends AbstractType
                     'data-input' => 'cause',
                 )
             ))
-            ->add('actions', 'form_actions', [
-                'buttons' => array(
-                    'save' => [
-                        'type' => 'submit',
-                        'options' => [
-                            'label' => 'Payer',
-                        ]
-                    ],
-                )
-            ])
         ;
     }
     

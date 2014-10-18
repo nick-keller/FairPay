@@ -25,7 +25,7 @@ class BarcodeType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $transformer = new BarcodeTransformer($this->om, $options['data']);
+        $transformer = new BarcodeTransformer($this->om, $options['barcode-type']);
         $builder->addModelTransformer($transformer);
     }
 
@@ -40,12 +40,12 @@ class BarcodeType extends AbstractType
                 'help_text' => 'Numéro figurant sur la carte étudiante',
                 'data-preview' => 'student',
             ),
-            'data' => 'account',
+            'barcode-type' => 'account',
             'data_class' => null,
         ));
 
         $resolver->setAllowedValues(array(
-            'data' => array('account', 'owner'),
+            'barcode-type' => array('account', 'owner'),
         ));
     }
 

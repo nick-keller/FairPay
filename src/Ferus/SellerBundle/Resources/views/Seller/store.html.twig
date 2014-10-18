@@ -45,7 +45,29 @@
                     </table>
                 </div>
             </div>
-            {{ form(form) }}
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <div class="btn-toolbar">
+                    <div class="btn-group">
+                        <button class="btn btn-primary disabled" id="btn-pay">
+                            {{ icon('shopping-cart') }} Payer
+                        </button>
+                    </div>
+                    {#<div class="input-group" style="display:inline-block">#}
+                        {#<input data-type="money" class="form-control" style="width: 65px;display: inline-block" disabled id="deposit-amount">#}
+                        {#<span class="input-group-btn" style="display: inline-block">#}
+                            {#<button class="btn btn-primary disabled" id="btn-deposit">#}
+                                {#{{ icon('import') }} Recharger#}
+                            {#</button>#}
+                        {#</span>#}
+                    {#</div>#}
+                    <div class="btn-group">
+                        <button class="btn btn-primary disabled" id="btn-create" data-href="{{ path('account_admin_add') }}">
+                            {{ icon('plus') }} Créer
+                        </button>
+                    </div>
+                </div>
+            {{ form_end(form) }}
         </div>
     </div>
 {% endblock %}

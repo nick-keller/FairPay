@@ -29,6 +29,7 @@ $(function(){
 
                     $(this).fadeTo(500, 1);
                     $(this).siblings().fadeTo(500, .5);
+                    $('#filter').select();
 
                     $.get($(this).data('save'));
                 });

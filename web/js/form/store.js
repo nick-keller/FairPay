@@ -49,4 +49,30 @@ $(function(){
     });
 
     updateCheck();
+
+    $('#ferus_sellerbundle_product_selection_client').on('studentFound', function(e, student){
+        var $btnPay = $('#btn-pay');
+        var $btnDeposit = $('#btn-deposit');
+        var $btnCreate = $('#btn-create');
+        var $depositAmount = $('#deposit-amount');
+
+        $btnPay.addClass('disabled');
+        $btnDeposit.addClass('disabled');
+        $btnCreate.addClass('disabled');
+        $depositAmount.attr('disabled', '');
+
+        $btnCreate.click(function(e){
+            e.preventDefault();
+
+            window.location = $(this).data('href') + '?id=' + student.id;
+        });
+
+        if(!student.has_fairpay)
+            $btnCreate.removeClass('disabled');
+        else{
+            $btnPay.removeClass('disabled');
+            $btnDeposit.removeClass('disabled');
+            $depositAmount.removeAttr('disabled');
+        }
+    });
 });

@@ -17,7 +17,7 @@ class AccountType extends AbstractType
         $builder
             ->add('owner', 'barcode', array(
                 'label' => 'Numéro',
-                'data' => 'owner',
+                'barcode-type' => 'owner',
             ))
             ->add('balance', 'euro', array(
                 'label' => 'Solde de départ'

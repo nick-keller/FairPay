@@ -77,6 +77,11 @@ class AdminController extends Controller
         $account = new Account;
         $form = $this->createForm(new AccountType, $account);
 
+        if($request->query->has('id')){
+            $student = $this->em->getRepository('FerusStudentBundle:Student')->findOneById($request->query->get('id'));
+            $account->setStudent($student);
+        }
+
         if($request->isMethod('POST')){
             $form->handleRequest($request);
 
