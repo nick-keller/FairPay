@@ -202,8 +202,37 @@ class AdminController extends Controller
     {
         $stats = $this->em->getRepository('FerusStudentBundle:Student')->getStats();
 
+        $classes = array();
+        for($i = 1; $i <= 5; ++$i){
+            $classes[$i] = array(
+                'class' => $i,
+                'total' => 0,
+                'contributors' => 0,
+            );
+
+            foreach($stats as $stat){
+                if(strpos($stat['class'], ''.$i) !== FALSE){
+                    $classes[$i]['total'] += $stat['total'];
+                    $classes[$i]['contributors'] += $stat['contributors'];
+                }
+            }
+        }
+
+
+        $total = array(
+            'total' => 0,
+            'contributors' => 0,
+        );
+
+        foreach($stats as $stat){
+            $total['total'] += $stat['total'];
+            $total['contributors'] += $stat['contributors'];
+        }
+
         return array(
             'stats' => $stats,
+            'classes' => $classes,
+            'total' => $total,
         );
     }
 } 

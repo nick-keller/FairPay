@@ -7,10 +7,22 @@
 
 {% block content %}
     <h1>Statistiques</h1>
+    <div class="col-md-3 col-sm-6">
+        <div id="total" style="min-width: 250px; height: 200px; margin: 0 auto"></div>
+    </div>
+    <div class="clearfix"></div>
+    <h2>Par année</h2>
+    {% for stat in classes %}
+        <div class="col-md-3 col-sm-6">
+            <div id="class-{{ stat.class }}" style="min-width: 250px; height: 200px; margin: 0 auto"></div>
+        </div>
+    {% endfor %}
+    <div class="clearfix"></div>
+    <h2>Par promo</h2>
     <div class="row">
         {% for stat in stats %}
-            <div class="col-md-4">
-                <div id="chart-{{ stat.class }}" style="min-width: 250px; height: 320px; margin: 0 auto"></div>
+            <div class="col-md-3 col-sm-6">
+                <div id="chart-{{ stat.class }}" style="min-width: 250px; height: 200px; margin: 0 auto"></div>
             </div>
         {% endfor %}
     </div>
@@ -30,12 +42,97 @@
                     resetZoomTitle: 'Réinitialiser le zoom à 1:1'
                 }
             });
+            $('#total').highcharts({
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: 0,
+                    plotShadow: false,
+                    marginTop: -100
+                },
+                title: {
+                    text: 'Total',
+                    align: 'center',
+                    verticalAlign: 'bottom',
+                    y: -70
+                },
+                credits:{
+                    enabled: false
+                },
+                tooltip: {
+                    pointFormat: '{series.name} : <b>{point.percentage:.1f}%</b><br>Total : <b>{point.y}</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        dataLabels: {
+                            enabled: false
+                        },
+                        startAngle: -90,
+                        endAngle: 90,
+                        center: ['50%', '100%'],
+                        showInLegend: true,
+                        colors: ['#5CB85C', '#D9534F']
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Répartition',
+                    innerSize: '50%',
+                    data: [
+                        ['Cotisants',     {{ total.contributors }}],
+                        ['Non-cotisants', {{ total.total - total.contributors }}]
+                    ]
+                }]
+            });
+            {% for stat in classes %}
+            $('#class-{{ stat.class }}').highcharts({
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: 0,
+                    plotShadow: false,
+                    marginTop: -100
+                },
+                title: {
+                    text: 'E{{ stat.class }}',
+                    align: 'center',
+                    verticalAlign: 'bottom',
+                    y: -70
+                },
+                credits:{
+                    enabled: false
+                },
+                tooltip: {
+                    pointFormat: '{series.name} : <b>{point.percentage:.1f}%</b><br>Total : <b>{point.y}</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        dataLabels: {
+                            enabled: false
+                        },
+                        startAngle: -90,
+                        endAngle: 90,
+                        center: ['50%', '100%'],
+                        showInLegend: true,
+                        colors: ['#5CB85C', '#D9534F']
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Répartition',
+                    innerSize: '50%',
+                    data: [
+                        ['Cotisants',   {{ stat.contributors }}],
+                        ['Non-cotisants',       {{ stat.total - stat.contributors }}]
+                    ]
+                }]
+            });
+            {% endfor %}
             {% for stat in stats %}
             $('#chart-{{ stat.class }}').highcharts({
                 chart: {
                     plotBackgroundColor: null,
                     plotBorderWidth: 0,
-                    plotShadow: false
+                    plotShadow: false,
+                    marginTop: -100
                 },
                 title: {
                     text: '{{ stat.class }}',
@@ -67,7 +164,7 @@
                     innerSize: '50%',
                     data: [
                         ['Cotisants',   {{ stat.contributors }}],
-                        ['Non-cotisants',       {{ stat.total - stat.contributors }}],
+                        ['Non-cotisants',       {{ stat.total - stat.contributors }}]
                     ]
                 }]
             });
