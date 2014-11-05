@@ -1,3 +1,7 @@
 event_store_index:
     pattern: /{id}
     defaults: { _controller: FerusEventBundle:Store:index }
+
+event_store_register_plate:
+    pattern: /{id}/register-plate
+    defaults: { _controller: FerusEventBundle:Store:registerPlate }

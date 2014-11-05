@@ -1,0 +1,33 @@
+Ferus\EventBundle\Entity\CarRequest:
+    type: entity
+    table: ferus_car_request
+    repositoryClass: Ferus\EventBundle\Repository\CarRequestRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        email:
+            type: string
+            length: 255
+        brand:
+            type: string
+            length: '100'
+        model:
+            type: string
+            length: '100'
+        color:
+            type: string
+            length: '100'
+        plate:
+            type: string
+            length: '100'
+
+    manyToOne:
+        event:
+            targetEntity: Ferus\EventBundle\Entity\Event
+            inversedBy: carRequests
+
+    lifecycleCallbacks: {  }

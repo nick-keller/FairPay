@@ -18,8 +18,8 @@
                 <ul class="nav navbar-nav">
                     {% if is_granted('ROLE_USER_ADMIN') %}
                     <li>
-                        <a href="{{ path('user_admin_index') }}" class="hidden-sm">Administrateurs</a>
-                        <a href="{{ path('user_admin_index') }}" class="visible-sm-block">Admins</a>
+                        <a href="{{ path('user_admin_index') }}" class="hidden-md hidden-sm">Administrateurs</a>
+                        <a href="{{ path('user_admin_index') }}" class="visible-md-block visible-sm-block">Admins</a>
                     </li>
                     {% endif %}
                     {% if is_granted('ROLE_STUDENT_ADMIN') %}
@@ -34,18 +34,20 @@
                     {% endif %}
                     {% if is_granted('ROLE_ACCOUNT_ADMIN') %}
                     <li>
-                        <a href="{{ path('account_admin_index') }}" class="hidden-sm">Comptes bancaires</a>
-                        <a href="{{ path('account_admin_index') }}" class="visible-sm-block">Comptes</a>
+                        <a href="{{ path('account_admin_index') }}" class="hidden-md hidden-sm">Comptes bancaires</a>
+                        <a href="{{ path('account_admin_index') }}" class="visible-md-block visible-sm-block">Comptes</a>
                     </li>
                     {% endif %}
                     {% if is_granted('ROLE_TRANSACTION_ADMIN') %}
                     <li>
-                        <a href="{{ path('transaction_admin_index') }}">Transactions</a>
+                        <a href="{{ path('transaction_admin_index') }}" class="hidden-md hidden-sm">Transactions</a>
+                        <a href="{{ path('transaction_admin_index') }}" class="visible-md-block visible-sm-block">Trans.</a>
                     </li>
                     {% endif %}
                     {% if is_granted('ROLE_EVENT') %}
                     <li>
-                        <a href="{{ path('event_admin_index') }}">Evénements</a>
+                        <a href="{{ path('event_admin_index') }}" class="hidden-md hidden-sm">Evénements</a>
+                        <a href="{{ path('event_admin_index') }}" class="visible-md-block visible-sm-block">Event</a>
                     </li>
                     {% endif %}
                     {% if is_granted('ROLE_MAIL') %}

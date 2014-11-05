@@ -3,6 +3,7 @@
 namespace Ferus\EventBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Ticket
@@ -20,12 +21,8 @@ class Ticket
     private $name;
 
     /**
-     * @var integer
-     */
-    private $maxTickets;
-
-    /**
      * @var string
+     * @Assert\GreaterThan(0)
      */
     private $price;
 
@@ -94,29 +91,6 @@ class Ticket
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Set maxTickets
-     *
-     * @param integer $maxTickets
-     * @return Ticket
-     */
-    public function setMaxTickets($maxTickets)
-    {
-        $this->maxTickets = $maxTickets;
-
-        return $this;
-    }
-
-    /**
-     * Get maxTickets
-     *
-     * @return integer 
-     */
-    public function getMaxTickets()
-    {
-        return $this->maxTickets;
     }
 
     /**

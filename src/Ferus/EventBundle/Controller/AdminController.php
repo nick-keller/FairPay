@@ -13,6 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Braincrafted\Bundle\BootstrapBundle\Session\FlashMessage;
 use JMS\SecurityExtraBundle\Annotation\Secure;
+use Symfony\Component\HttpFoundation\Response;
 
 class AdminController extends Controller
 {
@@ -140,6 +141,16 @@ class AdminController extends Controller
         );
     }
 
+    public function participantsCsvAction(Event $event)
+    {
+        $response = new Response();
+        $response->setContent($this->get('ferus.csv_generator')->generate($event));
+        $response->headers->set('Content-Type', 'text/csv');
+        $filename = $event;
+        $response->headers->set('Content-Disposition', 'attachment; filename="'.$filename.'.csv"');
+        return $response;
+    }
+
     /**
      * @Template
      */
@@ -186,5 +197,25 @@ class AdminController extends Controller
             'stats' => $stats,
             'statsTickets' => $statsTickets,
         );
+    }
+
+    /**
+     * @Template
+     */
+    public function carRequestAction(Event $event, Request $request)
+    {
+        return array(
+            'requests' => $this->em->getRepository('FerusEventBundle:CarRequest')->findBy(array('event'=>$event)),
+        );
+    }
+
+    public function carRequestCsvAction(Event $event)
+    {
+        $response = new Response();
+        $response->setContent($this->get('ferus.csv_generator')->generateParking($event));
+        $response->headers->set('Content-Type', 'text/csv');
+        $filename = $event.'_parking';
+        $response->headers->set('Content-Disposition', 'attachment; filename="'.$filename.'.csv"');
+        return $response;
     }
 }

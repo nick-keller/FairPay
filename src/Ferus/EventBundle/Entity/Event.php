@@ -4,6 +4,7 @@ namespace Ferus\EventBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use \Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Event
@@ -17,6 +18,7 @@ class Event
 
     /**
      * @var string
+     * @Assert\NotBlank
      */
     private $name;
 
@@ -27,6 +29,9 @@ class Event
 
     /**
      * @var \Doctrine\Common\Collections\Collection
+     * @Assert\Count(
+     *      min = "1"
+     * )
      */
     private $tickets;
 
@@ -41,13 +46,30 @@ class Event
     private $payments;
 
     /**
+     * @var integer
+     */
+    private $maxTickets;
+
+    /**
+     * @var boolean
+     */
+    private $askForCars;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $carRequests;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->tickets = new ArrayCollection();
         $this->payments = new ArrayCollection();
+        $this->carRequests = new ArrayCollection();
         $this->removedTickets = array();
+        $this->askForCars = true;
     }
 
     public function __toString()
@@ -180,5 +202,87 @@ class Event
     public function getPayments()
     {
         return $this->payments;
+    }
+
+
+    /**
+     * Set maxTickets
+     *
+     * @param integer $maxTickets
+     * @return Event
+     */
+    public function setMaxTickets($maxTickets)
+    {
+        $this->maxTickets = $maxTickets;
+
+        return $this;
+    }
+
+    /**
+     * Get maxTickets
+     *
+     * @return integer 
+     */
+    public function getMaxTickets()
+    {
+        return $this->maxTickets;
+    }
+
+
+    /**
+     * Set askForCars
+     *
+     * @param boolean $askForCars
+     * @return Event
+     */
+    public function setAskForCars($askForCars)
+    {
+        $this->askForCars = $askForCars;
+
+        return $this;
+    }
+
+    /**
+     * Get askForCars
+     *
+     * @return boolean 
+     */
+    public function getAskForCars()
+    {
+        return $this->askForCars;
+    }
+
+
+    /**
+     * Add carRequests
+     *
+     * @param \Ferus\EventBundle\Entity\CarRequest $carRequests
+     * @return Event
+     */
+    public function addCarRequest(\Ferus\EventBundle\Entity\CarRequest $carRequests)
+    {
+        $this->carRequests[] = $carRequests;
+
+        return $this;
+    }
+
+    /**
+     * Remove carRequests
+     *
+     * @param \Ferus\EventBundle\Entity\CarRequest $carRequests
+     */
+    public function removeCarRequest(\Ferus\EventBundle\Entity\CarRequest $carRequests)
+    {
+        $this->carRequests->removeElement($carRequests);
+    }
+
+    /**
+     * Get carRequests
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCarRequests()
+    {
+        return $this->carRequests;
     }
 }

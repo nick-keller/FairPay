@@ -16,6 +16,14 @@ Ferus\EventBundle\Entity\Event:
         date:
             type: datetime
 
+        maxTickets:
+            column: max_tickets
+            type: integer
+
+        askForCars:
+            column: ask_for_column
+            type: boolean
+
     oneToMany:
         tickets:
             targetEntity: Ferus\EventBundle\Entity\Ticket
@@ -27,5 +35,11 @@ Ferus\EventBundle\Entity\Event:
         payments:
             targetEntity: Ferus\EventBundle\Entity\Payment
             mappedBy: event
+
+        carRequests:
+            targetEntity: Ferus\EventBundle\Entity\CarRequest
+            mappedBy: event
+            cascade:
+                - remove
 
     lifecycleCallbacks: {  }

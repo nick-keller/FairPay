@@ -1,6 +1,11 @@
 Bonjour {{ payment.firstName }} !
 Nous t'envoyons ce mail pour te confirmer que nous avons bien reçus ton paiement pour l'événement : {{ payment.event }}.
 
+{% if carRequest %}
+Si tu veux garer ta voiture dans l'école pendant la durée de l'événement tu doit simplement remplir la demande ici :
+{{ url('event_store_register_plate', {id:payment.event.id, email:payment.email}) }}
+{% endif %}
+
 Pour rappel voici les informations de ton paiement
 - Motif : {{ payment.ticket }} {{ payment.event }}
 - Montant : {{ payment.amount }} €

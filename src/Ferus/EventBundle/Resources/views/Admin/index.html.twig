@@ -27,18 +27,32 @@
                         {{ event.date|date('d/m/Y') }}
                     </td>
                     <td>
-                        <div class="btn-group btn-group-xs" style="min-width: 69px">
+                        <div class="btn-group btn-group-xs hidden-xs">
+                            <a class="btn btn-primary" href="{{ path('event_store_index', {id:event.id}) }}">
+                                {{ icon('shopping-cart') }} Boutique en ligne
+                            </a>
+                            <a class="btn btn-default" href="{{ path('event_admin_participants', {id:event.id}) }}">
+                                {{ icon('th-list') }} Participants
+                            </a>
+                            <a class="btn btn-default" href="{{ path('event_admin_car_requests', {id:event.id}) }}">
+                                <i class="fa fa-car"></i> Demandes
+                            </a>
+                            <a class="btn btn-success" href="{{ path('event_admin_money', {id:event.id}) }}">
+                                {{ icon('euro') }} Trézo
+                            </a>
+                        </div>
+                        <div class="btn-group btn-group-xs visible-xs-block" style="min-width: 138px">
                             <a class="btn btn-primary" href="{{ path('event_store_index', {id:event.id}) }}">
                                 {{ icon('shopping-cart') }}
-                                <span class="visible-sm-inline visible-md-inline visible-lg-inline">Boutique en ligne</span>
                             </a>
                             <a class="btn btn-default" href="{{ path('event_admin_participants', {id:event.id}) }}">
                                 {{ icon('th-list') }}
-                                <span class="visible-sm-inline visible-md-inline visible-lg-inline">Participants</span>
+                            </a>
+                            <a class="btn btn-default" href="{{ path('event_admin_car_requests', {id:event.id}) }}">
+                                <i class="fa fa-car"></i>
                             </a>
                             <a class="btn btn-success" href="{{ path('event_admin_money', {id:event.id}) }}">
                                 {{ icon('euro') }}
-                                <span class="visible-sm-inline visible-md-inline visible-lg-inline">Trézo</span>
                             </a>
                         </div>
                     </td>

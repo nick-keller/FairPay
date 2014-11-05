@@ -13,10 +13,6 @@ Ferus\EventBundle\Entity\Ticket:
             type: string
             length: '100'
 
-        maxTickets:
-            column: max_tickets
-            type: integer
-
         price:
             type: decimal
             scale: 2

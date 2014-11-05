@@ -18,9 +18,6 @@ class TicketType extends AbstractType
             ->add('name', 'text', array(
                 'label' => 'Nom'
             ))
-            ->add('maxTickets', 'integer', array(
-                'label' => 'Nombre max de places'
-            ))
             ->add('price', 'euro', array(
                 'label' => 'Prix non-cotisant'
             ))

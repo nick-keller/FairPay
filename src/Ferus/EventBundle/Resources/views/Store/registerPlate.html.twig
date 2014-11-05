@@ -1,0 +1,15 @@
+{% extends '::base.html.twig' %}
+
+{% block navbar %}
+    <div style="height: 15px"></div>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+            <h1>{{ event }} <small>{{ event.date|date('d/m/Y') }}</small></h1>
+            <p>Remplissez ces informations pour pouvoir garrer votre véhicule dans le parking pendant l'événement.</p>
+            {{ form(form, {style:'horizontal'}) }}
+        </div>
+    </div>
+{% endblock %}

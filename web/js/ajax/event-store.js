@@ -95,6 +95,7 @@ $(function(){
 
         var $this = $(this);
         var student = {};
+        $this.find('.list-group, button').hide();
 
         $this.find('input').blur().each(function(){
             student[$(this).attr('name')] = $(this).val();
@@ -110,6 +111,7 @@ $(function(){
         $('#ticket-selector').html('');
         $('#payment-selector').hide();
         $('#validate-payment').hide();
+        $('form[data-user]').find('.list-group, button').show();
     });
 
     $('#user-selector [data-user]').click(function(){
@@ -120,5 +122,15 @@ $(function(){
         $('#ticket-selector').html('');
         $('#payment-selector').hide();
         $('#validate-payment').hide();
+        $('form[data-user]').find('.list-group, button').show();
+    });
+
+    $('.existing-external').click(function(){
+        var $this = $(this);
+        $('input[name=first_name]').val($this.data('first-name'));
+        $('input[name=last_name]').val($this.data('last-name'));
+        $('input[name=email]').val($this.data('email'));
+
+        $('form[data-user]').submit();
     });
 });

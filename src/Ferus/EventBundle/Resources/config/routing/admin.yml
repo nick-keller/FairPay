@@ -18,6 +18,10 @@ event_admin_participants:
     pattern: /{id}/participants
     defaults: { _controller: FerusEventBundle:Admin:participants }
 
+event_admin_participants_csv:
+    pattern: /{id}/participants.csv
+    defaults: { _controller: FerusEventBundle:Admin:participantsCsv }
+
 event_admin_money:
     pattern: /{id}/money
     defaults: { _controller: FerusEventBundle:Admin:money }
@@ -33,3 +37,11 @@ event_admin_payment_remove_from:
 event_admin_payment_remove:
     pattern: /remove-payment/{id}
     defaults: { _controller: FerusEventBundle:Admin:removePayment }
+
+event_admin_car_requests:
+    pattern: /{id}/car-request
+    defaults: { _controller: FerusEventBundle:Admin:carRequest }
+
+event_admin_car_requests_csv:
+    pattern: /{id}/car-request.csv
+    defaults: { _controller: FerusEventBundle:Admin:carRequestCsv }

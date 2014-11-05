@@ -54,4 +54,5 @@ security:
         - { path: ^/admin/authorizations/authorities, role: ROLE_MAIL_ADMIN }
         - { path: ^/admin/authorizations, role: ROLE_MAIL }
         - { path: ^/admin, role: ROLE_ADMIN }
+        - { path: register-plate, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/events, role: ROLE_EVENT }

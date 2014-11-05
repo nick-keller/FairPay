@@ -11,13 +11,17 @@
             <h1>{{ event }} <small>{{ event.date|date('d/m/Y') }}</small></h1>
 
             <div class="panel panel-default">
-                <div class="panel-heading">Tarifs</div>
+                <div class="panel-heading">
+                    Tarifs
+                    <span class="pull-right">
+                        {{ event.maxTickets - booked }} places dispo
+                    </span>
+                </div>
 
                 <table id="tickets" class="table">
                     {% for ticket in event.tickets %}
                         <tr class="ticket" data-id="{{ ticket.id }}" data-force-check="{{ ticket.forceCheck }}" data-name="{{ ticket }}" data-price="{{ ticket.price }}" data-price-contributor="{{ ticket.priceContributor }}">
                             <td>{{ ticket }}</td>
-                            <td>{{ ticket.maxTickets - ticket.payments|length }} dispo</td>
                             <td class="text-right">
                                 {{ ticket.priceContributor }} €
                                 {% if ticket.price != ticket.priceContributor %}
@@ -28,6 +32,13 @@
                     {% endfor %}
                 </table>
             </div>
+
+            {% if event.maxTickets - booked %}
+                <div class="alert alert-danger">
+                    <h3>Attention !</h3>
+                    <p>Il n'y a plus de places diponibles, il est encore possible d'ajouter des gens mais il est déconseillé de la faire.</p>
+                </div>
+            {% endif %}
 
             <div id="user-selector" class="pull-right">
                 <div class="btn btn-primary" data-user="extern">{{ icon('user') }} Externe</div>
@@ -46,22 +57,32 @@
                     <span class="help-block">Numéro figurant sur la carte étudiante</span>
                 </div>
                 <form data-user="extern" class="hidden" style="margin-bottom: 15px">
-                    <div class="row">
-                        <div class="col-sm-4">
+                    <div class="row" style="margin: 0 -5px 10px -5px">
+                        <div class="col-sm-4" style="padding: 0 5px">
                             <input name="first_name" class="form-control" type="text" placeholder="Prénom" required>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-4" style="padding: 0 5px">
                             <input name="last_name" class="form-control" type="text" placeholder="Nom" required>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-4" style="padding: 0 5px">
                             <input name="email" class="form-control" type="email" placeholder="Email" required>
                         </div>
+                    </div>
+                    <div class="list-group">
+                        {% for external in externals %}
+                            <a class="list-group-item existing-external" data-first-name="{{ external.firstName }}" data-last-name="{{ external.lastName }}" data-email="{{ external.email }}">
+                                {{ icon('user') }}
+                                {{ external.firstName }}
+                                {{ external.lastName }}
+                                <span class="pull-right text-muted">{{ external.email }}</span>
+                            </a>
+                        {% endfor %}
                     </div>
                     <input name="has_fairpay" type="hidden" value="0">
                     <input name="id" type="hidden" value="">
                     <input name="is_contributor" type="hidden" value="0">
                     <input name="class" type="hidden" value="">
-                    <button type="submit" class="hidden"></button>
+                    <button type="submit" class="btn btn-primary btn-block">Valider</button>
                 </form>
             </div>
 

@@ -35,6 +35,21 @@ class PaymentRepository extends EntityRepository
         ;
     }
 
+    public function findExterals(Event $event)
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p.lastName, p.firstName, p.email')
+            ->where('p.event = :event')
+            ->setParameter('event', $event)
+            ->andWhere('p.studentId IS NULL')
+            ->groupBy('p.email')
+            ->orderBy('p.lastName', 'ASC')
+            ->addOrderBy('p.firstName', 'ASC')
+            ->getQuery()
+            ->getResult(Query::HYDRATE_ARRAY)
+        ;
+    }
+
     public function findEventStats(Event $event)
     {
         return $this->createQueryBuilder('p')
@@ -78,5 +93,15 @@ class PaymentRepository extends EntityRepository
             ->getQuery()
             ->execute()
             ;
+    }
+
+    public function count(Event $event)
+    {
+        return $this->createQueryBuilder('p')
+            ->select('COUNT(DISTINCT p.email)')
+            ->where('p.event = :event')
+            ->setParameter('event', $event)
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 }
