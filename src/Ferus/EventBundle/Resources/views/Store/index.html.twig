@@ -33,7 +33,7 @@
                 </table>
             </div>
 
-            {% if event.maxTickets - booked %}
+            {% if event.maxTickets - booked <= 0 %}
                 <div class="alert alert-danger">
                     <h3>Attention !</h3>
                     <p>Il n'y a plus de places diponibles, il est encore possible d'ajouter des gens mais il est déconseillé de la faire.</p>
