@@ -8,6 +8,8 @@
 /app/logs/*
 !app/cache/.gitkeep
 !app/logs/.gitkeep
+/web/api/students/photo/by-id/*
+!web/api/students/photo/by-id/.gitkeep
 /build/
 /vendor/
 /bin/
