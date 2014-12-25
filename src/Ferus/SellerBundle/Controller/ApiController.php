@@ -25,7 +25,7 @@ class ApiController extends Controller
     private $em;
 
     /**
-     * Effectu une transaction du compte client (identifié par <i>client_id</i>) vers le compte marchand (identifié par <i>api_key</i>).
+     * Effectue une transaction du compte client (identifié par <i>client_id</i>) vers le compte marchand (identifié par <i>api_key</i>).
      *
      * @ApiDoc(
      *      section="Marchands",
@@ -73,13 +73,13 @@ class ApiController extends Controller
     }
 
     /**
-     * Effectu un dépot d'argent sur le compte d'un étudiant (client_id).
+     * Effectue un dépôt d'argent sur le compte d'un étudiant (client_id).
      *
      * L'argent est prélevé sur le compte marchand (api_key) et transféré sur le compte de l'étudiant.
      * C'est donc au marchand de vérifier qu'il récupère bien le cash, car dans le cas contraire il aura perdu de l'argent.
      *
-     * Cette opération permet donc au étudiants d'alimenter leur compte chez tout les marchands,
-     * et permet aux marchand de faire sortir du cash sans passer par le BDE.
+     * Cette opération permet donc aux étudiants d'alimenter leur compte chez tous les marchands,
+     * et permet aux marchands de faire sortir du cash sans passer par le BDE.
      *
      * @ApiDoc(
      *      section="Marchands",
@@ -101,7 +101,7 @@ class ApiController extends Controller
      *              "description"="Montant de la transaction"
      *          }
      *      },
-     *      description="Effectuer un dépot chez le marchand"
+     *      description="Effectuer un dépôt chez le marchand"
      * )
      * @Post()
      */
@@ -115,7 +115,7 @@ class ApiController extends Controller
             $transaction = $this->get('ferus_transaction.transaction_core');
             $transaction->sellerDeposit($deposit);
 
-            throw new HttpException(200, 'Dépot effectuée.');
+            throw new HttpException(200, 'Dépôt effectuée.');
         }
 
         return $form;

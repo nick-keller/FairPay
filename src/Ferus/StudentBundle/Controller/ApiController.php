@@ -26,7 +26,7 @@ class ApiController extends Controller
      * Récupérer un étudiant.
      * Si le résultat de la requête n'est pas unique (aucun résultat ou plusieurs) une erreur est retournée.
      *
-     * Il est possible d'utiliser le nom ET le prenom en les sepérant par des espaces.
+     * Il est possible d'utiliser le nom ET le prénom en les séparant par des espaces.
      * Il est possible de n'indiquer qu'une partie de la chaine. Exemple : 'nico k'
      *
      * @ApiDoc(
@@ -60,7 +60,7 @@ class ApiController extends Controller
     /**
      * Rechercher des étudiants.
      *
-     * Il est possible d'utiliser le nom ET le prenom en les sepérant par des espaces.
+     * Il est possible d'utiliser le nom ET le prénom en les séparant par des espaces.
      * Il est possible de n'indiquer qu'une partie de la chaine. Exemple : 'nico k'
      *
      * @ApiDoc(
