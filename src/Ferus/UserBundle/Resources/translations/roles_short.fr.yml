@@ -12,3 +12,4 @@ ROLE_ACCOUNT_ADMIN:     Gestion comptes
 ROLE_TRANSACTION_ADMIN: Gestion transactions
 ROLE_WITHDRAWAL_ADMIN:  Gestion retraits
 ROLE_SUPER_ADMIN:       Super administrateur
+ROLE_VIEW_STORES:       Voire boutiques

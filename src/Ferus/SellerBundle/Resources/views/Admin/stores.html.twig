@@ -1,0 +1,6 @@
+{% for store in stores %}
+    <li class="list-group-item">
+        <a href="{{ path('seller_store', {id:store.id}) }}">{{ store }}</a>
+        <span class="pull-right">{{ store.seller }}</span>
+    </li>
+{% endfor %}

@@ -136,4 +136,14 @@ class AdminController extends Controller
             'student' => $seller,
         );
     }
+
+    /**
+     * @Template
+     */
+    public function storesAction()
+    {
+        return array(
+            'stores' => $this->em->getRepository('FerusSellerBundle:Store')->findAll(),
+        );
+    }
 } 
