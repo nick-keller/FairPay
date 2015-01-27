@@ -1,0 +1,25 @@
+Ferus\EventBundle\Entity\ExtraField:
+    type: entity
+    table: ferus_extra_field
+    repositoryClass: Ferus\EventBundle\Repository\ExtraFieldRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '100'
+
+        mandatory:
+            type: boolean
+
+    lifecycleCallbacks: {  }
+
+    manyToOne:
+        event:
+            targetEntity: Ferus\EventBundle\Entity\Event
+            inversedBy: extraFields
+            nullable: false

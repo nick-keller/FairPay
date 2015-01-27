@@ -24,22 +24,49 @@ Ferus\EventBundle\Entity\Event:
             column: ask_for_column
             type: boolean
 
-    oneToMany:
-        tickets:
-            targetEntity: Ferus\EventBundle\Entity\Ticket
-            mappedBy: event
-            cascade:
-                - persist
-                - remove
+        price:
+            type: decimal
+            scale: 2
 
-        payments:
-            targetEntity: Ferus\EventBundle\Entity\Payment
-            mappedBy: event
+        priceNonContributor:
+            type: decimal
+            column: price_non_contributor
+            scale: 2
+
+        deposit:
+            type: decimal
+            scale: 2
+
+        depositByCheck:
+            type: boolean
+
+    oneToMany:
 
         carRequests:
             targetEntity: Ferus\EventBundle\Entity\CarRequest
             mappedBy: event
             cascade:
                 - remove
+
+        participations:
+            targetEntity: Ferus\EventBundle\Entity\Participation
+            mappedBy: event
+            cascade:
+                - remove
+
+        options:
+            targetEntity: Ferus\EventBundle\Entity\EventOption
+            mappedBy: event
+            cascade:
+                - remove
+                - persist
+
+        extraFields:
+            column: extra_field
+            targetEntity: Ferus\EventBundle\Entity\ExtraField
+            mappedBy: event
+            cascade:
+                - remove
+                - persist
 
     lifecycleCallbacks: {  }

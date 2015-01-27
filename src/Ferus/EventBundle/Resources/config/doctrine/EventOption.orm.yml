@@ -1,0 +1,26 @@
+Ferus\EventBundle\Entity\EventOption:
+    type: entity
+    table: ferus_event_option
+    repositoryClass: Ferus\EventBundle\Repository\EventOptionRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '100'
+
+        price:
+            type: decimal
+            scale: 2
+
+    lifecycleCallbacks: {  }
+
+    manyToOne:
+        event:
+            targetEntity: Ferus\EventBundle\Entity\Event
+            inversedBy: options
+            nullable: false

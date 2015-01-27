@@ -7,115 +7,189 @@
 {% block body %}
     <div class="row">
         <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-            <a class="btn btn-primary btn-xs" href="{{ path('event_admin_index') }}">{{ icon('arrow-left') }} Retour</a>
-            <h1>{{ event }} <small>{{ event.date|date('d/m/Y') }}</small></h1>
+            <a class="btn btn-primary btn-xs" href="{{ path('event_admin_index') }}">
+                <i class="glyphicon glyphicon-arrow-left"></i>
+                Retour
+            </a>
+            <h1>
+                {{ event }}
+                <small>{{ event.date|date('d/m/y') }}</small>
+            </h1>
 
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Tarifs
-                    <span class="pull-right">
-                        {{ event.maxTickets - booked }} places dispo
-                    </span>
+                    <div class="pull-right">
+                        {{ event.maxTickets - event.participations|length }} places dispo
+                    </div>
                 </div>
-
-                <table id="tickets" class="table">
-                    {% for ticket in event.tickets %}
-                        <tr class="ticket" data-id="{{ ticket.id }}" data-force-check="{{ ticket.forceCheck }}" data-name="{{ ticket }}" data-price="{{ ticket.price }}" data-price-contributor="{{ ticket.priceContributor }}">
-                            <td>{{ ticket }}</td>
-                            <td class="text-right">
-                                {{ ticket.priceContributor }} €
-                                {% if ticket.price != ticket.priceContributor %}
-                                    ({{ ticket.price }} € non-cotisant)
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </table>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        Prix
+                        <div class="pull-right">
+                            {{ event.price }} € ({{ event.priceNonContributor }} €)
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        Caution
+                        <div class="pull-right">
+                            {{ event.deposit }} €
+                        </div>
+                    </li>
+                </ul>
             </div>
 
-            {% if event.maxTickets - booked <= 0 %}
-                <div class="alert alert-danger">
-                    <h3>Attention !</h3>
-                    <p>Il n'y a plus de places diponibles, il est encore possible d'ajouter des gens mais il est déconseillé de la faire.</p>
-                </div>
-            {% endif %}
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#user-sudent" data-toggle="tab">ESIEEen</a>
+                </li>
+                <li>
+                    <a href="#user-external" data-toggle="tab">Externe</a>
+                </li>
+            </ul>
 
-            <div id="user-selector" class="pull-right">
-                <div class="btn btn-primary" data-user="extern">{{ icon('user') }} Externe</div>
-                <div class="btn btn-primary hidden" data-user="student">{{ icon('user') }} Elève</div>
-            </div>
-            <h2>Acheter une place</h2>
+            <div class="tab-content" style="border:1px solid #dddddd; border-top: none; padding: 15px">
+                <div id="user-sudent" class="tab-pane active">
 
-            <div id="user">
-                <div data-user="student">
                     <div class="input-group">
                         <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-barcode"></span>
+                        <span class="glyphicon glyphicon-barcode"></span>
                         </span>
                         <input class="form-control" type="text" data-preview="student" autocomplete="off" required="required">
                     </div>
                     <span class="help-block">Numéro figurant sur la carte étudiante</span>
                 </div>
-                <form data-user="extern" class="hidden" style="margin-bottom: 15px">
-                    <div class="row" style="margin: 0 -5px 10px -5px">
-                        <div class="col-sm-4" style="padding: 0 5px">
-                            <input name="first_name" class="form-control" type="text" placeholder="Prénom" required>
+
+                <div id="user-external" class="tab-pane">
+                    <form>
+                        <div class="extra-info">
+                            <label>Nouveau</label>
                         </div>
-                        <div class="col-sm-4" style="padding: 0 5px">
-                            <input name="last_name" class="form-control" type="text" placeholder="Nom" required>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" placeholder="Prénom" name="first-name" required="">
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" placeholder="Nom" name="last-name" required="">
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" placeholder="Email" name="email" required="">
+                            </div>
                         </div>
-                        <div class="col-sm-4" style="padding: 0 5px">
-                            <input name="email" class="form-control" type="email" placeholder="Email" required>
+                        <div class="extra-info" style="margin-top: 15px">
+                            {% if externalStudents|length %}
+                                <label>Déjà inscrit</label>
+                                <div class="panel panel-default">
+                                    <table class="table table-hover" style="cursor: pointer">
+                                        {% for student in externalStudents %}
+                                            <tr data-first-name="{{ student.firstName }}" data-last-name="{{ student.lastName }}" data-email="{{ student.email }}">
+                                                <td><i class="glyphicon glyphicon-user"></i></td>
+                                                <td>{{ student.lastName }}</td>
+                                                <td>{{ student.firstName }}</td>
+                                                <td>{{ student.email }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                            {% endif %}
+                            <button class="btn btn-primary btn-block">Valider</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <h2 id="loading" style="text-align: center;display: none">
+                <i class="fa fa-spinner fa-pulse"></i> Chargement des infos
+            </h2>
+
+            <div id="participation-data" class="hidden"
+                 data-price="{{ event.price }}"
+                 data-price-non-contributor="{{ event.priceNonContributor }}"
+                 data-price-deposit="{{ event.deposit }}"
+                 data-deposit-by-check="{{ event.depositByCheck }}"
+                 data-get-participation="{{ path('event_store_get_participant', {id:event.id, email:"_email_"}) }}"
+                    >
+                {% if event.extraFields|length %}
+                    <h2>Champ spéciaux</h2>
+                    {% for field in event.extraFields %}
+                        <div class="form-group">
+                            <label for="field-{{ field.id }}">{{ field.name }}</label>
+                            <input type="text" class="form-control" id="field-{{ field.id }}" {% if field.mandatory %}required=""{% endif %} data-extra-field-id="{{ field.id }}">
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <h2>Place</h2>
+                {% if event.options|length %}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Options</div>
+                        <div class="list-group">
+                            {% for option in event.options %}
+                                <label class="list-group-item" style="font-weight: normal;cursor: pointer">
+                                    <input type="checkbox" data-option-id="{{ option.id }}" data-option-price="{{ option.price }}">
+                                    {{ option.name }}
+                                    <span class="pull-right">{{ option.price }} €</span>
+                                </label>
+                            {% endfor %}
+                        </div>
+                        <div class="panel-footer">
+                            Total
+                            <span class="pull-right">
+                                <span class="options-total" data-base-price="0">00.0</span> €
+                            </span>
                         </div>
                     </div>
-                    <div class="list-group">
-                        {% for external in externals %}
-                            <a class="list-group-item existing-external" data-first-name="{{ external.firstName }}" data-last-name="{{ external.lastName }}" data-email="{{ external.email }}">
-                                {{ icon('user') }}
-                                {{ external.firstName }}
-                                {{ external.lastName }}
-                                <span class="pull-right text-muted">{{ external.email }}</span>
-                            </a>
-                        {% endfor %}
-                    </div>
-                    <input name="has_fairpay" type="hidden" value="0">
-                    <input name="id" type="hidden" value="">
-                    <input name="is_contributor" type="hidden" value="0">
-                    <input name="class" type="hidden" value="">
-                    <button type="submit" class="btn btn-primary btn-block">Valider</button>
+                {% endif %}
+
+                <h3 style="text-align: center">
+                    À payer :
+                    <span class="options-total" data-base-price="0">00.0</span> €
+                </h3>
+
+                <div class="btn-group btn-group-justified" id="price">
+                    <div class="btn btn-default" data-payment=""><i class="glyphicon glyphicon-remove"></i></div>
+                    <div class="btn btn-default" data-payment="cb">CB</div>
+                    <div class="btn btn-default" data-payment="cheque">Chèque</div>
+                    <div class="btn btn-default" data-payment="cash">Espèces</div>
+                    <div class="btn btn-default" data-payment="fairpay">Fairpay</div>
+                </div>
+
+                <h2>Caution</h2>
+                <h3 style="text-align: center">
+                    À payer :
+                    {{ event.deposit }} €
+                </h3>
+                <div class="btn-group btn-group-justified" id="deposit">
+                    <div class="btn btn-default" data-payment=""><i class="glyphicon glyphicon-remove"></i></div>
+                    <div class="btn btn-default" data-payment="cb">CB</div>
+                    <div class="btn btn-default" data-payment="cheque">Chèque</div>
+                    <div class="btn btn-default" data-payment="cash">Espèces</div>
+                    <div class="btn btn-default" data-payment="fairpay">Fairpay</div>
+                </div>
+
+                <h2>Valider</h2>
+
+                <form method="post">
+                    {{ form_widget(form) }}
+
+                    <button class="btn btn-primary btn-lg btn-block" style="margin: 15px 0 40px 0">
+                        <i class="glyphicon glyphicon-ok"></i>
+                        Valider
+                    </button>
                 </form>
             </div>
 
-            <div class="btn-group btn-group-lg btn-group-justified" id="ticket-selector">
-            </div>
-
-            <div class="btn-group btn-group-lg btn-group-justified" id="payment-selector" style="display: none;margin-top: 15px">
-                <a class="btn btn-default" data-payment="cb">
-                    CB
-                </a>
-                <a class="btn btn-default" data-payment="cheque">
-                    Chèque
-                </a>
-                <a class="btn btn-default" data-payment="cash">
-                    Espèces
-                </a>
-                <a class="btn btn-default" data-payment="fairpay">
-                    FairPay
-                </a>
-            </div>
-
-            <form method="post">
-                {{ form_widget(form) }}
-                <button id="validate-payment" class="btn btn-lg btn-primary btn-block" style="display: none;margin-top: 15px" type="submit">
-                    {{ icon('credit-card') }}
-                    Valider le paiement
-                </button>
-            </form>
         </div>
     </div>
 {% endblock %}
 
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/store.css') }}" rel="stylesheet">
+{% endblock %}
+
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('js/ajax/event-store.js') }}"></script>
+    <script src="{{ asset('js/form/event.js') }}"></script>
 {% endblock %}

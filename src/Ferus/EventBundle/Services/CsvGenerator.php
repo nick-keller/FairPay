@@ -30,14 +30,17 @@ class CsvGenerator
 
     public function generate(Event $event)
     {
-        $data = $this->em->getRepository('FerusEventBundle:Payment')->findFromEvent($event);
+        $data = $this->em->getRepository('FerusEventBundle:Participation')->findFromEvent($event);
 
         if(count($data) == 0) return '';
 
         $headers = array('Id', 'Nom', 'Email');
 
-        foreach($event->getTickets() as $ticket)
-            $headers[] = $ticket;
+        foreach($event->getExtraFields() as $field)
+            $headers[] = $field;
+
+        foreach($event->getOptions() as $option)
+            $headers[] = $option;
 
         return implode(';', $headers)."\n".implode("\n", array_map(function($t){return implode(';', $t);}, $data));
     }

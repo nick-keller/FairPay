@@ -6,9 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class PaymentType extends AbstractType
+class EventOptionType extends AbstractType
 {
-
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -16,13 +15,12 @@ class PaymentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstName', 'hidden')
-            ->add('lastName', 'hidden')
-            ->add('email', 'hidden')
-            ->add('studentId', 'hidden')
-            ->add('amount', 'hidden')
-            ->add('method', 'hidden')
-            ->add('ticket', 'ticket')
+            ->add('name', 'text', array(
+                'label' => 'Nom',
+            ))
+            ->add('price', 'euro', array(
+                'label' => 'Prix',
+            ))
         ;
     }
     
@@ -32,7 +30,7 @@ class PaymentType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Ferus\EventBundle\Entity\Payment'
+            'data_class' => 'Ferus\EventBundle\Entity\EventOption'
         ));
     }
 
@@ -41,6 +39,6 @@ class PaymentType extends AbstractType
      */
     public function getName()
     {
-        return '';
+        return 'ferus_eventbundle_eventoption';
     }
 }

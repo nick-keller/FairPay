@@ -6,20 +6,54 @@
 {% endblock %}
 
 {% block content %}
-    <h2>Nouvel évenement</h2>
+    <h2 style="margin-bottom: 30px">Nouvel évenement</h2>
     {{ form_start(form, { 'style': 'horizontal' }) }}
-        {{ form_row(form.name) }}
-        {{ form_row(form.date) }}
-        {{ form_row(form.maxTickets) }}
-        {{ form_row(form.askForCars) }}
 
-        <h3>Tarification</h3>
-        {% for ticket in form.tickets %}
-            <div class="well">
-                {{ form_widget(ticket) }}
-            </div>
-        {% endfor %}
-        <button type="button" class="btn btn-success" data-prototype="{{ form_widget(form.tickets.vars.prototype)|e }}">{{ icon('plus') }}Ajouter une tarification</button>
+        <fieldset>
+            <legend>Informations</legend>
+            {{ form_row(form.name) }}
+            {{ form_row(form.date) }}
+            {{ form_row(form.maxTickets) }}
+            {{ form_row(form.askForCars) }}
+        </fieldset>
+
+        <fieldset>
+            <legend>Prix</legend>
+            {{ form_row(form.price) }}
+            {{ form_row(form.priceNonContributor) }}
+            {{ form_row(form.deposit) }}
+            {{ form_row(form.depositByCheck) }}
+        </fieldset>
+
+        <fieldset style="margin-bottom: 20px">
+            <legend>Options payantes</legend>
+            {% for option in form.options %}
+                <div class="well">
+                    {{ form_widget(option) }}
+                    <div class="text-right">
+                        <button class="btn btn-danger" data-remove-widget>
+                            {{ icon('remove') }} Supprimer
+                        </button>
+                    </div>
+                </div>
+            {% endfor %}
+            <button type="button" class="btn btn-success" data-prototype="{{ form_widget(form.options.vars.prototype)|e }}">{{ icon('plus') }}Ajouter une option</button>
+        </fieldset>
+
+        <fieldset>
+            <legend>Champs supplémentaires</legend>
+            {% for field in form.extraFields %}
+                <div class="well">
+                    {{ form_widget(field) }}
+                    <div class="text-right">
+                        <button class="btn btn-danger" data-remove-widget>
+                            {{ icon('remove') }} Supprimer
+                        </button>
+                    </div>
+                </div>
+            {% endfor %}
+            <button type="button" class="btn btn-success" data-prototype="{{ form_widget(form.extraFields.vars.prototype)|e }}">{{ icon('plus') }}Ajouter un champ</button>
+        </fieldset>
         {{ form_rest(form) }}
     {{ form_end(form) }}
 {% endblock %}

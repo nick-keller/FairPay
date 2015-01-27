@@ -34,10 +34,6 @@ event_admin_payment_remove_from:
     pattern: /{id}/participants/{email}/remove
     defaults: { _controller: FerusEventBundle:Admin:removeFrom }
 
-event_admin_payment_remove:
-    pattern: /remove-payment/{id}
-    defaults: { _controller: FerusEventBundle:Admin:removePayment }
-
 event_admin_car_requests:
     pattern: /{id}/car-request
     defaults: { _controller: FerusEventBundle:Admin:carRequest }

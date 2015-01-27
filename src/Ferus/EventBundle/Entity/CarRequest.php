@@ -209,8 +209,8 @@ class CarRequest
      */
     public function validate(ExecutionContextInterface $context)
     {
-        foreach($this->event->getPayments() as $payment){
-            if($payment->getEmail() == $this->email) return;
+        foreach($this->event->getParticipations() as $payment){
+            if($payment->getExpired() == false && $payment->getEmail() == $this->email) return;
         }
 
         $context->buildViolation('Vous devez vous inscrire à lévénement dans un premier temps. Utilisez ensuite votre mail ESIEE ou l\'adresse d\'inscription.')
