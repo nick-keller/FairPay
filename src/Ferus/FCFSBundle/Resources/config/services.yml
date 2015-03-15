@@ -1,0 +1,4 @@
+services:
+#    ferus_fcfs.example:
+#        class: Ferus\FCFSBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
