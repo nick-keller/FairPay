@@ -1,0 +1,24 @@
+Ferus\FCFSBundle\Entity\Event:
+    type: entity
+    table: ferus_fcfs_event
+    repositoryClass: Ferus\FCFSBundle\Entity\EventRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+
+    fields:
+        name:
+            type: string
+            length: 50
+
+        maxPeople:
+            type: integer
+            column: max_people
+
+    oneToMany:
+        registrations:
+            targetEntity: Ferus\FCFSBundle\Entity\EventRegistration
+            mappedBy: event

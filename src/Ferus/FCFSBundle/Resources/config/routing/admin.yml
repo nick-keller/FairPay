@@ -1,0 +1,7 @@
+fcfs_admin_index:
+    pattern: /
+    defaults: { _controller: FerusFCFSBundle:Admin:index }
+
+fcfs_admin_add:
+    pattern: /add
+    defaults: { _controller: FerusFCFSBundle:Admin:add }
