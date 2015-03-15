@@ -12,6 +12,7 @@
                 <th>#</th>
                 <th>Nom</th>
                 <th>Participants</th>
+                <th></th>
             </tr>
             {% for event in events %}
                 <tr>
@@ -21,6 +22,12 @@
                         <b>{{ event.registrations|length }}</b>
                         /
                         <span class="text-muted">{{ event.maxPeople }}</span>
+                    </td>
+                    <td>
+                        <a class="btn btn-default btn-xs" href="{{ path('fcfs_admin_download', {id:event.id}) }}">
+                            <i class="fa fa-file-excel-o"></i>
+                            Télécharger
+                        </a>
                     </td>
                 </tr>
             {% endfor %}

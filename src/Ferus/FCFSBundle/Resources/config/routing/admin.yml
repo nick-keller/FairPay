@@ -5,3 +5,7 @@ fcfs_admin_index:
 fcfs_admin_add:
     pattern: /add
     defaults: { _controller: FerusFCFSBundle:Admin:add }
+
+fcfs_admin_download:
+    pattern: /{id}/download
+    defaults: { _controller: FerusFCFSBundle:Admin:download }

@@ -117,4 +117,12 @@ class StudentRepository extends EntityRepository
             ->getQuery()
             ->getResult(Query::HYDRATE_ARRAY);
     }
+
+    public function findFromToken($token)
+    {
+        $data = explode('/', preg_replace('#^[a-z][0-9][a-z]([0-9]+)[a-z]([0-9a-zA-Z]+)[a-z]([0-9]+)[a-z]$#', '$1/$2/$3', $token));
+
+        $s = $this->findOneBy(array('id'=>$data[0]));
+        return $s == null ? $s : $s->getHash() != $data[1] ? null : $s;
+    }
 }

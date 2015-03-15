@@ -3,6 +3,7 @@
 namespace Ferus\FCFSBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query;
 
 /**
  * EventRegistrationRepository
@@ -12,4 +13,15 @@ use Doctrine\ORM\EntityRepository;
  */
 class EventRegistrationRepository extends EntityRepository
 {
+    public function findData(Event $event)
+    {
+        return $this->createQueryBuilder('r')
+            ->select('s.id, CONCAT(s.lastName, CONCAT(\' \', s.firstName)) name, s.email, r.createdAt')
+            ->join('r.student', 's')
+            ->orderBy('s.lastName', 'ASC')
+            ->where('r.event = :event')
+            ->setParameter('event', $event)
+            ->getQuery()
+            ->getResult(Query::HYDRATE_ARRAY);
+    }
 }

@@ -1,3 +1,7 @@
 ferus_fcfs_bundle_admin:
     resource: routing/admin.yml
     prefix: /admin/fcfs
+
+ferus_fcfs_bundle_public:
+    resource: routing/public.yml
+    prefix: /fcfs
