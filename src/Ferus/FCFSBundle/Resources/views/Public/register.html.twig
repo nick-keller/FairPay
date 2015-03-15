@@ -1,0 +1,61 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <div style="height: 20px"></div>
+    <a class="btn btn-default" id="lang">
+        <i class="glyphicon glyphicon-globe"></i>
+        English version
+    </a>
+    <hr>
+    <div id="fr">
+        <h1>Salut {{ student }} !</h1>
+        {% if registered %}
+            <p>Vous êtes bien inscrit à l'événement {{ event }}.</p>
+        {% else %}
+            {% if left > 0 %}
+                <p>Vous vous apprétez à vous inscrire à l'événement <b>{{ event }}</b>. Vous devez confirmer votre participation en cliquant sur le bouton suivant.</p>
+                <p>Plus que <b>{{ left }} places</b> disponibles !</p>
+                <form method="post" action="" name="fr">
+                    <input type="hidden" value="{{ token }}" name="_token">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="glyphicon glyphicon-ok"></i>
+                        Je confirme que je suis {{ student }}
+                    </button>
+                </form>
+            {% else %}
+                <p>Nous sommes désolé, il n'y a plus de place pour l'événement <b>{{ event }}</b>.</p>
+            {% endif %}
+        {% endif %}
+    </div>
+    <div id="en" class="hidden">
+        <h1>Hi {{ student }}</h1>
+        {% if registered %}
+            <p>You are registered to the event {{ event }}.</p>
+        {% else %}
+            {% if left > 0 %}
+                <p>You are about to register to the event <b>{{ event }}</b>. You must validate your registration by clicking the following button.</p>
+                <p>Only <b>{{ left }} tickets</b> left!</p>
+                <form method="post" action="" name="en">
+                    <input type="hidden" value="{{ token }}" name="_token">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="glyphicon glyphicon-ok"></i>
+                        I confirm that I am {{ student }}
+                    </button>
+                </form>
+            {% else %}
+                <p>Sorry, the event <b>{{ event }}</b> is sold out.</p>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(function(){
+            $('#lang').click(function(){
+                $('#fr,#en').toggleClass('hidden');
+            });
+        });
+    </script>
+{% endblock %}

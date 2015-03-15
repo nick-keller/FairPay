@@ -1,0 +1,24 @@
+Ferus\FCFSBundle\Entity\EventRegistration:
+    type: entity
+    table: ferus_fcfs_event_registration
+    repositoryClass: Ferus\FCFSBundle\Entity\EventRegistrationRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+
+    fields:
+        createdAt:
+            type: datetime
+            column: created_at
+
+
+    manyToOne:
+        event:
+            targetEntity: Ferus\FCFSBundle\Entity\Event
+            inversedBy: registrations
+
+        student:
+            targetEntity: Ferus\StudentBundle\Entity\Student

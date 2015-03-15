@@ -47,6 +47,7 @@ class AppKernel extends Kernel
             new Ferus\SellerBundle\FerusSellerBundle(),
             new Ferus\EventBundle\FerusEventBundle(),
             new Ferus\MailBundle\FerusMailBundle(),
+            new Ferus\FCFSBundle\FerusFCFSBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

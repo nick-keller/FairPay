@@ -1,0 +1,29 @@
+{% extends '::admin.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li><a href="{{ path('fcfs_admin_index') }}">Evenements</a></li>
+{% endblock %}
+
+{% block actions %}
+    <div class="hidden-xs">
+        <div class="btn-group btn-group-sm">
+            <a class="btn btn-default" href="{{ path('fcfs_admin_index') }}">
+                {{ icon('th-list') }} Liste
+            </a>
+            <a class="btn btn-success" href="{{ path('fcfs_admin_add') }}">
+                {{ icon('plus') }} Nouveau
+            </a>
+        </div>
+    </div>
+    <div class="visible-xs-block">
+        <div class="btn-group btn-group-sm btn-group-justified">
+            <a class="btn btn-default" href="{{ path('fcfs_admin_index') }}">
+                {{ icon('th-list') }} Liste
+            </a>
+            <a class="btn btn-success" href="{{ path('fcfs_admin_add') }}">
+                {{ icon('plus') }} Nouveau
+            </a>
+        </div>
+    </div>
+{% endblock %}

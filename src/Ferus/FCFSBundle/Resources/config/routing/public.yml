@@ -1,0 +1,5 @@
+fcfs_register:
+    pattern: /{token}
+    defaults: { _controller: FerusFCFSBundle:Public:register }
+    requirements:
+        token: "[a-zA-Z0-9]+"

@@ -1,0 +1,11 @@
+{% extends '@FerusFCFS/Admin/layout.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li class="active">Nouveau</li>
+{% endblock %}
+
+{% block content %}
+    <h1>Nouveau</h1>
+    {{ form(form, { 'style': 'horizontal' }) }}
+{% endblock %}

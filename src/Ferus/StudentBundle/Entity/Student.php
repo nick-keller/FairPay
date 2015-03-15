@@ -87,6 +87,11 @@ class Student
         return $this->firstName . ' ' . $this->lastName;
     }
 
+    public function getHash()
+    {
+        return md5($this->email . $this->id . $this->login . $this->class);
+    }
+
     /**
      * @param int $id
      */
