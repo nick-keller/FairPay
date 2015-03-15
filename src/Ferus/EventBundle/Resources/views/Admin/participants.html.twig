@@ -118,53 +118,70 @@
                 <th>{{ icon('barcode') }}</th>
                 <th>Participant</th>
                 <th>Email</th>
-                {% for ticket in event.tickets %}
-                    <th style="width: 40px" title="{{ ticket }}">
-                        <div style="width: 40px; overflow: hidden; text-overflow: ellipsis">{{ ticket }}</div>
-                    </th>
+                {% for field in event.extraFields %}
+                    <th>{{ field }}</th>
+                {% endfor %}
+                {% for option in event.options %}
+                    <th><i class="glyphicon glyphicon-info-sign" title="{{ option }}"></i></th>
                 {% endfor %}
                 <th></th>
+                <th><i class="glyphicon glyphicon-euro" title="Place"></i></th>
+                <th><i class="glyphicon glyphicon-warning-sign" title="Caution"></i></th>
             </tr>
-            {% for participant in participants %}
+            {% for participation in event.participations if not participation.expired %}
                 <tr>
                     <td>
-                        {% if participant.studentId is null %}
+                        {% if participation.studentId is null %}
                             {{ label_primary('Externe') }}
                         {% else %}
-                            <code>{{ participant.studentId }}</code>
+                            <code>{{ participation.studentId }}</code>
                         {% endif %}
                     </td>
                     <td>
-                        <a href="{{ path('event_admin_payment_details', {id:event.id, email:participant.email}) }}">
-                            {{ participant.name }}
+                        <a href="{{ path('event_admin_payment_details', {id:event.id, email:participation.email}) }}">
+                            {{ participation }}
                         </a>
                     </td>
-                    <td>{{ participant.email }}</td>
-                    {% for ticket in event.tickets %}
-                        {% if participant['ticket_'~ticket.id] %}
-                            <td class="text-center" style="background: #5cb85c;color: white">
-                                {{ icon('ok') }}
+                    <td>
+                        {{ participation.email }}
+                    </td>
+                    {% for value in participation.fields %}
+                        <td>{{ value }}</td>
+                    {% endfor %}
+                    {% for value in participation.options %}
+                        {% if value == 1 %}
+                            <td  style="background: #5cb85c;color: white;text-align: center">
+                                <span class="glyphicon glyphicon-ok"></span>
                             </td>
                         {% else %}
-                            <td class="text-center" style="background: #d9534f;color: white">
-                                {{ icon('remove') }}
+                            <td class="text-center" style="background: #d9534f;color: white;text-align: center">
+                                <span class="glyphicon glyphicon-remove"></span>
                             </td>
                         {% endif %}
                     {% endfor %}
-                    <td class="text-center">
-                        <a class="btn btn-xs btn-default" href="{{ path('event_admin_payment_details', {id:event.id, email:participant.email}) }}">
-                            {{ icon('search') }} Détails
-                        </a>
-                        {% if is_granted('ROLE_EVENT_ADMIN') %}
-                            <a class="btn btn-xs btn-danger" href="{{ path('event_admin_payment_remove_from', {id:event.id, email:participant.email}) }}">
-                                {{ icon('remove') }} Suppr.
-                            </a>
-                        {% endif %}
-                    </td>
+                    <td></td>
+                    {% if participation.paymentMethod %}
+                        <td  style="background: #5cb85c;color: white;text-align: center">
+                            <span class="glyphicon glyphicon-ok"></span>
+                        </td>
+                    {% else %}
+                        <td class="text-center" style="background: #d9534f;color: white;text-align: center">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </td>
+                    {% endif %}
+                    {% if participation.depositMethod %}
+                        <td  style="background: #5cb85c;color: white;text-align: center">
+                            <span class="glyphicon glyphicon-ok"></span>
+                        </td>
+                    {% else %}
+                        <td class="text-center" style="background: #d9534f;color: white;text-align: center">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </td>
+                    {% endif %}
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="{{ 4 + event.tickets|length }}">
+                    <td colspan="{{ 6 + event.extraFields|length + event.options|length }}">
                         Pas encore de participants
                     </td>
                 </tr>

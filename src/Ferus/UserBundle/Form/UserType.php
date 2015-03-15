@@ -22,6 +22,7 @@ class UserType extends AbstractType
                 'choices' => array(
                     'Administrateurs' => array(
                         'ROLE_USER_ADMIN'=>'ROLE_USER_ADMIN',
+                        'ROLE_VIEW_STORES'=>'ROLE_VIEW_STORES'
                     ),
                     'Entités' => array(
                         'ROLE_STUDENT_ADMIN'=>'ROLE_STUDENT_ADMIN',

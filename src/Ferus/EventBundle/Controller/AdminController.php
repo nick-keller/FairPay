@@ -3,8 +3,6 @@
 namespace Ferus\EventBundle\Controller;
 
 use Ferus\EventBundle\Entity\Event;
-use Ferus\EventBundle\Entity\Payment;
-use Ferus\EventBundle\Entity\Ticket;
 use Ferus\EventBundle\Form\EventType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\ORM\EntityManager;
@@ -55,9 +53,6 @@ class AdminController extends Controller
     public function addAction(Request $request)
     {
         $event = new Event;
-        $ticket = new Ticket();
-        $ticket->setName('Place');
-        $event->addTicket($ticket);
         $form = $this->createForm(new EventType, $event);
 
         if($request->isMethod('POST')){
@@ -91,9 +86,9 @@ class AdminController extends Controller
             if($form->isValid()){
                 $this->em->persist($event);
 
-                if(count($event->getRemovedTickets()))
-                    foreach($event->getRemovedTickets() as $ticket)
-                        $this->em->remove($ticket);
+                if(count($event->getRemovedThings()))
+                    foreach($event->getRemovedThings() as $thing)
+                        $this->em->remove($thing);
 
                 $this->em->flush();
 
@@ -113,7 +108,7 @@ class AdminController extends Controller
      */
     public function removeAction(Event $event, Request $request)
     {
-        if($request->isMethod('POST') && !count($event->getPayments())){
+        if($request->isMethod('POST')){
 
             $this->em->remove($event);
             $this->em->flush();
@@ -133,11 +128,9 @@ class AdminController extends Controller
      */
     public function participantsAction(Event $event)
     {
-        $participants = $this->em->getRepository('FerusEventBundle:Payment')->findFromEvent($event);
 
         return array(
             'event' => $event,
-            'participants' => $participants,
         );
     }
 
@@ -146,6 +139,7 @@ class AdminController extends Controller
         $response = new Response();
         $response->setContent($this->get('ferus.csv_generator')->generate($event));
         $response->headers->set('Content-Type', 'text/csv');
+        $response->headers->set('charset', 'UTF-8');
         $filename = $event;
         $response->headers->set('Content-Disposition', 'attachment; filename="'.$filename.'.csv"');
         return $response;
@@ -156,14 +150,14 @@ class AdminController extends Controller
      */
     public function detailsAction(Event $event, $email)
     {
-        $payments = $this->em->getRepository('FerusEventBundle:Payment')->findBy(array(
+        $history = $this->em->getRepository('FerusEventBundle:Participation')->findBy(array(
             'event' =>$event,
             'email' => $email,
         ));
 
         return array(
             'event' => $event,
-            'payments' => $payments,
+            'history' => $history,
         );
     }
 
@@ -171,16 +165,6 @@ class AdminController extends Controller
     {
         $this->em->getRepository('FerusEventBundle:Payment')->removeFrom($event, $email);
         $this->flash->success("Tous les paiements de $email ont étés supprimés.");
-
-        return $this->redirect($this->generateUrl('event_admin_participants', array('id'=>$event->getId())));
-    }
-
-    public function removePaymentAction(Payment $payment)
-    {
-        $event = $payment->getEvent();
-        $this->em->remove($payment);
-        $this->em->flush();
-        $this->flash->success("Le paiement a été supprimé.");
 
         return $this->redirect($this->generateUrl('event_admin_participants', array('id'=>$event->getId())));
     }

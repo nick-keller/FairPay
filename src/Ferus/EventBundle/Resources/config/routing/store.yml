@@ -5,3 +5,7 @@ event_store_index:
 event_store_register_plate:
     pattern: /{id}/register-plate
     defaults: { _controller: FerusEventBundle:Store:registerPlate }
+
+event_store_get_participant:
+    pattern: /{id}/{email}
+    defaults: { _controller: FerusEventBundle:Store:participant }

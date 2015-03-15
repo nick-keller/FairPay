@@ -1,0 +1,72 @@
+Ferus\EventBundle\Entity\Participation:
+    type: entity
+    table: ferus_event_participation
+    repositoryClass: Ferus\EventBundle\Repository\ParticipationRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        studentId:
+            type: integer
+            column: student_id
+            nullable: true
+        firstName:
+            type: string
+            length: '100'
+            column: first_name
+        lastName:
+            type: string
+            length: '100'
+            column: last_name
+        email:
+            type: string
+            length: 255
+        comments:
+            type: text
+            nullable: true
+        fields:
+            type: array
+        options:
+            type: array
+        paymentMethod:
+            type: string
+            column: payment_method
+            nullable: true
+        paymentAmount:
+            type: decimal
+            scale: 2
+            column: payment_amount
+        depositMethod:
+            type: string
+            column: deposit_method
+            nullable: true
+        depositAmount:
+            type: decimal
+            scale: 2
+            column: deposit_amount
+        createdAt:
+            column: created_at
+            type: datetime
+            nullable: false
+            gedmo:
+                timestampable:
+                    on: create
+        expired:
+            type: boolean
+    lifecycleCallbacks: {  }
+
+    manyToOne:
+        event:
+            targetEntity: Ferus\EventBundle\Entity\Event
+            inversedBy: participations
+            nullable: false
+
+
+        representative:
+            targetEntity: Ferus\UserBundle\Entity\User
+            gedmo:
+                blameable:
+                    on: create

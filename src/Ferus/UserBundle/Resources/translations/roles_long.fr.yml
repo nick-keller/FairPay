@@ -11,3 +11,4 @@ ROLE_ACCOUNT_ADMIN:         Peut ajouter et supprimer des comptes bancaires si l
 ROLE_TRANSACTION_ADMIN:     Peut effectuer une transaction d'un compte à un autre et encaisser un dépot d'argent.
 ROLE_WITHDRAWAL_ADMIN:      Peut effectuer un retrait et donner l'argent en cash à la personne.
 ROLE_SUPER_ADMIN:           Peut effectuer l'ensemble des action précédentes.
+ROLE_VIEW_STORES:           Peut voire la liste des boutiques

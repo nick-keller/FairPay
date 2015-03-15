@@ -34,11 +34,35 @@ class EventType extends AbstractType
                     'help_text' => 'Activer pour que les participants puissent faire une demande pour garer leur voiture dans l\'école pendant l\'événement',
                 ),
             ))
-            ->add('tickets', 'collection', array(
-                'type' => new TicketType(),
+            ->add('price', 'euro', array(
+                'label' => 'Prix',
+            ))
+            ->add('priceNonContributor', 'euro', array(
+                'label' => 'Prix non-cotisants',
+            ))
+            ->add('deposit', 'euro', array(
+                'label' => 'Caution',
+            ))
+            ->add('depositByCheck', 'choice', array(
+                'label' => 'Caution par chèque',
+                'choices' => array(
+                    'Pas forcément',
+                    'Obligatoire'
+                ),
+            ))
+            ->add('options', 'collection', array(
+                'type' => new EventOptionType(),
                 'allow_add' => true,
                 'by_reference' => false,
                 'allow_delete' => true,
+                'label' => ' ',
+            ))
+            ->add('extraFields', 'collection', array(
+                'type' => new ExtraFieldType(),
+                'allow_add' => true,
+                'by_reference' => false,
+                'allow_delete' => true,
+                'label' => ' ',
             ))
             ->add('actions', 'form_actions', [
                 'buttons' => array(

@@ -264,6 +264,19 @@
                     </ul>
                 </div>
             </div>
+            {% if is_granted('ROLE_VIEW_STORES') %}
+                <div class="col-md-5">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="glyphicon glyphicon-shopping-cart"></i>
+                            Boutiques
+                        </div>
+                        <ul class="list-group">
+                            {{ render(controller('FerusSellerBundle:Admin:stores')) }}
+                        </ul>
+                    </div>
+                </div>
+            {% endif %}
         </div>
     {% endblock %}
 {% endblock %}

@@ -6,9 +6,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class TicketType extends AbstractType
+class ExtraFieldType extends AbstractType
 {
-        /**
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -16,21 +16,14 @@ class TicketType extends AbstractType
     {
         $builder
             ->add('name', 'text', array(
-                'label' => 'Nom'
+                'label' => 'Nom',
             ))
-            ->add('price', 'euro', array(
-                'label' => 'Prix non-cotisant'
-            ))
-            ->add('priceContributor', 'euro', array(
-                'label' => 'Prix cotisant'
-            ))
-            ->add('forceCheck', 'choice', array(
-                'label' => 'Type de paiement',
-                'expanded' => true,
+            ->add('mandatory', 'choice', array(
+                'label' => 'Obligatoire',
                 'choices' => array(
-                    'Libre',
-                    'Par chèque'
-                )
+                    'Non',
+                    'Oui'
+                ),
             ))
         ;
     }
@@ -41,7 +34,7 @@ class TicketType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Ferus\EventBundle\Entity\Ticket'
+            'data_class' => 'Ferus\EventBundle\Entity\ExtraField'
         ));
     }
 
@@ -50,6 +43,6 @@ class TicketType extends AbstractType
      */
     public function getName()
     {
-        return 'ferus_eventbundle_ticket';
+        return 'ferus_eventbundle_extrafield';
     }
 }
