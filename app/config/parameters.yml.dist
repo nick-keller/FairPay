@@ -10,6 +10,9 @@ parameters:
     mailer_host:       127.0.0.1
     mailer_user:       ~
     mailer_password:   ~
+    mailer_aws_host: 127.0.0.1
+    mailer_aws_user: null
+    mailer_aws_password: null
 
     locale:            en
     secret:            ThisTokenIsNotSoSecretChangeIt
@@ -22,3 +25,7 @@ parameters:
     imap_username:  ~
     imap_password:  ~
     imap_port:      ~
+
+    router.request_context.host: bde.esiee.fr
+    router.request_context.scheme: https
+    router.request_context.base_url: /fairpay

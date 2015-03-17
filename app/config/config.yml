@@ -83,11 +83,23 @@ doctrine:
 
 # Swiftmailer Configuration
 swiftmailer:
-    transport: "%mailer_transport%"
-    host:      "%mailer_host%"
-    username:  "%mailer_user%"
-    password:  "%mailer_password%"
-    spool:     { type: memory }
+    default_mailer: default
+    mailers:
+        default:
+            transport: "%mailer_transport%"
+            host:      "%mailer_host%"
+            username:  "%mailer_user%"
+            password:  "%mailer_password%"
+            spool:     { type: memory }
+        aws:
+            transport: "smtp"
+            port: 587
+            encryption: tls
+            disable_delivery: true
+            host:      "%mailer_aws_host%"
+            username:  "%mailer_aws_user%"
+            password:  "%mailer_aws_password%"
+            spool:     { type: memory }
 
 # FOS User Configuration
 fos_user:
