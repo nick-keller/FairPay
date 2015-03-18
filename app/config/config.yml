@@ -107,6 +107,14 @@ swiftmailer:
             host:      "%mailer_aws2_host%"
             username:  "%mailer_aws2_user%"
             password:  "%mailer_aws2_password%"
+        aws3:
+            transport: "smtp"
+            port: 587
+            encryption: tls
+            disable_delivery: true
+            host:      "%mailer_aws3_host%"
+            username:  "%mailer_aws3_user%"
+            password:  "%mailer_aws3_password%"
 
 # FOS User Configuration
 fos_user:

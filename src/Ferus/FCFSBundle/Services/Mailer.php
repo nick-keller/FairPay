@@ -29,6 +29,11 @@ class Mailer
     private $mailer2;
 
     /**
+     * @var \Swift_Mailer
+     */
+    private $mailer3;
+
+    /**
      * @var \Twig_Environment
      */
     private $twig;
@@ -38,20 +43,23 @@ class Mailer
      *     "entityManager" = @Inject("doctrine.orm.entity_manager"),
      *     "mailer1" = @Inject("swiftmailer.mailer.aws1"),
      *     "mailer2" = @Inject("swiftmailer.mailer.aws2"),
+     *     "mailer3" = @Inject("swiftmailer.mailer.aws3"),
      *     "twig" = @Inject("twig")
      * })
      * @param EntityManager $entityManager
      * @param \Swift_Mailer $mailer
      * @param \Twig_Environment $twig
      */
-    public function __construct(EntityManager $entityManager, \Swift_Mailer $mailer1, \Swift_Mailer $mailer2, \Twig_Environment $twig)
+    public function __construct(EntityManager $entityManager, \Swift_Mailer $mailer1, \Swift_Mailer $mailer2, \Swift_Mailer $mailer3, \Twig_Environment $twig)
     {
         $this->em      = $entityManager;
         $this->mailer1 = $mailer1;
         $this->mailer2 = $mailer2;
+        $this->mailer3 = $mailer3;
         $this->twig    = $twig;
-        $this->mailer1->registerPlugin(new \Swift_Plugins_ThrottlerPlugin( 300, \Swift_Plugins_ThrottlerPlugin::MESSAGES_PER_MINUTE ));
-        $this->mailer2->registerPlugin(new \Swift_Plugins_ThrottlerPlugin( 300, \Swift_Plugins_ThrottlerPlugin::MESSAGES_PER_MINUTE ));
+        $this->mailer1->registerPlugin(new \Swift_Plugins_ThrottlerPlugin(600, \Swift_Plugins_ThrottlerPlugin::MESSAGES_PER_MINUTE));
+        $this->mailer2->registerPlugin(new \Swift_Plugins_ThrottlerPlugin(300, \Swift_Plugins_ThrottlerPlugin::MESSAGES_PER_MINUTE));
+        $this->mailer3->registerPlugin(new \Swift_Plugins_ThrottlerPlugin(300, \Swift_Plugins_ThrottlerPlugin::MESSAGES_PER_MINUTE));
     }
 
     public function sendRegistrationEmail($event_id)
@@ -86,10 +94,12 @@ class Mailer
                 )))
             ;
 
-            if ($i%2 == 0)
+            if ($i%3 == 0)
                 $response = $this->mailer1->send($message);
-            else
+            else if($i%3 == 1)
                 $response = $this->mailer2->send($message);
+            else
+                $response = $this->mailer3->send($message);
 
             if (!$response)
             {
@@ -133,10 +143,12 @@ class Mailer
                 )))
             ;
 
-            if ($i%2 == 0)
+            if ($i%3 == 0)
                 $response = $this->mailer1->send($message);
-            else
+            else if($i%3 == 1)
                 $response = $this->mailer2->send($message);
+            else
+                $response = $this->mailer3->send($message);
 
             if (!$response)
             {
