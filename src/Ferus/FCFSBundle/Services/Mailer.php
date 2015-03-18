@@ -50,6 +50,8 @@ class Mailer
         $this->mailer1 = $mailer1;
         $this->mailer2 = $mailer2;
         $this->twig    = $twig;
+        $this->mailer1->registerPlugin(new \Swift_Plugins_ThrottlerPlugin( 300, \Swift_Plugins_ThrottlerPlugin::MESSAGES_PER_MINUTE ));
+        $this->mailer2->registerPlugin(new \Swift_Plugins_ThrottlerPlugin( 300, \Swift_Plugins_ThrottlerPlugin::MESSAGES_PER_MINUTE ));
     }
 
     public function sendRegistrationEmail($event_id)
@@ -95,7 +97,7 @@ class Mailer
             }
 
             // On est limité à 5 mails par seconde
-            usleep(100000);
+            //usleep(100000);
             $i++;
         }
 
@@ -142,7 +144,7 @@ class Mailer
             }
 
             // On est limité à 5 mails par seconde
-            usleep(100000);
+            //usleep(100000);
             $i++;
         }
 
