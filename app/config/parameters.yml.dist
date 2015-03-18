@@ -16,6 +16,9 @@ parameters:
     mailer_aws2_host: 127.0.0.1
     mailer_aws2_user: null
     mailer_aws2_password: null
+    mailer_aws3_host: 127.0.0.1
+    mailer_aws3_user: null
+    mailer_aws3_password: null
 
     locale:            en
     secret:            ThisTokenIsNotSoSecretChangeIt
