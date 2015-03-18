@@ -21,7 +21,12 @@ class Mailer
     /**
      * @var \Swift_Mailer
      */
-    private $mailer;
+    private $mailer1;
+
+    /**
+     * @var \Swift_Mailer
+     */
+    private $mailer2;
 
     /**
      * @var \Twig_Environment
@@ -31,18 +36,20 @@ class Mailer
     /**
      * @InjectParams({
      *     "entityManager" = @Inject("doctrine.orm.entity_manager"),
-     *     "mailer" = @Inject("swiftmailer.mailer.aws"),
+     *     "mailer1" = @Inject("swiftmailer.mailer.aws1"),
+     *     "mailer2" = @Inject("swiftmailer.mailer.aws2"),
      *     "twig" = @Inject("twig")
      * })
      * @param EntityManager $entityManager
      * @param \Swift_Mailer $mailer
      * @param \Twig_Environment $twig
      */
-    public function __construct(EntityManager $entityManager, \Swift_Mailer $mailer, \Twig_Environment $twig)
+    public function __construct(EntityManager $entityManager, \Swift_Mailer $mailer1, \Swift_Mailer $mailer2, \Twig_Environment $twig)
     {
-        $this->em     = $entityManager;
-        $this->mailer = $mailer;
-        $this->twig   = $twig;
+        $this->em      = $entityManager;
+        $this->mailer1 = $mailer1;
+        $this->mailer2 = $mailer2;
+        $this->twig    = $twig;
     }
 
     public function sendRegistrationEmail($event_id)
@@ -55,6 +62,7 @@ class Mailer
         }
 
         $students = $this->em->getRepository("FerusStudentBundle:Student")->findAll();
+        $i = 0;
 
         echo "envoie en cours\n";
 
@@ -62,7 +70,7 @@ class Mailer
         {
             $token = chr(97+rand(0, 25)).rand(0, 9).chr(97+rand(0, 25)).$student->getId().chr(97+rand(0, 25)).$student->getHash().chr(97+rand(0, 25)).$event->getId().chr(97+rand(0, 25));
 
-            echo $student->getFirstName().' '.$student->getLastName().' '.$token."\n";
+            echo $i." ".$student->getFirstName().' '.$student->getLastName().' '.$token."\n";
 
             $message = \Swift_Message::newInstance()
                 ->setSubject("Inscription à l'événement ".$event->getName())
@@ -76,14 +84,19 @@ class Mailer
                 )))
             ;
 
-            $response = $this->mailer->send($message);
+            if ($i%2 == 0)
+                $response = $this->mailer1->send($message);
+            else
+                $response = $this->mailer2->send($message);
+
             if (!$response)
             {
                 echo "Une erreur est survenue pour ".$student->getId()." ".$student->getFirstName()." ".$student->getLastName()."\n";
             }
 
             // On est limité à 5 mails par seconde
-            usleep(200000);
+            usleep(100000);
+            $i++;
         }
 
         return true;
@@ -99,12 +112,13 @@ class Mailer
         }
 
         $students = $this->em->getRepository("FerusStudentBundle:Student")->findAll();
+        $i = 0;
 
         echo "envoie en cours\n";
 
         foreach($students as $student)
         {
-            echo $student->getFirstName().' '.$student->getLastName()."\n";
+            echo $i." ".$student->getFirstName().' '.$student->getLastName()."\n";
 
             $message = \Swift_Message::newInstance()
                 ->setSubject("Ouverture prochaine des inscriptions pour l'événement ".$event->getName())
@@ -117,14 +131,19 @@ class Mailer
                 )))
             ;
 
-            $response = $this->mailer->send($message);
+            if ($i%2 == 0)
+                $response = $this->mailer1->send($message);
+            else
+                $response = $this->mailer2->send($message);
+
             if (!$response)
             {
                 echo "Une erreur est survenue pour ".$student->getId()." ".$student->getFirstName()." ".$student->getLastName()."\n";
             }
 
             // On est limité à 5 mails par seconde
-            usleep(200000);
+            usleep(100000);
+            $i++;
         }
 
         return true;
